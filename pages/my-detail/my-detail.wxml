@@ -1,0 +1,53 @@
+<view class="container">
+  <view class="product-detail">
+    <view class="item_title">
+      <icon class="iconfont icon-item"></icon>
+      <text class="title">至元1号</text>
+    </view>
+    <view class="item">
+      <view class="item__left">
+        <text>最新净值：</text>
+        <text class="new_data">1.2059</text>
+      </view>
+      <view class="item__right">
+        <text>累计净值：</text>
+        <text class="new_data">1.6749</text>
+      </view>
+    </view>
+    <view class="item">
+      <view class="item__left">
+        <text>起投金额：</text>
+        <text class="new_data">100万</text>
+      </view>
+      <view class="item__right">
+        <text>封闭期：</text>
+        <text class="new_data">3个月</text>
+      </view>
+    </view>
+    <view class="item_row">
+      <text>开放日：</text>
+      <text>每季最后一个工作日</text>
+    </view>
+    <view class="item_row">
+      <text>基金托管人：</text>
+      <text>海通证券有限公司</text>
+    </view>
+    <view class="item_row">
+      <text>基金管理人：</text>
+      <text>亚洲掘金投资管理(北京)有限公司</text>
+    </view>
+    <view class="item_row">
+      <text>操盘起始时间：</text>
+      <text>2017年5月24日</text>
+    </view>
+    <view class="item_row">
+      <text>结算日期：</text>
+      <text>0823 1123 0223 0523</text>
+    </view>
+    <view class="agreement">
+      <icon class="iconfont icon-agreement" style="font-size: 44rpx;"></icon>
+      <text class="agreement_text">查看至元1号私募证券投资基金合同范本</text>
+    </view>
+  </view>
+  <view class="item_state">操盘中</view>
+</view>

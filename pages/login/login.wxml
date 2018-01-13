@@ -1,0 +1,20 @@
+<view class="container">
+    <view class="logo">
+      <text>至元操盘</text>
+    </view>
+    <form class="form_area" bindsubmit="formSubmit" report-submit="true">
+      <view class="input_area">
+        <view class="input_form">
+          <icon class="iconfont icon-phone"></icon>
+          <input name="username" maxlength="11" type="number" placeholder="请输入手机号" />
+        </view>
+        <view class="input_form">
+          <icon class="iconfont icon-pwd"></icon>
+          <input name="password" minlength="6" maxlength="20" type="password" placeholder="请输入密码" />
+        </view>
+      </view>
+      <view class="btn_area">
+          <button disabled="{{disabled}}" formType="submit" loading="{{btnLoading}}">{{loginBtnTxt}}</button>
+      </view>
+    </form>
+</view>

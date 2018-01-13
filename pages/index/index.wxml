@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="list">
+    <block wx:if="{{productList.length > 0}}" wx:for="{{productList}}" wx:key="index">
+      <view class="item" catchtap="toDetail" data-item="{{item}}">
+        <view class="item_head">
+          <icon class="iconfont icon-item"></icon>
+          <text class="title">{{item.name}}</text>
+        </view>
+        <view class="item_body">
+          <view class="item__left">
+            <text>产品类型：</text>
+            <text class="new_data">{{item.type}}</text>
+          </view>
+          <view class="item__right">
+            <text>产品状态：</text>
+            <text class="all_data">{{item.status}}</text>
+          </view>
+        </view>
+        <view class="item_foot" wx:if="{{item.status !== '操盘中'}}">
+          <text>申购起始时间：</text>
+          <text>{{item.sg_start_time}}</text>
+        </view>
+        <view class="item_foot" wx:if="{{item.status !== '操盘中'}}">
+          <text>申购结束时间：</text>
+          <text>{{item.sg_end_time}}</text>
+        </view>
+        <view class="item_foot">
+          <text>操盘时间：</text>
+          <text>{{item.caopan_time}}</text>
+        </view>
+        <view class="item_foot" style='display:flex'>
+          <text>结算时间：</text>
+          <view style="flex:1">
+            <view style='display:flex'>
+              <text style='flex:1'>{{item.settlement_time[0]}}</text>
+              <text style='flex:1'>{{item.settlement_time[1]}}</text>
+            </view>
+            <view style='display:flex'>
+              <text style='flex:1'>{{item.settlement_time[2]}}</text>
+              <text style='flex:1'>{{item.settlement_time[3]}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{hasData}}">
+      <view class="no_data">
+        <icon class="iconfont icon-nodata"></icon>
+      </view>
+    </block>
+  </view>
+</view>

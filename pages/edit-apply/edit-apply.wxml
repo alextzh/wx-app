@@ -1,0 +1,55 @@
+<view class="container">
+  <view class="item_info">
+    <view class="item_head">
+      <icon class="iconfont icon-item"></icon>
+      <text class="title">{{currentProduct.name}}</text>
+    </view>
+    <view class="item_body">
+      <view class="item__left">
+        <text>申购份额：</text>
+        <text class="new_data">{{currentProduct.subscribe_money}}万份</text>
+      </view>
+      <view class="item__right">
+        <text>申购时间：</text>
+        <text class="all_data">{{currentProduct.subscribe_time}}</text>
+      </view>
+    </view>
+    <view class="item_body">
+      <view class="item__left">
+        <text>最小申购份额：</text>
+        <text class="new_data">{{currentProduct.min_money / 10000}}万份</text>
+      </view>
+      <view class="item__right">
+        <text>申购状态：</text>
+        <text class="all_data">{{currentProduct.subscribe_status}}</text>
+      </view>
+    </view>
+    <view class="item_foot" style="display:flex;">
+      <text>结算时间：</text>
+      <view style="flex:1">
+        <view style='display:flex'>
+          <text style='flex:1'>{{currentProduct.settlement_time[0]}}</text>
+          <text style='flex:1'>{{currentProduct.settlement_time[1]}}</text>
+        </view>
+        <view style='display:flex'>
+          <text style='flex:1'>{{currentProduct.settlement_time[2]}}</text>
+          <text style='flex:1'>{{currentProduct.settlement_time[3]}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <block>
+    <form class="form_area" bindsubmit="formSubmit">
+      <view class="input_area">
+        <view class="input_form">
+          <icon class="iconfont icon-redeemed"></icon>
+          <text class='unit'>万份</text>
+          <input type="number" name="subscribeAmt" maxlength="20" placeholder="请输入申购份额"></input>
+        </view>
+      </view>
+      <view class="btn_area">
+        <button formType="submit" loading="{{btnLoading}}" disabled="{{btnDisabled}}">{{subscribeBtnTxt}}</button>
+      </view>
+    </form>
+  </block>
+</view>

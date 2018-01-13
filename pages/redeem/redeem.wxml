@@ -1,0 +1,86 @@
+<view class="container">
+  <view class="item_info">
+    <view class="item_head">
+      <icon class="iconfont icon-item"></icon>
+      <text class="title">{{name}}</text>
+    </view>
+    <view class="item_body">
+      <view class="item__left">
+        <text>申购份额：</text>
+        <text class="new_data">{{subscribe_money}}万份</text>
+      </view>
+      <view class="item__right">
+        <text>申购时间：</text>
+        <text class="all_data">{{subscribe_time}}</text>
+      </view>
+    </view>
+    <view class="item_foot">
+      <text>操盘时间：</text>
+      <text>{{caopan_time}}</text>
+    </view>
+    <view class="item_foot" style='display:flex'>
+      <text>结算时间：</text>
+      <view style="flex:1">
+        <view style='display:flex'>
+          <text style='flex:1'>{{settlement_time[0]}}</text>
+          <text style='flex:1'>{{settlement_time[1]}}</text>
+        </view>
+        <view style='display:flex'>
+          <text style='flex:1'>{{settlement_time[2]}}</text>
+          <text style='flex:1'>{{settlement_time[3]}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="tabs_box">
+    <radio-group class="radio_group" bindchange="radioChange">
+      <label class="radio" wx:for="{{tabs}}" wx:key="index">
+        <radio value="{{item.value}}" checked="{{item.checked}}" color="#f44336"/>
+        <text>{{item.name}}</text>
+      </label>
+    </radio-group>
+  </view>
+  <block wx:if="{{hidden}}">
+    <form class="form_area" bindsubmit="formSubmit" report-submit="true">
+      <view class="input_area">
+        <view class="input_form">
+          <icon class="iconfont icon-redeemed"></icon>
+          <text class='unit'>万份</text>
+          <input type="number" name="redeemAmt" value="{{subscribe_money}}" disabled="true"></input>
+        </view>
+      </view>
+      <view class="btn_area">
+        <button formType="submit" loading="{{allBtnLoading}}" disabled="{{allDisabled}}">{{redeemAllBtnTxt}}</button>
+      </view>
+    </form>
+  </block>
+  <block wx:if="{{!hidden}}">
+    <form class="form_area" bindsubmit="formSubmit">
+      <view class="input_area">
+        <view class="input_form">
+          <icon class="iconfont icon-redeemed"></icon>
+          <text class='unit'>万份</text>
+          <input type="number" name="redeemAmt" maxlength="20" placeholder="请输入赎回份额"></input>
+        </view>
+        <view class="redeem_tip">
+          <icon class="iconfont icon-risk"></icon>
+          <text>当前状态最多只能赎回{{can_redeem_money}}万份</text>
+        </view>
+      </view>
+      <view class="btn_area">
+        <button formType="submit" loading="{{partBtnLoading}}" disabled="{{partDisabled}}">{{redeemPartBtnTxt}}</button>
+      </view>
+    </form>
+  </block>
+  
+  <view class="redeem_rule">
+    <view class="rule_title">
+      <icon class="iconfont icon-rule"></icon>
+      <text class="tit"> 赎回管理规则</text>
+    </view>
+    <text>1.最小赎回份额为1万份，递增份额为1万份；</text>
+    <text>2.全部赎回时只能赎回申购份额；</text>
+    <text>3.部分赎回时赎回后剩余赎回份额不低于最小申购份额；</text>
+    <text>4.查看赎回记录请到我的页面；</text>
+  </view>
+</view>

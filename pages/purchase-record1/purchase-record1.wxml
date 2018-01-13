@@ -1,0 +1,55 @@
+<view>
+  <scroll-view scroll-x="true" class="scroll_tab" scroll-left="{{scrollLeft}}">
+    <view class="tab_item {{currentTab==0?'active':''}}"  data-current="0" bindtap="swichNav">审核通过</view>
+    <view class="tab_item {{currentTab==1?'active':''}}" data-current="1" bindtap="swichNav">审核拒绝</view>
+  </scroll-view>
+  <swiper class="tab_content" current="{{currentTab}}" duration="300" bindchange="switchTab"
+     style="height:{{winHeight}}rpx">
+    <swiper-item wx:for="{{[0,1]}}">
+      <scroll-view scroll-y="true" class="scoll_h" >
+        <block wx:for="{{[1,2,3,4,5,6,7,8]}}" wx:key="*this">
+          <view class="item">
+            <view class="item_head">
+              <icon class="iconfont icon-item"></icon>
+              <text class="title">{{item.name}}</text>
+              <text class="item_state">{{item.subscribe_status}}</text>
+            </view>
+            <view class="item_body">
+              <view class="item__left">
+                <text>申购金额：</text>
+                <text class="new_data">{{item.subscribe_money}}万</text>
+              </view>
+              <view class="item__right">
+                <text>申购时间：</text>
+                <text class="all_data">{{item.subscribe_time}}</text>
+              </view>
+            </view>
+            <view class="item_foot">
+              <text>操盘时间：</text>
+              <text>{{item.caopan_time}}</text>
+            </view>
+            <view class="item_foot">
+              <text>结算时间：</text>
+              <text>{{item.settlement_time}}</text>
+            </view>
+            <view class="item_action" wx:if="{{item.subscribe_status === '审核通过'}}">
+              <button catchtap="redeemAction"
+              data-subsid="{{item.subscribe_id}}"
+              data-subsname="{{item.name}}"
+              data-subsmoney="{{item.subscribe_money}}"
+              data-substime="{{item.subscribe_time}}"
+              data-subscaopanTime="{{item.caopan_time}}"
+              data-subssetTime="{{item.settlement_time}}"
+              >申请赎回</button>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{hidden}}">
+          <view class="no_data">
+            <icon class="iconfont icon-nodata"></icon>
+          </view>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

@@ -1,0 +1,20 @@
+.risk{
+  display: flex;
+  flex-direction: column;
+  padding: 30rpx;
+}
+.risk_title{
+  line-height: 2;
+  text-align: center
+}
+.risk_title text{
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #222;
+}
+.risk_content{
+  line-height: 1.5;
+  color: #333;
+  text-indent: 2em;
+  font-size: 32rpx;
+}

@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/modify-pwd/modify-pwd",
+    "pages/purchase-record/purchase-record",
+    "pages/redeem-record/redeem-record",
+    "pages/redeem/redeem",
+    "pages/purchase-list/purchase-list",
+    "pages/product-detail/product-detail",
+    "pages/edit-apply/edit-apply"
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#F44336",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "产品",
+        "iconPath": "images/product.png",
+        "selectedIconPath": "images/product-fill.png"
+      },
+      {
+        "pagePath": "pages/purchase-list/purchase-list",
+        "text": "申购",
+        "iconPath": "images/purchase.png",
+        "selectedIconPath": "images/purchase-fill.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine-fill.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "至元操盘",
+    "navigationBarTextStyle": "black"
+  }
+}
