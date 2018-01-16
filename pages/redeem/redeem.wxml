@@ -2,32 +2,28 @@
   <view class="item_info">
     <view class="item_head">
       <icon class="iconfont icon-item"></icon>
-      <text class="title">{{name}}</text>
+      <text class="title">{{currentProduct.name}}</text>
     </view>
     <view class="item_body">
       <view class="item__left">
         <text>申购份额：</text>
-        <text class="new_data">{{subscribe_money}}万份</text>
+        <text class="new_data">{{currentProduct.subscribe_money}}万份</text>
       </view>
       <view class="item__right">
         <text>申购时间：</text>
-        <text class="all_data">{{subscribe_time}}</text>
+        <text class="all_data">{{currentProduct.subscribe_time}}</text>
       </view>
-    </view>
-    <view class="item_foot">
-      <text>操盘时间：</text>
-      <text>{{caopan_time}}</text>
     </view>
     <view class="item_foot" style='display:flex'>
       <text>结算时间：</text>
       <view style="flex:1">
         <view style='display:flex'>
-          <text style='flex:1'>{{settlement_time[0]}}</text>
-          <text style='flex:1'>{{settlement_time[1]}}</text>
+          <text style='flex:1'>{{currentProduct.settlement_time[0]}}</text>
+          <text style='flex:1'>{{currentProduct.settlement_time[1]}}</text>
         </view>
         <view style='display:flex'>
-          <text style='flex:1'>{{settlement_time[2]}}</text>
-          <text style='flex:1'>{{settlement_time[3]}}</text>
+          <text style='flex:1'>{{currentProduct.settlement_time[2]}}</text>
+          <text style='flex:1'>{{currentProduct.settlement_time[3]}}</text>
         </view>
       </view>
     </view>
@@ -46,7 +42,7 @@
         <view class="input_form">
           <icon class="iconfont icon-redeemed"></icon>
           <text class='unit'>万份</text>
-          <input type="number" name="redeemAmt" value="{{subscribe_money}}" disabled="true"></input>
+          <input type="number" name="redeemAmt" value="{{currentProduct.subscribe_money}}" disabled="true"></input>
         </view>
       </view>
       <view class="btn_area">

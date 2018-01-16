@@ -9,7 +9,8 @@
     "pages/redeem/redeem",
     "pages/purchase-list/purchase-list",
     "pages/product-detail/product-detail",
-    "pages/edit-apply/edit-apply"
+    "pages/edit-apply/edit-apply",
+    "pages/add-apply/add-apply"
   ],
   "tabBar": {
     "color": "#999999",

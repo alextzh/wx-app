@@ -1,5 +1,4 @@
 const app = getApp()
-var util = require('../../utils/util.js')
 
 Page({
   data: {
@@ -7,6 +6,8 @@ Page({
       { name: '全部赎回', value: 'all', checked: 'true' },
       { name: '部分赎回', value: 'part' }
     ],
+    currentProduct: null,
+    can_redeem_money: 0,
     hidden: true, // 显示哪页的标志
     redeemAllBtnTxt: '全部赎回', // 全部赎回和部分赎回按钮参数
     allBtnLoading: false,
@@ -21,16 +22,11 @@ Page({
       var value = wx.getStorageSync('CURPRODUCT')
       var userInfo = wx.getStorageSync('USERINFO')
       if (value) {
+        console.log(value)
         // Do something with return value
         that.setData({
-          subscribe_id: value.subsid,
-          name: value.subsname,
-          subscribe_money: parseInt(value.subsmoney),
-          subscribe_time: value.substime,
-          caopan_time: value.subscaopantime,
-          settlement_time: value.subssettime,
-          min_money: parseInt(value.minmoney) / 10000,
-          can_redeem_money: parseInt(value.subsmoney) - parseInt(value.minmoney) / 10000
+          currentProduct: value,
+          can_redeem_money: parseInt(value.subscribe_money) - parseInt(value.min_money) / 10000
         })
       }
       if (userInfo) {
@@ -122,7 +118,7 @@ Page({
   // 校验赎回金额
   checkRedeem: function (param) {
     var amt = parseInt(param.redeemAmt)
-    var min = this.data.min_money
+    var min = parseInt(this.data.currentProduct.min_money) / 10000
     var max = this.data.can_redeem_money
     if (!amt) {
       wx.showModal({
@@ -162,7 +158,7 @@ Page({
     wx.request({
       url: app.api_url + '/api/v1/redeem/addRedeem',
       data: {
-        subscribe_id: that.data.subscribe_id,
+        subscribe_id: that.data.currentProduct.subscribe_id,
         customer_id: that.data.cid,
         redeem_money: redeemAmt * 10000
       },

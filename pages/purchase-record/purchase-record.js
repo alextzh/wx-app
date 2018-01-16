@@ -10,8 +10,7 @@ var getPurchaseList = function (that, id) {
     data: {
       page: page,
       rows: rows,
-      customer_id: id,
-      status: that.data.status
+      customer_id: id
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'
@@ -147,11 +146,11 @@ Page({
   // 申请赎回操作
   redeemAction: function (e) {
     try {
-      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset)
+      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
     } catch (e) {
     }
     wx.request({
-      url: app.api_url + '/api/v1/redeem/checkStatus/' + e.currentTarget.dataset.productid,
+      url: app.api_url + '/api/v1/redeem/checkStatus/' + e.currentTarget.dataset.item.productid,
       method: 'GET',
       success: function (res) {
         if(!res.data.ret) {
@@ -169,6 +168,16 @@ Page({
       fail: function (e) {
         console.log(e)
       }
+    })
+  },
+  // 增加申购
+  addAction: function (e) {
+    try {
+      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+    } catch (e) {
+    }
+    wx.navigateTo({
+      url: '../add-apply/add-apply'
     })
   },
   // 修改申请

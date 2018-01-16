@@ -2,7 +2,7 @@
   width:100%;
   display:flex;
   flex-direction:column;
-  padding:30rpx;
+  padding:30rpx 30rpx 0;
   box-sizing:border-box;
 }
 .item_head{
@@ -51,6 +51,17 @@
   height:80rpx;
   padding:0 30rpx;
   box-sizing:border-box;
+}
+.select_type {
+  color: #666666;
+  position: relative;
+}
+.select_type icon {
+  position: absolute;
+  right: 30rpx;
+  top: 0;
+  line-height: 80rpx;
+  z-index: 0;
 }
 .type_title, .input_title {
   flex: 0 1 auto;
