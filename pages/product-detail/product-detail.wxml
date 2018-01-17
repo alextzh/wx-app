@@ -133,7 +133,7 @@
         </block>
         <block wx:if="{{isHidden}}">
           <view class="input_area">
-            <view class="input_title">申购金额:</view>
+            <view class="input_title">申购金额：</view>
             <view class="input_con">
               <input type="number" name="purchaseAmt" placeholder='请输入申购金额' />
               <text class='unit'>万份</text>

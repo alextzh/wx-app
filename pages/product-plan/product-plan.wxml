@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="list">
+    <block wx:if="{{productPlanList.length > 0}}" wx:for="{{productPlanList}}" wx:key="index">
+      <view class="item">
+        <view class="item_head">
+          <icon class="iconfont icon-item"></icon>
+          <text class="title">{{item.base_name}}</text>
+        </view>
+        <view class="item_body">
+          <view class="item__left">
+            <text>方案名称：</text>
+            <text class="new_data">{{item.product_name}}</text>
+          </view>
+          <view class="item__right">
+            <text>申购份额：</text>
+            <text class="all_data">{{item.subscribe_money / 10000}}万份</text>
+          </view>
+        </view>
+        <view class="item_foot" wx:if="{{item.subscribe_time}}">
+          <text>申购时间：</text>
+          <text>{{item.subscribe_time}}</text>
+        </view>
+        <block>
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
+              data-item="{{item}}">修改方案</button>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+    <block wx:if="{{hasData}}">
+      <view class="no_data">
+        <icon class="iconfont icon-nodata"></icon>
+      </view>
+    </block>
+  </view>
+</view>
+

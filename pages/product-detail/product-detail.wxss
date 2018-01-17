@@ -106,7 +106,6 @@
   display:flex;
   box-sizing:border-box;
   height:80rpx;
-  padding-left: 30rpx;
   flex:1;
   align-items:center;
 }

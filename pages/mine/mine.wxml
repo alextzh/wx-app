@@ -16,10 +16,17 @@
         <icon class="iconfont icon-goto fc999"></icon>
       </view>
       <view class="item" bindtap="toRedeemRecord">
-        <icon class="iconfont icon-record" style="color:#B31800;"></icon>
+        <icon class="iconfont icon-shuhui" style="color:#B31800;"></icon>
         <text class="text">赎回记录</text>
         <icon class="iconfont icon-goto fc999"></icon>
       </view>
+      <block wx:if="{{isShowPlan}}">
+        <view class="item" bindtap="toProductPlan">
+          <icon class="iconfont icon-record" style="color:#FD5B78;"></icon>
+          <text class="text">产品方案</text>
+          <icon class="iconfont icon-goto fc999"></icon>
+        </view>
+      </block>
       <!--<view class="item" bindtap="toRiskTip">
         <icon class="iconfont icon-risk" style="color:#E91E63;"></icon>
         <text class="text">风险提示</text>

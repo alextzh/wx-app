@@ -1,5 +1,36 @@
 const app = getApp()
 
+/**
+ * 判断该用户是否有申购方案产品
+*/
+var hasProductPlan = function (that) {
+  let customer = wx.getStorageSync("USERINFO")
+  wx.request({
+    url: app.api_url + '/api/v1/product/myFAproducts',
+    data: {
+      customer_id: customer.id
+    },
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST',
+    success: function (res) {
+      if (!res.data.ret) {
+        that.setData({
+          isShowPlan: false
+        })
+      } else {
+        that.setData({
+          isShowPlan: true
+        })
+      }
+    },
+    fail: function (e) {
+      console.log(e)
+    }
+  })
+}
+
 Page({
   /**
    * 页面的初始数据
@@ -7,7 +38,8 @@ Page({
   data: {
     userAvatar: '/images/avatar.png',
     mobile: '',
-    username: ''
+    username: '',
+    isShowPlan: false // 是否显示产品方案
   },
   /**
    * 生命周期函数--监听页面加载
@@ -38,6 +70,7 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
+    hasProductPlan(that)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -55,6 +88,12 @@ Page({
   toPurchaseRecord: function () {
     wx.navigateTo({
       url: '../purchase-record/purchase-record'
+    })
+  },
+  // 跳转到产品方案列表
+  toProductPlan: function () {
+    wx.navigateTo({
+      url: '../product-plan/product-plan'
     })
   },
   // 跳转到设置页面

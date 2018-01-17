@@ -1,7 +1,7 @@
 const app = getApp()
 var util = require("../../utils/util.js")
 var page = 1
-var rows = 10
+var rows = 100
 
 // 获取产品列表
 var getProductList = function (that) {

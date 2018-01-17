@@ -75,8 +75,6 @@ Page({
    */
   data: {
     purchaseList: [],
-    status: '',
-    modalIsHide: true,
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
     hasMore: true // 是否下拉加载
