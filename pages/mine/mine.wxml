@@ -10,29 +10,14 @@
       </view>
     </view>
     <view class="list">
-      <view class="item" bindtap="toModifyPwd">
-        <icon class="iconfont icon-config" style="color:#2196F3;"></icon>
-        <text class="text">修改密码</text>
-        <icon class="iconfont icon-goto fc999"></icon>
-      </view>
       <view class="item" bindtap="toPurchaseRecord">
-        <icon class="iconfont icon-bought" style="color:#F44336;"></icon>
+        <icon class="iconfont icon-bought" style="color:#EB3F2F;"></icon>
         <text class="text">申购记录</text>
         <icon class="iconfont icon-goto fc999"></icon>
       </view>
       <view class="item" bindtap="toRedeemRecord">
-        <icon class="iconfont icon-record" style="color:#FFC107;"></icon>
+        <icon class="iconfont icon-record" style="color:#B31800;"></icon>
         <text class="text">赎回记录</text>
-        <icon class="iconfont icon-goto fc999"></icon>
-      </view>
-      <view class="item" wx:if="{{bind_status === 'N'}}" bindtap="bindWx">
-        <icon class="iconfont icon-risk" style="color:#E91E63;"></icon>
-        <text class="text">绑定微信</text>
-        <icon class="iconfont icon-goto fc999"></icon>
-      </view>
-      <view class="item" wx:if="{{bind_status === 'Y'}}" bindtap="qxBindWx">
-        <icon class="iconfont icon-risk" style="color:#E91E63;"></icon>
-        <text class="text">解除绑定</text>
         <icon class="iconfont icon-goto fc999"></icon>
       </view>
       <!--<view class="item" bindtap="toRiskTip">
@@ -41,14 +26,19 @@
         <icon class="iconfont icon-goto fc999"></icon>
       </view>-->
       <view class="item" bindtap="showLinkTo">
-        <icon class="iconfont icon-lianxiwomen" style="color:#03A9F4;"></icon>
+        <icon class="iconfont icon-lianxiwomen" style="color:#00B0F0;"></icon>
         <text class="text">联系我们</text>
         <icon class="iconfont icon-goto fc999"></icon>
       </view>
       <view class="online_contact">
-        <icon class="iconfont icon-linkme icon" style="color:#E91E63;"></icon>
+        <icon class="iconfont icon-linkme icon" style="color:#003CFF;"></icon>
         <button class="contact" open-type="contact">在线客服<text class="tip">(工作时间：9:00 - 21:00)</text> </button>
         <icon class="iconfont icon-goto fc999 arraw"></icon>
+      </view>
+      <view class="item" bindtap="toSetting">
+        <icon class="iconfont icon-shezhi" style="color:#7F1874;"></icon>
+        <text class="text">我的设置</text>
+        <icon class="iconfont icon-goto fc999"></icon>
       </view>
       <button class="btn" bindtap="loginOut">退出账号</button>
     </view>

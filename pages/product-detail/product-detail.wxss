@@ -2,7 +2,7 @@
   width:100%;
   display:flex;
   flex-direction:column;
-  padding:30rpx 30rpx 0;
+  padding:30rpx 30rpx 10rpx;
   box-sizing:border-box;
 }
 .item_head{
@@ -38,23 +38,32 @@
   letter-spacing: 1rpx;
   line-height: 50rpx;
 }
+.form_box {
+  position:relative;
+  flex: 1;
+  background:#fff;
+  border-radius:4px;
+  box-shadow:0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12)
+}
 .form_area {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 50rpx;
+  padding-bottom:30rpx;
+  padding-top:10rpx;
 }
 .select_type, .input_area {
   flex: 1;
   display:flex;
   align-items:center;
   height:80rpx;
-  padding:0 30rpx;
+  padding:0 20rpx;
   box-sizing:border-box;
 }
 .select_type {
-  color: #666666;
+  color: #333333;
   position: relative;
+  margin-bottom: 10rpx;
 }
 .select_type icon {
   position: absolute;
@@ -66,23 +75,38 @@
 .type_title, .input_title {
   flex: 0 1 auto;
   font-size: 28rpx;
+  letter-spacing:1rpx;
 }
 .type_picker {
   flex: 1;
   height:80rpx;
-  padding:0 30rpx;
 }
 .picker {
+  position: relative;
   width:100%;
   height:80rpx;
   display:flex;
   align-items:center;
 }
+.picker::after {
+  content:" ";
+  width:200%;
+  height:200%;
+  position:absolute;
+  top:0;
+  left:0;
+  border-bottom:1px solid #BDBDBD;
+  -webkit-transform:scale(0.5);
+  transform:scale(0.5);
+  -webkit-transform-origin:0 0;
+  transform-origin:0 0;
+  box-sizing:border-box;
+}
 .input_con {
   display:flex;
   box-sizing:border-box;
   height:80rpx;
-  padding:0 30rpx;
+  padding-left: 30rpx;
   flex:1;
   align-items:center;
 }
@@ -111,6 +135,6 @@
   box-sizing:border-box;
 }
 .btn_area{
-  margin-top: 60rpx;
-  padding:0 30rpx;
+  margin-top: 30rpx;
+  padding:0 20rpx;
 }

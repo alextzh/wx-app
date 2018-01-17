@@ -190,13 +190,23 @@ Page({
       url: '../edit-apply/edit-apply'
     })
   },
-  // 取消申请
+  // 充值记录
+  rechargeRecordAction: function (e) {
+    try {
+      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+    } catch (e) {
+    }
+    wx.navigateTo({
+      url: '../recharge-record/recharge-record'
+    })
+  },
+  // 删除申请
   cancelAction: function (e) {
     let customer = wx.getStorageSync("USERINFO")
     let subsid = e.currentTarget.dataset.subsid
     wx.showModal({
       title: '提示',
-      content: '您确认要取消当前产品申购请求吗？',
+      content: '您确认要删除当前产品申购请求吗？',
       success: function (res) {
         if (res.confirm) {
           wx.request({

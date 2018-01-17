@@ -7,7 +7,6 @@ Page({
   data: {
     userAvatar: '/images/avatar.png',
     mobile: '',
-    bind_status:'N',
     username: ''
   },
   /**
@@ -33,8 +32,7 @@ Page({
       if(userInfo) {
         that.setData({
           username: userInfo.name,
-          mobile: userInfo.phone,
-          bind_status:userInfo.bind_status
+          mobile: userInfo.phone
         })
       }
     } catch (e) {
@@ -59,10 +57,10 @@ Page({
       url: '../purchase-record/purchase-record'
     })
   },
-  // 跳转到修改密码页面
-  toModifyPwd: function () {
+  // 跳转到设置页面
+  toSetting: function () {
     wx.navigateTo({
-      url: '../modify-pwd/modify-pwd'
+      url: '../setting/setting'
     })
   },
   // 跳转到风险提示页面
@@ -92,14 +90,6 @@ Page({
       }
     })
   },
-  //绑定微信
-  bindWx: function(){
-    bindWx(this)
-  },
-  //取消绑定微信
-  qxBindWx:function(){
-    qxBindWx(this)
-  },
   // 退出账号操作
   loginOut: function () {
     wx.showModal({
@@ -122,91 +112,3 @@ Page({
     })
   }
 })
-
-
-// 绑定微信
-function bindWx(that){
-  let customer = wx.getStorageSync("USERINFO")
-  wx.showModal({
-    title: '提示',
-    content: '您确认要把当前账户绑定该微信号吗？',
-    success: function (res) {
-      if (res.confirm) {
-        wx.request({
-          url: app.api_url + '/api/v1/login/bindWxOpenid',
-          data: {
-            customer_id: customer.id,
-            openid: app.openid
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          method: 'POST',
-          success: function (res) {
-            if(res.data.ret){
-              customer.bind_status="Y";
-              wx.setStorageSync("USERINFO", customer);
-              that.setData({
-                bind_status: "Y"
-              })
-            }
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 1500
-            })
-          },
-          fail: function (e) {
-            console.log(e)
-          }
-        })
-      } else if (res.cancel) {
-        console.log('已取消')
-      }
-    }
-  })
-}
-
-//取消绑定微信
-
-function qxBindWx(that){
-  let customer = wx.getStorageSync("USERINFO")
-  wx.showModal({
-    title: '提示',
-    content: '您确认取消绑定该微信号吗？',
-    success: function (res) {
-      if (res.confirm) {
-        wx.request({
-          url: app.api_url + '/api/v1/login/qxBindOpenid',
-          data: {
-            customer_id: customer.id,
-            openid: app.openid
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          method: 'POST',
-          success: function (res) {
-            if (res.data.ret) {
-              customer.bind_status = "N";
-              wx.setStorageSync("USERINFO", customer);
-              that.setData({
-                bind_status: "N"
-              })
-            }
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 1500
-            })
-          },
-          fail: function (e) {
-            console.log(e)
-          }
-        })
-      } else if (res.cancel) {
-        console.log('已取消')
-      }
-    }
-  })
-}

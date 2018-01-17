@@ -6,7 +6,7 @@ var rows = 10
  * 获取子产品列表
  * @param id 基本产品的Id(必选)
 */
-var getSubProductList = function (that, id) {
+var getSubProductList = function (that, customer_id, id) {
   wx.request({
     url: app.api_url + '/api/v1/product/listByBaseId',
     data: {
@@ -32,18 +32,49 @@ var getSubProductList = function (that, id) {
           showArr: showArr,
           currentPlan: showArr[0]
         })
-      } else {
-        that.setData({
-          pickerArr: [],
-          showArr: [],
-          currentPlan: null
-        })
       }
+      itemIsCanPurchase(that, customer_id, showArr[0].id)
     },
     fail: function (e) {
       console.log(e)
     }
   })
+}
+/**
+ * 判断当前项目是否能申购
+*/
+function itemIsCanPurchase (that, customer_id, product_id) {
+  if (that.data.currentProduct.status !== '申购中') {
+    that.setData({
+      isHidden: false
+    })
+  } else {
+    wx.request({
+      url: app.api_url + '/api/v1/subscribe/validate',
+      data: {
+        product_id: product_id,
+        customer_id: customer_id
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      success: function (res) {
+        if (!res.data.ret) {
+          that.setData({
+            isHidden: false
+          })
+        } else {
+          that.setData({
+            isHidden: true
+          })
+        }
+      },
+      fail: function (e) {
+        console.log(e)
+      }
+    })
+  }
 }
 
 function _normalizeStr(str) {
@@ -60,6 +91,7 @@ Page({
     showArr: [],
     pickerArr: [],
     pickerIndex: 0,
+    isHidden: false,
     currentPlan: null,
     currentProduct: null,
     purchaseBtnTxt: '申购', // 申购按钮
@@ -75,18 +107,15 @@ Page({
         that.setData({
           currentProduct: value
         })
-        getSubProductList(that, value.id)
-        that.setData({
-
-        })
       }
       if (userInfo) {
         that.setData({
           cid: userInfo.id
         })
       }
+      let customer_id = that.data.cid
+      getSubProductList(that, customer_id, value.id)
     } catch(e) {
-
     }
   },
   onReady: function () {
@@ -98,6 +127,9 @@ Page({
       pickerIndex: e.detail.value,
       currentPlan: that.data.showArr[e.detail.value]
     })
+    let product_id = that.data.showArr[e.detail.value].id
+    let customer_id = that.data.cid
+    itemIsCanPurchase(that, customer_id, product_id)
   },
   formSubmit: function (e) {
     var that = this

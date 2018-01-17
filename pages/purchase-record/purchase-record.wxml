@@ -5,11 +5,12 @@
         <view class="item_head">
           <icon class="iconfont icon-item"></icon>
           <text class="title">{{item.name}}</text>
-          <text class="item_state" style='color: #388e3c;' wx:if="{{item.subscribe_status === '审核通过'}}">{{item.subscribe_status}}</text>
-          <text class="item_state" style='color: #616161;' wx:if="{{item.subscribe_status === '赎回审核中'}}">{{item.subscribe_status}}</text>
-          <text class="item_state" style='color: #0d47a1;' wx:if="{{item.subscribe_status === '已赎回'}}">{{item.subscribe_status}}</text>
-          <text class="item_state" style='color: #d84315;' wx:if="{{item.subscribe_status === '审核拒绝'}}">{{item.subscribe_status}}</text>
-          <text class="item_state" style='color: #F44336;' wx:if="{{item.subscribe_status === '待审核'}}">{{item.subscribe_status}}</text>
+          <text class="item_state" style='color: #09B3CD;' wx:if="{{item.subscribe_status === '审核通过'}}">{{item.subscribe_status}}</text>
+          <text class="item_state" style='color: #262163;' wx:if="{{item.subscribe_status === '赎回审核中'}}">{{item.subscribe_status}}</text>
+          <text class="item_state" style='color: #2E3094;' wx:if="{{item.subscribe_status === '已赎回'}}">{{item.subscribe_status}}</text>
+          <text class="item_state" style='color: #EB1C22;' wx:if="{{item.subscribe_status === '审核拒绝'}}">{{item.subscribe_status}}</text>
+          <text class="item_state" style='color: #652D92;' wx:if="{{item.subscribe_status === '待审核'}}">{{item.subscribe_status}}</text>
+          <text class="item_state" style='color: #92278F;' wx:if="{{item.subscribe_status === '追加待审核'}}">{{item.subscribe_status}}</text>
         </view>
         <view class="item_body">
           <view class="item__left">
@@ -40,28 +41,47 @@
         </view>
         <block wx:if="{{item.subscribe_status === '审核通过' && item.product_status !== '申购中'}}">
           <view class="item_action">
-            <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
-            data-item="{{item}}">申请赎回</button>
+            <view style="flex: 1;margin-right: 20rpx;">
+              <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
+              data-item="{{item}}">申请赎回</button>
+            </view>
+            <view style="flex: 1;">
+              <button class="redeemAllBtn" data-item="{{item}}" catchtap="rechargeRecordAction">充值记录</button>
+            </view>
           </view>
         </block>
-        <block wx:if="{{item.subscribe_status === '审核通过' && item.product_status === '申购中'}}">
+        <block wx:elif="{{item.subscribe_status === '审核通过' && item.product_status === '申购中'}}">
           <view class="item_action">
-            <button style='flex:1' class="redeemAllBtn" catchtap="addAction"
-            data-item="{{item}}">追加申购</button>
+            <view style="flex: 1;margin-right: 20rpx;">
+              <button style='flex:1' class="redeemAllBtn" catchtap="addAction"
+              data-item="{{item}}">追加申购</button>
+            </view>
+            <view style="flex: 1;">
+              <button class="redeemAllBtn" data-item="{{item}}" catchtap="rechargeRecordAction">充值记录</button>
+            </view>
           </view>
         </block>
-        <view class="item_action" wx:if="{{item.subscribe_status === '审核拒绝'}}">
-          <view style="flex: 1;">
-            <button class="redeemAllBtn" catchtap="editAction"
-            data-item="{{item}}">修改申请</button>
+        <block wx:elif="{{item.subscribe_status === '赎回审核中' || item.subscribe_status === '已赎回' || item.subscribe_status === '追加待审核'}}">
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button class="redeemAllBtn" data-item="{{item}}" catchtap="rechargeRecordAction">充值记录</button>
+            </view>
           </view>
-        </view>
-        <!-- <view class="item_action" wx:if="{{item.subscribe_status === '待审核'}}">
-          <view style="flex: 1;">
-            <button class="redeemAllBtn" catchtap="cancelAction"
-            data-subsid="{{item.subscribe_id}}">取消申请</button>
+        </block>
+        <block wx:elif="{{item.subscribe_status === '审核拒绝'}}">
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button class="redeemAllBtn" data-item="{{item}}" catchtap="editAction">修改申购</button>
+            </view>
           </view>
-        </view> -->
+        </block>
+        <block wx:elif="{{item.subscribe_status === '待审核'}}">
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button class="redeemAllBtn" data-subsid="{{item.subscribe_id}}" catchtap="cancelAction">删除</button>
+            </view>
+          </view>
+        </block>
       </view>
     </block>
     <block wx:if="{{hasData}}">

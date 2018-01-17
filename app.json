@@ -10,7 +10,9 @@
     "pages/purchase-list/purchase-list",
     "pages/product-detail/product-detail",
     "pages/edit-apply/edit-apply",
-    "pages/add-apply/add-apply"
+    "pages/add-apply/add-apply",
+    "pages/recharge-record/recharge-record",
+    "pages/setting/setting"
   ],
   "tabBar": {
     "color": "#999999",
