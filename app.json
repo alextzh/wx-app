@@ -13,7 +13,8 @@
     "pages/add-apply/add-apply",
     "pages/recharge-record/recharge-record",
     "pages/setting/setting",
-    "pages/product-plan/product-plan"
+    "pages/product-plan/product-plan",
+    "pages/modification/modification"
   ],
   "tabBar": {
     "color": "#999999",

@@ -127,7 +127,7 @@ Page({
         content: '最小赎回份额为1万份'
       })
       return false
-    } else if (amt < 1) {
+    } else if (amt < min) {
       wx.showModal({
         title: '提示',
         showCancel: false,

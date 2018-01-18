@@ -3,6 +3,5 @@
   "navigationBarTextStyle": "light",
   "navigationBarTitleText": "修改方案",
   "backgroundColor": "#f4f4f4",
-  "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "backgroundTextStyle": "dark"
 }

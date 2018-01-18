@@ -5,9 +5,10 @@
         <view class="item_head">
           <icon class="iconfont icon-item"></icon>
           <text class="title">{{item.product_name}}</text>
-          <text class="item_state" style="color:#388e3c;" wx:if="{{item.redeem_status === '审核通过'}}">{{item.redeem_status}}</text>
-          <text class="item_state" style="color:#01579b;" wx:if="{{item.redeem_status === '已处理'}}">{{item.redeem_status}}</text>
-          <text class="item_state" style="color:#F44336;" wx:if="{{item.redeem_status === '待审核'}}">{{item.redeem_status}}</text>
+          <text class="item_state" style="color:#09B3CD;" wx:if="{{item.redeem_status === '审核通过'}}">{{item.redeem_status}}</text>
+          <text class="item_state" style="color:#2E3094;" wx:if="{{item.redeem_status === '已处理'}}">{{item.redeem_status}}</text>
+          <text class="item_state" style="color:#652D92;" wx:if="{{item.redeem_status === '待审核'}}">{{item.redeem_status}}</text>
+          <text class="item_state" style="color:#EB1C22;" wx:if="{{item.redeem_status === '审核拒绝'}}">{{item.redeem_status}}</text>
         </view>
         <view class="item_body">
           <view class="item__left">

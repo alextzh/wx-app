@@ -79,5 +79,14 @@ Page({
       fresh: true
     })
     getProductPlanList(that)
+  },
+  modifyAction: function (e) {
+    try {
+      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+    } catch (e) {
+    }
+    wx.navigateTo({
+      url: '../modification/modification'
+    })
   }
 })

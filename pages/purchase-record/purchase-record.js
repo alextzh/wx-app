@@ -188,16 +188,6 @@ Page({
       url: '../edit-apply/edit-apply'
     })
   },
-  // 充值记录
-  rechargeRecordAction: function (e) {
-    try {
-      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
-    } catch (e) {
-    }
-    wx.navigateTo({
-      url: '../recharge-record/recharge-record'
-    })
-  },
   // 删除申请
   cancelAction: function (e) {
     let customer = wx.getStorageSync("USERINFO")

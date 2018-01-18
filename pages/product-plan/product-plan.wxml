@@ -5,6 +5,13 @@
         <view class="item_head">
           <icon class="iconfont icon-item"></icon>
           <text class="title">{{item.base_name}}</text>
+          <text class="item_state" style='color: #652D92;' wx:if="{{item.status === 'DSH'}}">待审核</text>
+          <text class="item_state" style='color: #09B3CD;' wx:if="{{item.status === 'SHTG'}}">审核通过</text>
+          <text class="item_state" style='color: #EB1C22;' wx:if="{{item.status === 'SHJJ'}}">审核拒绝</text>
+          <text class="item_state" style='color: #92278F;' wx:if="{{item.status === 'ZJDSH'}}">追加待审核</text>
+          <text class="item_state" style='color: #41123C;' wx:if="{{item.status === 'XGDSH'}}">修改待审核</text>
+          <text class="item_state" style='color: #262163;' wx:if="{{item.status === 'SHSHZ'}}">赎回审核中</text>
+          <text class="item_state" style='color: #2E3094;' wx:if="{{item.status === 'YSH'}}">已赎回</text>
         </view>
         <view class="item_body">
           <view class="item__left">
@@ -20,10 +27,10 @@
           <text>申购时间：</text>
           <text>{{item.subscribe_time}}</text>
         </view>
-        <block>
+        <block wx:if="{{item.status === 'SHTG'}}">
           <view class="item_action">
             <view style="flex: 1;">
-              <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
+              <button style='flex:1' class="redeemAllBtn" catchtap="modifyAction"
               data-item="{{item}}">修改方案</button>
             </view>
           </view>

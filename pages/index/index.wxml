@@ -13,7 +13,11 @@
           </view>
           <view class="item__right">
             <text>产品状态：</text>
-            <text class="all_data">{{item.status}}</text>
+            <text class="all_data" style="color: #D9D6CF;" wx:if="{{item.status === '已发布'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #FE4C40;" wx:if="{{item.status === '申购中'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #ADA0A5;" wx:if="{{item.status === '申购结束'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #FD5B78;" wx:if="{{item.status === '操盘中'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #483C32;" wx:if="{{item.status === '已结束'}}">{{item.status}}</text>
           </view>
         </view>
         <view class="item_foot" wx:if="{{item.status !== '操盘中'}}">

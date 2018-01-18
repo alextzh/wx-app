@@ -64,15 +64,15 @@ Page({
   setSubscribeData1: function () {
     this.setData({
       subscribeBtnTxt: "提交修改中",
-      btnDisabled: !this.data.btnDisabled,
-      btnLoading: !this.data.btnLoading
+      btnDisabled: true,
+      btnLoading: true
     })
   },
   setSubscribeData2: function () {
     this.setData({
       subscribeBtnTxt: "提交修改",
-      btnDisabled: !this.data.btnDisabled,
-      btnLoading: !this.data.btnLoading
+      btnDisabled: false,
+      btnLoading: false
     })
   },
   // 校验赎回金额
@@ -91,6 +91,13 @@ Page({
         title: '提示',
         showCancel: false,
         content: '最小申购份额为'+ min +'万份'
+      })
+      return false
+    } else if (amt > 10000) {
+      wx.showModal({
+        title: '提示',
+        showCancel: false,
+        content: '最大申购份额为10000万份'
       })
       return false
     } else if (amt % 1 !== 0) {

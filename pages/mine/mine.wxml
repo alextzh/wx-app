@@ -23,7 +23,7 @@
       <block wx:if="{{isShowPlan}}">
         <view class="item" bindtap="toProductPlan">
           <icon class="iconfont icon-record" style="color:#FD5B78;"></icon>
-          <text class="text">产品方案</text>
+          <text class="text">方案修改</text>
           <icon class="iconfont icon-goto fc999"></icon>
         </view>
       </block>

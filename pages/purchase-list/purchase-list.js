@@ -20,19 +20,28 @@ var getProductList = function (that) {
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: res.data.msg
+          content: '暂无可申购产品'
         })
         that.setData({
           hasData: true
         })
         return false
       }
-      
       var list = res.data.obj.list
       list = list.filter(e => {
         return e.status === '申购中'
       })
-      var totalPage = res.data.obj.totalPage
+      if (list) {
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: '暂无可申购产品'
+        })
+        that.setData({
+          hasData: true
+        })
+        return false
+      }
       for (let i = 0; i < list.length; i++) {
         list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
         list[i].expect_quota = util.rendererZhMoneyWan(list[i].expect_quota)
@@ -41,12 +50,6 @@ var getProductList = function (that) {
       that.setData({
         productList: that.data.productList.concat(list)
       })
-      page++
-      if (page > totalPage) {
-        that.setData({
-          hasMore: false
-        })
-      }
     },
     fail: function (e) {
       console.log(e)
@@ -80,7 +83,6 @@ Page({
     productList: [],
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
-    hasMore: true // 是否下拉加载
   },
   /**
    * 生命周期函数--监听页面加载
@@ -108,19 +110,8 @@ Page({
     var that = this
     that.setData({
       fresh: true,
-      hasMore: true,
       productList: []
     })
-    getProductList(that)
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    var that = this
-    if (!that.data.hasMore) {
-      return false
-    }
     getProductList(that)
   },
   toDetail: function (e) {
