@@ -29,6 +29,17 @@ var getProductList = function (that) {
       }
       var totalPage = res.data.obj.totalPage
       var list = res.data.obj.list
+      if (list) {
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: '暂无产品'
+        })
+        that.setData({
+          hasData: true
+        })
+        return false
+      }
       for (let i = 0; i < list.length; i++) {
         list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
         list[i].expect_quota = util.rendererZhMoneyWan(list[i].expect_quota)
