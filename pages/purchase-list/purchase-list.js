@@ -29,9 +29,11 @@ var getProductList = function (that) {
       }
       var list = res.data.obj.list
       list = list.filter(e => {
-        return e.status === '申购中'
+        return e.status === '已发布'
       })
-      if (list) {
+      console.log(list)
+      if (!list.length) {
+        console.log('///')
         wx.showModal({
           title: '提示',
           showCancel: false,
@@ -41,15 +43,17 @@ var getProductList = function (that) {
           hasData: true
         })
         return false
+      } else {
+        console.log('pppp')
+        for (let i = 0; i < list.length; i++) {
+          list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
+          list[i].expect_quota = util.rendererZhMoneyWan(list[i].expect_quota)
+          list[i].settlement_time = _normalizeStr(list[i].settlement_time)
+        }
+        that.setData({
+          productList: that.data.productList.concat(list)
+        })
       }
-      for (let i = 0; i < list.length; i++) {
-        list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
-        list[i].expect_quota = util.rendererZhMoneyWan(list[i].expect_quota)
-        list[i].settlement_time = _normalizeStr(list[i].settlement_time)
-      }
-      that.setData({
-        productList: that.data.productList.concat(list)
-      })
     },
     fail: function (e) {
       console.log(e)

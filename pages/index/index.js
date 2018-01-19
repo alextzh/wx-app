@@ -29,7 +29,7 @@ var getProductList = function (that) {
       }
       var totalPage = res.data.obj.totalPage
       var list = res.data.obj.list
-      if (list) {
+      if (!list.length) {
         wx.showModal({
           title: '提示',
           showCancel: false,

@@ -70,13 +70,16 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
-    hasProductPlan(that)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
     
+  },
+  onShow: function () {
+    var that = this
+    hasProductPlan(that)
   },
   // 跳转到赎回记录页面
   toRedeemRecord: function () {
