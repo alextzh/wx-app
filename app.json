@@ -7,7 +7,6 @@
     "pages/purchase-record/purchase-record",
     "pages/redeem-record/redeem-record",
     "pages/redeem/redeem",
-    "pages/purchase-list/purchase-list",
     "pages/product-detail/product-detail",
     "pages/edit-apply/edit-apply",
     "pages/add-apply/add-apply",
@@ -26,12 +25,6 @@
         "text": "产品",
         "iconPath": "images/product.png",
         "selectedIconPath": "images/product-fill.png"
-      },
-      {
-        "pagePath": "pages/purchase-list/purchase-list",
-        "text": "申购",
-        "iconPath": "images/purchase.png",
-        "selectedIconPath": "images/purchase-fill.png"
       },
       {
         "pagePath": "pages/mine/mine",

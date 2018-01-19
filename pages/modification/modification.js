@@ -54,7 +54,7 @@ Page({
     pickerIndex: 0,
     currentPlan: null,
     currentProduct: null,
-    modifyBtnTxt: '修改方案', // 修改方案按钮
+    modifyBtnTxt: '更改方案', // 修改方案按钮
     modifyBtnLoading: false,
     modifyDisabled: false,
   },
@@ -89,7 +89,7 @@ Page({
     if (that.checkModification(param)) {
       wx.showModal({
         title: '提示',
-        content: `您确认要修改方案为${curPlan.name}${param.purchaseAmt}万份吗`,
+        content: `您确认要更改方案为${curPlan.name}${param.purchaseAmt}万份吗`,
         success: function (res) {
           if (res.confirm) {
             that.mySubmit(param)
@@ -149,14 +149,14 @@ Page({
   },
   setRedeemData1: function () {
     this.setData({
-      modifyBtnTxt: "修改方案中",
+      modifyBtnTxt: "更改方案中",
       modifyDisabled: true,
       modifyBtnLoading: true
     })
   },
   setRedeemData2: function () {
     this.setData({
-      modifyBtnTxt: "修改方案",
+      modifyBtnTxt: "更改方案",
       modifyDisabled: false,
       modifyBtnLoading: false
     })

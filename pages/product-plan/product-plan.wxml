@@ -31,7 +31,7 @@
           <view class="item_action">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="modifyAction"
-              data-item="{{item}}">修改方案</button>
+              data-item="{{item}}">申请更改方案</button>
             </view>
           </view>
         </block>

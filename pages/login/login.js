@@ -8,7 +8,8 @@ Page({
   data: {
     loginBtnTxt: "登录",
     btnLoading: false,
-    disabled: false
+    disabled: false,
+    img_logo: '../../images/logo.png'
   },
   /**
    * 生命周期函数--监听页面加载

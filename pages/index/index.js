@@ -33,6 +33,8 @@ var getProductList = function (that) {
         list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
         list[i].expect_quota = util.rendererZhMoneyWan(list[i].expect_quota)
         list[i].settlement_time = _normalizeStr(list[i].settlement_time)
+        list[i].sg_start_time = util._normalizeDate(list[i].sg_start_time)
+        list[i].sg_end_time = util._normalizeDate(list[i].sg_end_time)
       }
       that.setData({
         productList: that.data.productList.concat(list)

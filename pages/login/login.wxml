@@ -1,6 +1,6 @@
 <view class="container">
     <view class="logo">
-      <text>至元操盘</text>
+      <image style="width: 480rpx;height: 124rpx;" src="{{img_logo}}"></image>
     </view>
     <form class="form_area" bindsubmit="formSubmit" report-submit="true">
       <view class="input_area">

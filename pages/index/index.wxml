@@ -21,12 +21,8 @@
           </view>
         </view>
         <view class="item_foot" wx:if="{{item.status !== '操盘中'}}">
-          <text>申购起始时间：</text>
-          <text>{{item.sg_start_time}}</text>
-        </view>
-        <view class="item_foot" wx:if="{{item.status !== '操盘中'}}">
-          <text>申购结束时间：</text>
-          <text>{{item.sg_end_time}}</text>
+          <text>申购时间：</text>
+          <text>{{item.sg_start_time}} <text style="color:#F44336;">~</text> {{item.sg_end_time}}</text>
         </view>
         <view class="item_foot">
           <text>操盘时间：</text>

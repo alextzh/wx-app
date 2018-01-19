@@ -16,7 +16,7 @@
             <text class="new_data">{{item.money}}万份</text>
           </view>
           <view class="item__right">
-            <text>赎回时间：</text>
+            <text>申请时间：</text>
             <text class="all_data">{{item.redeem_time}}</text>
           </view>
         </view>

@@ -16,7 +16,7 @@
     </view>
     <view class="item_body">
       <view class="item__left">
-        <text>最小申购份额：</text>
+        <text>最小份额：</text>
         <text class="new_data">{{currentProduct.min_money / 10000}}万份</text>
       </view>
       <view class="item__right">
