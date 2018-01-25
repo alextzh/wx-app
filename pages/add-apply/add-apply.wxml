@@ -26,21 +26,18 @@
     </view>
     <view class="item_foot" style="display:flex;">
       <text>结算时间：</text>
-      <view style="flex:1">
-        <view style='display:flex'>
-          <text style='flex:1'>{{currentProduct.settlement_time[0]}}</text>
-          <text style='flex:1'>{{currentProduct.settlement_time[1]}}</text>
-        </view>
-        <view style='display:flex'>
-          <text style='flex:1'>{{currentProduct.settlement_time[2]}}</text>
-          <text style='flex:1'>{{currentProduct.settlement_time[3]}}</text>
-        </view>
+      <view style="flex:1;display:flex;flex-wrap:wrap;">
+        <block wx:for="{{currentProduct.settlement_time}}" wx:key="index">
+          <view style='display:flex;width:50%;'>
+            <text style='flex:1'>{{item}}</text>
+          </view>
+        </block>
       </view>
     </view>
   </view>
   <block>
     <form class="form_area" bindsubmit="formSubmit">
-      <view class="select_type">
+      <view class="select_type" style="display:none;">
         <icon class="iconfont icon-unfold"></icon>
         <view class="type_title">请选择充值渠道:</view>
         <picker class="type_picker" range='{{pickerArr}}' value='{{pickerIndex}}' bindchange='bindPickerChange'>

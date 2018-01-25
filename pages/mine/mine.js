@@ -81,6 +81,12 @@ Page({
     var that = this
     hasProductPlan(that)
   },
+  // 跳转到立即申购页面
+  toPurchase: function () {
+    wx.navigateTo({
+      url: '../index/index'
+    })
+  },
   // 跳转到赎回记录页面
   toRedeemRecord: function () {
     wx.navigateTo({

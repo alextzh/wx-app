@@ -10,6 +10,11 @@
       </view>
     </view>
     <view class="list">
+      <view class="item" bindtap="toPurchase">
+        <icon class="iconfont icon-bought" style="color:#EB3F2F;"></icon>
+        <text class="text">立即申购</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
       <view class="item" bindtap="toPurchaseRecord">
         <icon class="iconfont icon-bought" style="color:#EB3F2F;"></icon>
         <text class="text">申购记录</text>

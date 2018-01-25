@@ -30,16 +30,18 @@
         </view>
         <view class="item_foot" style='display:flex'>
           <text>结算时间：</text>
-          <view style="flex:1">
-            <view style='display:flex'>
-              <text style='flex:1'>{{item.settlement_time[0]}}</text>
-              <text style='flex:1'>{{item.settlement_time[1]}}</text>
-            </view>
-            <view style='display:flex'>
-              <text style='flex:1'>{{item.settlement_time[2]}}</text>
-              <text style='flex:1'>{{item.settlement_time[3]}}</text>
-            </view>
+          <view style="flex:1;display:flex;flex-wrap:wrap;">
+            <block wx:for="{{item.settlement_time}}" wx:key="index">
+              <view style='display:flex;width:50%;'>
+                <text style='flex:1'>{{item}}</text>
+              </view>
+            </block>
           </view>
+          <!-- <view style="flex:1">
+            <view style='display:flex'>
+              <text style='flex:1'>{{item.settlement_time}}</text>
+            </view>
+          </view> -->
         </view>
       </view>
     </block>

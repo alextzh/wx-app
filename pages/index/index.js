@@ -9,7 +9,8 @@ var getProductList = function (that) {
     url: app.api_url + '/api/v1/product/baseList',
     data: {
       page: page,
-      rows: rows
+      rows: rows,
+      status: 'sgz'
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'

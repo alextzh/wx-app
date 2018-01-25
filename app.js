@@ -1,7 +1,7 @@
 //app.js
 App({
-  server_url: 'https://api.zhiyuancaopan.com',
-  api_url: 'https://api.zhiyuancaopan.com',
+  server_url: 'https://wx.yanysdd.com',
+  api_url: 'https://wx.yanysdd.com',
   onLaunch: function() {
     var that = this
     wx.login({
@@ -65,7 +65,7 @@ function getCustomerInfo(that,openid){
       if (res.data.ret) {
         wx.setStorageSync("USERINFO", res.data.obj)
         wx.switchTab({
-          url: '/pages/index/index'
+          url: '/pages/welcome/welcome'
         })
       }
     },

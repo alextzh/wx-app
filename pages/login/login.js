@@ -128,7 +128,7 @@ Page({
           setTimeout(() => {
             that.setLoginData2()
             wx.switchTab({
-              url: '../index/index'
+              url: '../welcome/welcome'
             })
           }, 500)
         }, 2000)
