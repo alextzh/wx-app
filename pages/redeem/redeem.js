@@ -70,27 +70,25 @@ Page({
         }
       })
     } else {
-      if (that.checkRedeem(param)) {
-        wx.showModal({
-          title: '提示',
-          content: '您确认要赎回' + param.redeemAmt + '万份吗',
-          success: function (res) {
-            if (res.confirm) {
-              that.mySubmit(param, 'part')
-            } else if (res.cancel) {
-              console.log('已取消')
-            }
+      wx.showModal({
+        title: '提示',
+        content: '您确认要赎回' + param.redeemAmt + '万份吗',
+        success: function (res) {
+          if (res.confirm) {
+            that.mySubmit(param, 'part')
+          } else if (res.cancel) {
+            console.log('已取消')
           }
-        })
-      }
+        }
+      })
     }
   },
   setRedeemData1: function (bType) {
     if (bType === 'part') {
       this.setData({
         redeemPartBtnTxt: "部分赎回中",
-        partDisabled: !this.data.partDisabled,
-        partBtnLoading: !this.data.partBtnLoading
+        partDisabled: true,
+        partBtnLoading: true
       })
     } else {
       this.setData({
@@ -104,8 +102,8 @@ Page({
     if (bType === 'part') {
       this.setData({
         redeemPartBtnTxt: "部分赎回",
-        partDisabled: !this.data.partDisabled,
-        partBtnLoading: !this.data.partBtnLoading
+        partDisabled: false,
+        partBtnLoading: false
       })
     } else {
       this.setData({
@@ -127,7 +125,7 @@ Page({
         content: '最小赎回份额为1万份'
       })
       return false
-    } else if (amt < min) {
+    } else if (amt < 1) {
       wx.showModal({
         title: '提示',
         showCancel: false,

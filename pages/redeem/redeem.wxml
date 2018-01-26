@@ -57,7 +57,7 @@
         </view>
         <view class="redeem_tip">
           <icon class="iconfont icon-risk"></icon>
-          <text>当前状态最多只能赎回{{can_redeem_money}}万份</text>
+          <text>部分赎回剩余份额必须大于等于100万份</text>
         </view>
       </view>
       <view class="btn_area">

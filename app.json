@@ -23,7 +23,7 @@
     "list": [
       {
         "pagePath": "pages/welcome/welcome",
-        "text": "产品",
+        "text": "首页",
         "iconPath": "images/product.png",
         "selectedIconPath": "images/product-fill.png"
       },

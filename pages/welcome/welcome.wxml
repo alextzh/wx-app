@@ -1,6 +1,4 @@
 <!--index.wxml-->
-<view class="container">
-  <view>
-    <image src=""></image>
-  </view>
+<view class="box">
+  <image src="{{imgSrc}}" lazy-load="true" mode="aspectFill"></image>
 </view>

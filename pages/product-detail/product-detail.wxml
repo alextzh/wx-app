@@ -14,6 +14,16 @@
         <text class="all_data">{{currentProduct.status}}</text>
       </view>
     </view>
+    <view class="item_body">
+      <view class="item__left">
+        <text>起投份额：</text>
+        <text class="new_data">{{currentProduct.start_money / 10000}}万份</text>
+      </view>
+      <view class="item__right">
+        <text>递增份额：</text>
+        <text class="all_data">{{showArr[pickerIndex].step_money / 10000}}万份</text>
+      </view>
+    </view>
     <view class="item_foot" wx:if="{{currentProduct.status !== '操盘中'}}">
       <text>申购时间：</text>
       <text>{{currentProduct.sg_start_time}} <text style="color:#F44336;">~</text> {{currentProduct.sg_end_time}}</text>
@@ -53,16 +63,7 @@
                 <text class="all_data">{{showArr[pickerIndex].max_amount}}</text>
               </view>
             </view>
-            <view class="item_body">
-              <view class="item__left">
-                <text>最小份额：</text>
-                <text class="new_data">{{showArr[pickerIndex].min_money / 10000}}万份</text>
-              </view>
-              <view class="item__right">
-                <text>递增份额：</text>
-                <text class="all_data">{{showArr[pickerIndex].step_money / 10000}}万份</text>
-              </view>
-            </view>
+            
             <view class="item_foot" style='display:flex'>
               <text>结算时间：</text>
               <view style="flex:1;display:flex;flex-wrap:wrap;">
@@ -93,16 +94,7 @@
                 <text class="all_data">{{showArr[pickerIndex].max_amount}}</text>
               </view>
             </view>
-            <view class="item_body">
-              <view class="item__left">
-                <text>最小份额：</text>
-                <text class="new_data">{{showArr[pickerIndex].min_money / 10000}}万份</text>
-              </view>
-              <view class="item__right">
-                <text>递增份额：</text>
-                <text class="all_data">{{showArr[pickerIndex].step_money / 10000}}万份</text>
-              </view>
-            </view>
+            
             <view class="item_foot" style='display:flex'>
               <text>结算时间：</text>
               <view style="flex:1;display:flex;flex-wrap:wrap;">

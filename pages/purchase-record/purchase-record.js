@@ -148,7 +148,7 @@ Page({
     } catch (e) {
     }
     wx.request({
-      url: app.api_url + '/api/v1/redeem/checkStatus/' + e.currentTarget.dataset.item.productid,
+      url: app.api_url + '/api/v1/redeem/checkStatus/' + e.currentTarget.dataset.item.product_id,
       method: 'GET',
       success: function (res) {
         if(!res.data.ret) {

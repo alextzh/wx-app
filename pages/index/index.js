@@ -34,7 +34,7 @@ var getProductList = function (that) {
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: '暂无产品'
+          content: '暂无申购中产品'
         })
         that.setData({
           hasData: true

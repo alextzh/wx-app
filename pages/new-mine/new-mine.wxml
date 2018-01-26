@@ -1,0 +1,58 @@
+<view class="container">
+  <view class="box">
+    <view class="userinfo">
+      <view class="info_box">
+        <image class="user_avatar" src="{{userAvatar}}"></image>
+        <view class="user_msg">
+          <text class="name">{{username}}</text>
+          <text class="mobile">{{mobile}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="list">
+      <view class="item" bindtap="toPurchase">
+        <icon class="iconfont icon-shen" style="color:#003CFF;"></icon>
+        <text class="text">立即申购</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
+      <view class="item" bindtap="toPurchaseRecord">
+        <icon class="iconfont icon-goumaijilu" style="color:#EB3F2F;"></icon>
+        <text class="text">申购记录</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
+      <view class="item" bindtap="toRedeemRecord">
+        <icon class="iconfont icon-shuhui" style="color:#B31800;"></icon>
+        <text class="text">赎回记录</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
+      <block wx:if="{{isShowPlan}}">
+        <view class="item" bindtap="toProductPlan">
+          <icon class="iconfont icon-record" style="color:#FD5B78;"></icon>
+          <text class="text">更改方案</text>
+          <icon class="iconfont icon-goto fc999"></icon>
+        </view>
+      </block>
+      <!--<view class="item" bindtap="toRiskTip">
+        <icon class="iconfont icon-risk" style="color:#E91E63;"></icon>
+        <text class="text">风险提示</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>-->
+      <view class="item" bindtap="showLinkTo">
+        <icon class="iconfont icon-lianxiwomen" style="color:#00B0F0;"></icon>
+        <text class="text">联系我们</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
+      <view class="online_contact">
+        <icon class="iconfont icon-linkme icon" style="color:#003CFF;"></icon>
+        <button class="contact" open-type="contact">在线客服<text class="tip">(工作时间：9:00 - 21:00)</text> </button>
+        <icon class="iconfont icon-goto fc999 arraw"></icon>
+      </view>
+      <view class="item" bindtap="toSetting">
+        <icon class="iconfont icon-shezhi" style="color:#7F1874;"></icon>
+        <text class="text">我的设置</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
+      <button class="btn" bindtap="loginOut">退出账号</button>
+    </view>
+  </view>
+</view>
