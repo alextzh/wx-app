@@ -1,8 +1,10 @@
 {
   "pages": [
     "pages/login/login",
-    "pages/welcome/welcome",
     "pages/mine/mine",
+    "pages/c-mine/c-mine",
+    "pages/c-purchase/c-purchase",
+    "pages/c-detail/c-detail",
     "pages/modify-pwd/modify-pwd",
     "pages/purchase-record/purchase-record",
     "pages/redeem-record/redeem-record",
@@ -14,27 +16,10 @@
     "pages/setting/setting",
     "pages/product-plan/product-plan",
     "pages/modification/modification",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/c-purchase-record/c-purchase-record",
+    "pages/c-redeem-record/c-redeem-record"
   ],
-  "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#F44336",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/welcome/welcome",
-        "text": "首页",
-        "iconPath": "images/product.png",
-        "selectedIconPath": "images/product-fill.png"
-      },
-      {
-        "pagePath": "pages/mine/mine",
-        "text": "我的",
-        "iconPath": "images/mine.png",
-        "selectedIconPath": "images/mine-fill.png"
-      }
-    ]
-  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

@@ -1,0 +1,87 @@
+<view class="container">
+  <view class="product-detail">
+    <view class="item_head">
+      <icon class="iconfont icon-item"></icon>
+      <text class="title">{{currentProduct.name}}</text>
+    </view>
+    <view class="item_body">
+      <view class="item__left">
+        <text>产品类型：</text>
+        <text class="new_data">{{currentProduct.type}}</text>
+      </view>
+      <view class="item__right">
+        <text>产品状态：</text>
+        <text class="all_data">{{currentProduct.status}}</text>
+      </view>
+    </view>
+    <view class="item_foot">
+      <text>申购时间：</text>
+      <text>{{currentProduct.sg_start_time}}</text>
+    </view>
+    <view class="item_foot" style="display: flex;" wx:if="{{currentProduct.describe}}">
+      <text>产品简介：</text>
+      <view style="flex: 1;">
+        <text style="line-height: 1;">{{currentProduct.describe}}</text>
+      </view>
+    </view>
+  </view>
+  <view style="padding: 20rpx;width: 100%;box-sizing: border-box;">
+    <view class="form_box">
+      <form bindsubmit='formSubmit' class="form_area">
+        <block wx:if="{{pickerArr.length > 1}}">
+          <view class="select_type">
+            <icon class="iconfont icon-unfold"></icon>
+            <text class="type_title">方案类型：</text>
+            <picker class="type_picker" range='{{pickerArr}}' value='{{pickerIndex}}' bindchange='bindPickerChange'>
+              <view class="picker">{{pickerArr[pickerIndex]}}</view>
+            </picker>
+          </view>
+        </block>
+        <block wx:if="{{showArr.length === 1}}">
+          <view style="padding: 20rpx;">
+            <view class="item_body">
+              <view class="item__left">
+                <text>产品名称：</text>
+                <text class="new_data">{{showArr[pickerIndex].name}}</text>
+              </view>
+              <view class="item__right">
+                <text>最大人数：</text>
+                <text class="all_data">{{showArr[pickerIndex].max_amount}}</text>
+              </view>
+            </view>
+            
+            <view class="item_foot" style='display:flex'>
+              <text>结算时间：</text>
+              <view style="flex:1;display:flex;flex-wrap:wrap;">
+                <block wx:for="{{showArr[pickerIndex].settlement_time}}" wx:key="index">
+                  <view style='display:flex;width:50%;'>
+                    <text style='flex:1'>{{item}}</text>
+                  </view>
+                </block>
+              </view>
+            </view>
+            <view class="item_foot" style="display: flex;">
+              <text>产品详情：</text>
+              <view style="flex: 1;">
+                <text style="line-height: 1;">{{showArr[pickerIndex].describe}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block>
+          <view class="input_area">
+            <view class="input_title">申购数量：</view>
+            <view class="input_con">
+              <input type="number" name="purchaseAmt" placeholder='请输入申购数量' />
+              <text class='unit'>个</text>
+            </view>
+          </view>
+          <view class="btn_area">
+            <button formType="submit" loading="{{purchaseBtnLoading}}" disabled="{{purchaseDisabled}}">{{purchaseBtnTxt}}</button>
+          </view>
+        </block>
+      </form>
+    </view>
+  </view>
+  
+</view>

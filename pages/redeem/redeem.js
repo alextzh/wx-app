@@ -22,7 +22,6 @@ Page({
       var value = wx.getStorageSync('CURPRODUCT')
       var userInfo = wx.getStorageSync('USERINFO')
       if (value) {
-        console.log(value)
         // Do something with return value
         that.setData({
           currentProduct: value,
@@ -70,17 +69,19 @@ Page({
         }
       })
     } else {
-      wx.showModal({
-        title: '提示',
-        content: '您确认要赎回' + param.redeemAmt + '万份吗',
-        success: function (res) {
-          if (res.confirm) {
-            that.mySubmit(param, 'part')
-          } else if (res.cancel) {
-            console.log('已取消')
+      if (that.checkRedeem(param)) {
+        wx.showModal({
+          title: '提示',
+          content: '您确认要赎回' + param.redeemAmt + '万份吗',
+          success: function (res) {
+            if (res.confirm) {
+              that.mySubmit(param, 'part')
+            } else if (res.cancel) {
+              console.log('已取消')
+            }
           }
-        }
-      })
+        })
+      }
     }
   },
   setRedeemData1: function (bType) {
@@ -116,13 +117,11 @@ Page({
   // 校验赎回金额
   checkRedeem: function (param) {
     var amt = parseInt(param.redeemAmt)
-    var min = parseInt(this.data.currentProduct.min_money) / 10000
-    var max = this.data.can_redeem_money
     if (!amt) {
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '最小赎回份额为1万份'
+        content: '请输入赎回份额'
       })
       return false
     } else if (amt < 1) {
@@ -130,13 +129,6 @@ Page({
         title: '提示',
         showCancel: false,
         content: '最小赎回份额为1万份'
-      })
-      return false
-    } else if (amt > max) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最大赎回份额为' + max + '万份'
       })
       return false
     } else if (amt % 1 !== 0) {
@@ -183,7 +175,7 @@ Page({
           })
           setTimeout(() => {
             that.setRedeemData2(bType)
-            wx.switchTab({
+            wx.navigateTo({
               url: '../mine/mine'
             })
           }, 500)

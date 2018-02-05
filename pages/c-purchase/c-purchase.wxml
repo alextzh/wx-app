@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="list">
+    <block wx:if="{{productList.length > 0}}" wx:for="{{productList}}" wx:key="index">
+      <view class="item" catchtap="toDetail" data-item="{{item}}">
+        <view class="item_head">
+          <icon class="iconfont icon-item"></icon>
+          <text class="title">{{item.name}}</text>
+        </view>
+        <view class="item_body">
+          <view class="item__left">
+            <text>产品类型：</text>
+            <text class="new_data">{{item.type}}</text>
+          </view>
+          <view class="item__right">
+            <text>产品状态：</text>
+            <text class="all_data" style="color: #D9D6CF;" wx:if="{{item.status === '已发布'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #FE4C40;" wx:if="{{item.status === '申购中'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #ADA0A5;" wx:if="{{item.status === '申购结束'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #FD5B78;" wx:if="{{item.status === '操盘中'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #483C32;" wx:if="{{item.status === '已结束'}}">{{item.status}}</text>
+          </view>
+        </view>
+        <view class="item_foot">
+          <text>申购时间：</text>
+          <text>{{item.sg_start_time}}</text>
+        </view>
+        <view class="item_foot">
+          <text>产品描述：</text>
+          <text>{{item.describe}}</text>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{hasData}}">
+      <view class="no_data">
+        <icon class="iconfont icon-nodata"></icon>
+      </view>
+    </block>
+  </view>
+</view>

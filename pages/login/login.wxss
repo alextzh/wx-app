@@ -1,3 +1,6 @@
+page {
+  background: #fff;
+}
 .logo{
   margin-top: 100rpx;
   margin-bottom: 120rpx;

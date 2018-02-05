@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="box">
+    <view class="userinfo">
+      <image class="bg_img" src="../../images/bg.png"></image>
+      <view class="info_box">
+        <image class="user_avatar" src="{{userAvatar}}"></image>
+        <view class="user_msg">
+          <text class="name">{{username}}</text>
+          <text class="mobile">{{mobile}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="border"></view>
+    <view class="list">
+      <view class="item" bindtap="toPurchase">
+        <image src="../../images/shengou.svg"></image>
+        <text class="text">立即申购</text>
+      </view>
+      <view class="item" bindtap="toPurchaseRecord">
+        <image src="../../images/shengoujilu.svg"></image>
+        <text class="text">申购记录</text>
+      </view>
+      <view class="item" bindtap="toRedeemRecord">
+        <image src="../../images/shuhuijilu.svg"></image>
+        <text class="text">赎回记录</text>
+      </view>
+      <view class="item" bindtap="showLinkTo">
+        <image src="../../images/dianhua.svg"></image>
+        <text class="text">联系我们</text>
+      </view>
+      <block wx:if="{{isShowPlan}}">
+        <view class="item" bindtap="toProductPlan">
+          <image src="../../images/fanganxiugai.svg"></image>
+          <text class="text">更改方案</text>
+        </view>
+      </block>
+      <button class="item contact" open-type="contact">
+        <image src="../../images/kefu.svg"></image>
+        <text class="text">在线客服</text>
+      </button>
+      <view class="item" bindtap="toSetting">
+        <image src="../../images/shezhi.svg"></image>
+        <text class="text">我的设置</text>
+      </view>
+    </view>
+  </view>
+</view>

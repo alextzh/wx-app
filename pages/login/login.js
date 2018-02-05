@@ -113,7 +113,6 @@ Page({
             } catch (e) {
               // Do something when catch error
             }
-            console.log(res)
             var latitude = res.latitude
             var longitude = res.longitude
             getUserLocation(that, latitude, longitude)
@@ -127,9 +126,15 @@ Page({
           })
           setTimeout(() => {
             that.setLoginData2()
-            wx.switchTab({
-              url: '../welcome/welcome'
-            })
+            if(res.data.obj.type === '游客') {
+              wx.redirectTo({
+                url: '../c-mine/c-mine'
+              })
+            } else {
+              wx.redirectTo({
+                url: '../mine/mine'
+              })
+            }
           }, 500)
         }, 2000)
       },

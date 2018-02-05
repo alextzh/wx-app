@@ -51,7 +51,8 @@ Page({
   data: {
     productPlanList: [],
     hasData: false, // 是否有数据
-    fresh: false // 下拉刷新标志
+    fresh: false, // 下拉刷新标志
+    isFirstAction: true
   },
   /**
    * 生命周期函数--监听页面加载
@@ -66,8 +67,11 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
+  onShow: function () {
+    var that = this
+    that.setData({
+      isFirstAction: true
+    })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -81,12 +85,19 @@ Page({
     getProductPlanList(that)
   },
   modifyAction: function (e) {
-    try {
-      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
-    } catch (e) {
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      try {
+        wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+      } catch (e) {
+      }
+      wx.navigateTo({
+        url: '../modification/modification'
+      })
     }
-    wx.navigateTo({
-      url: '../modification/modification'
-    })
   }
 })

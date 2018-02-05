@@ -77,7 +77,8 @@ Page({
     purchaseList: [],
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
-    hasMore: true // 是否下拉加载
+    hasMore: true, // 是否下拉加载
+    isFirstAction: true
   },
   /**
    * 生命周期函数--监听页面加载
@@ -100,8 +101,11 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onShow: function () {
+    var that = this
+    that.setData({
+      isFirstAction: true
+    })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -143,50 +147,71 @@ Page({
   },
   // 申请赎回操作
   redeemAction: function (e) {
-    try {
-      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
-    } catch (e) {
-    }
-    wx.request({
-      url: app.api_url + '/api/v1/redeem/checkStatus/' + e.currentTarget.dataset.item.product_id,
-      method: 'GET',
-      success: function (res) {
-        if(!res.data.ret) {
-          wx.showModal({
-            title: '提示',
-            showCancel: false,
-            content: res.data.msg
-          })
-          return false
-        }
-        wx.navigateTo({
-          url: '../redeem/redeem'
-        })
-      },
-      fail: function (e) {
-        console.log(e)
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      try {
+        wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+      } catch (e) {
       }
-    })
+      wx.request({
+        url: app.api_url + '/api/v1/redeem/checkStatus/' + e.currentTarget.dataset.item.product_id,
+        method: 'GET',
+        success: function (res) {
+          if (!res.data.ret) {
+            wx.showModal({
+              title: '提示',
+              showCancel: false,
+              content: res.data.msg
+            })
+            return false
+          }
+          wx.navigateTo({
+            url: '../redeem/redeem'
+          })
+        },
+        fail: function (e) {
+          console.log(e)
+        }
+      })
+    }
   },
   // 增加申购
   addAction: function (e) {
-    try {
-      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
-    } catch (e) {
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      try {
+        wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+      } catch (e) {
+      }
+      wx.navigateTo({
+        url: '../add-apply/add-apply'
+      })
     }
-    wx.navigateTo({
-      url: '../add-apply/add-apply'
-    })
   },
   // 修改申请
   editAction: function (e) {
-    try {
-      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
-    } catch (e) {
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      try {
+        wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+      } catch (e) {
+      }
+      wx.navigateTo({
+        url: '../edit-apply/edit-apply'
+      })
     }
-    wx.navigateTo({
-      url: '../edit-apply/edit-apply'
-    })
   },
   // 删除申请
   cancelAction: function (e) {
@@ -221,7 +246,7 @@ Page({
                 icon: 'success',
                 duration: 1500
               })
-              wx.switchTab({
+              wx.navigateTo({
                 url: '../mine/mine'
               })
             },

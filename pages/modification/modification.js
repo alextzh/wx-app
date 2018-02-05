@@ -196,7 +196,7 @@ Page({
           })
           setTimeout(() => {
             that.setRedeemData2()
-            wx.switchTab({
+            wx.navigateTo({
               url: '../mine/mine'
             })
           }, 500)

@@ -40,7 +40,14 @@ function bindWx(that) {
         that.setData({
           isChecked: false
         })
+      } else {
+        that.setData({
+          isChecked: false
+        })
       }
+    },
+    fail: function (e) {
+      console.log(e)
     }
   })
 }
@@ -86,7 +93,14 @@ function qxBindWx(that) {
         that.setData({
           isChecked: true
         })
+      } else {
+        that.setData({
+          isChecked: true
+        })
       }
+    },
+    fail: function (e) {
+      console.log(e)
     }
   })
 }
@@ -98,7 +112,8 @@ Page({
    */
   data: {
     // bind_status: 'N',
-    isChecked: false
+    isChecked: false,
+    isFirstAction: true
   },
 
   /**
@@ -130,14 +145,24 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onShow: function () {
+    var that = this
+    that.setData({
+      isFirstAction: true
+    })
   },
   // 跳转到修改密码页面
   toModifyPwd: function () {
-    wx.navigateTo({
-      url: '../modify-pwd/modify-pwd'
-    })
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      wx.navigateTo({
+        url: '../modify-pwd/modify-pwd'
+      })
+    }
   },
   switchChange: function (e) {
     var flag = e.detail.value
@@ -146,7 +171,6 @@ Page({
     } else {
       qxBindWx(this)
     }
-    console.log('switch 发生 change 事件，携带值为', e.detail.value)
   },
   //绑定微信
   bindWx: function () {
@@ -156,4 +180,25 @@ Page({
   qxBindWx: function () {
     qxBindWx(this)
   },
+  // 退出账号操作
+  loginOut: function () {
+    wx.showModal({
+      title: '退出提示',
+      content: '确定要退出账号吗',
+      success: function (res) {
+        if (res.confirm) {
+          try {
+            wx.clearStorageSync()
+          } catch (e) {
+            // Do something when catch error
+          }
+          wx.reLaunch({
+            url: '../login/login',
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  }
 })

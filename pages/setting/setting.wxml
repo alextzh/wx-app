@@ -21,6 +21,7 @@
         <text class="text">微信绑定</text>
         <switch class="m_switch" type="switch" checked="{{isChecked}}" bindchange="switchChange"/>
       </view>
+      <button class="btn" style="margin: 40rpx 20rpx;" bindtap="loginOut">退出账号</button>
     </view>
   </view>
 </view>

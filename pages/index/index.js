@@ -4,13 +4,14 @@ var page = 1
 var rows = 10
 
 // 获取产品列表
-var getProductList = function (that) {
+var getProductList = function (that, customer_id) {
   wx.request({
     url: app.api_url + '/api/v1/product/baseList',
     data: {
       page: page,
       rows: rows,
-      status: 'sgz'
+      status: 'sgz',
+      customer_id: customer_id
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'
@@ -90,7 +91,8 @@ Page({
     productList: [],
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
-    hasMore: true // 是否下拉加载
+    hasMore: true, // 是否下拉加载
+    isFirstAction: true
   },
   /**
    * 生命周期函数--监听页面加载
@@ -100,14 +102,18 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+    var customer_id = wx.getStorageSync('USERINFO').id
     var that = this
-    getProductList(that)
+    getProductList(that, customer_id)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onShow: function () {
+    var that = this
+    that.setData({
+      isFirstAction: true
+    })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -115,31 +121,40 @@ Page({
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading()
     page = 1
+    var customer_id = wx.getStorageSync('USERINFO').id
     var that = this
     that.setData({
       fresh: true,
       hasMore: true,
       productList: []
     })
-    getProductList(that)
+    getProductList(that, customer_id)
   },
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var customer_id = wx.getStorageSync('USERINFO').id
     var that = this
     if (!that.data.hasMore) {
       return false
     }
-    getProductList(that)
+    getProductList(that, customer_id)
   },
   toDetail: function (e) {
-    try {
-      wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
-    } catch (e) {
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      try {
+        wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+      } catch (e) {
+      }
+      wx.navigateTo({
+        url: '../product-detail/product-detail'
+      })
     }
-    wx.navigateTo({
-      url: '../product-detail/product-detail'
-    })
   }
 })

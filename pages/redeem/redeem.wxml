@@ -28,7 +28,7 @@
   <view class="tabs_box">
     <radio-group class="radio_group" bindchange="radioChange">
       <label class="radio" wx:for="{{tabs}}" wx:key="index">
-        <radio value="{{item.value}}" checked="{{item.checked}}" color="#f44336"/>
+        <radio value="{{item.value}}" checked="{{item.checked}}" color="#ff5251"/>
         <text>{{item.name}}</text>
       </label>
     </radio-group>

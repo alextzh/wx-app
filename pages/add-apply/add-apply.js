@@ -177,7 +177,7 @@ Page({
           })
           setTimeout(() => {
             that.setSubscribeData2()
-            wx.switchTab({
+            wx.navigateTo({
               url: '../mine/mine'
             })
           }, 500)

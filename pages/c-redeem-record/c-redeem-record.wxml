@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="list">
+    <block wx:if="{{redeemRecord.length > 0}}" wx:for="{{redeemRecord}}" wx:key="index">
+      <view class="item">
+        <view class="item_head">
+          <icon class="iconfont icon-item"></icon>
+          <text class="title">{{item.name}}</text>
+        </view>
+        <view class="item_body">
+          <view class="item__left">
+            <text>赎回数量：</text>
+            <text class="new_data">{{item.sub_number}}个</text>
+          </view>
+          <view class="item__right">
+            <text>产品状态：</text>
+            <text class="all_data" style="color: #652D92;" wx:if="{{item.status === '待审核'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #09B3CD;" wx:if="{{item.status === '审核通过'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #EB1C22;" wx:if="{{item.status === '审核拒绝'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #262163;" wx:if="{{item.status === '赎回待审核'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #2E3094;" wx:if="{{item.status === '已赎回'}}">{{item.status}}</text>
+          </view>
+        </view>
+        <view class="item_foot">
+          <text>申请时间：</text>
+          <text>{{item.create_time}}</text>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{hasData}}">
+      <view class="no_data">
+        <icon class="iconfont icon-nodata"></icon>
+      </view>
+    </block>
+  </view>
+</view>
+
+
