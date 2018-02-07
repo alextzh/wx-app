@@ -20,6 +20,14 @@
             <text class="all_data">{{item.redeem_time}}</text>
           </view>
         </view>
+        <block wx:if="{{item.redeem_status === '待审核'}}">
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button style='flex:1' class="redeemAllBtn" catchtap="cancelAction"
+              data-redeemid="{{item.id}}">取消赎回申请</button>
+            </view>
+          </view>
+        </block>
       </view>
     </block>
     <block wx:if="{{hasData}}">

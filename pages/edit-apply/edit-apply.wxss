@@ -10,7 +10,7 @@
   line-height:60rpx;
 }
 .item_head icon{
-  color: #F44336;
+  color: #ff5251;
   font-size: 36rpx;
 }
 .item_head .title{
@@ -29,7 +29,7 @@
 }
 .new_data,.all_data{
   font-size: 32rpx;
-  color: #F44336;
+  color: #ff5251;
   letter-spacing: 0;
 }
 .item_foot{
@@ -57,12 +57,12 @@
   font-size:36rpx;
   position:absolute;
   left:0;
-  color: #F44336;
+  color: #ff5251;
 }
 .input_form .unit{
   position: absolute;
   right: 0;
-  color: #f44336;
+  color: #ff5251;
 }
 .input_form input{
   position:relative;

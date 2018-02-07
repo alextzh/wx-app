@@ -25,7 +25,7 @@ page{
   padding-bottom:20rpx;
 }
 .item_head icon{
-  color: #F44336;
+  color: #ff5251;
   font-size: 36rpx;
 }
 .item_head .title{
@@ -37,7 +37,7 @@ page{
   float: right;
   padding:0 20rpx;
   background:#fff;
-  color:#F44336;
+  color:#ff5251;
 }
 .item_body{
   display: flex;
@@ -50,7 +50,7 @@ page{
 }
 .new_data,.all_data{
   font-size: 32rpx;
-  color: #F44336;
+  color: #ff5251;
   letter-spacing: 0;
 }
 .item_foot{

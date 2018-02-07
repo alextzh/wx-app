@@ -11,7 +11,7 @@
   padding-bottom:20rpx;
 }
 .item_head icon{
-  color: #F44336;
+  color: #ff5251;
   font-size: 36rpx;
 }
 .item_head .title{
@@ -30,7 +30,7 @@
 }
 .new_data,.all_data{
   font-size: 32rpx;
-  color: #F44336;
+  color: #ff5251;
   letter-spacing: 0;
 }
 .item_foot{
@@ -111,7 +111,7 @@
 }
 .input_con .unit {
   flex:0 1 auto;
-  color:#f44336;
+  color:#ff5251;
 }
 .input_con input {
   position:relative;

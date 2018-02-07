@@ -133,5 +133,50 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
+  },
+  cancelAction: function (e) {
+    let redeem_id = e.currentTarget.dataset.redeemid
+    wx.showModal({
+      title: '提示',
+      content: '您确认要撤销当前产品赎回请求吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: app.api_url + '/api/v1/redeem/qxApply',
+            data: {
+              redeem_id: redeem_id
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST',
+            success: function (res) {
+              console.log(res)
+              if (!res.data.ret) {
+                wx.showModal({
+                  title: '提示',
+                  showCancel: false,
+                  content: res.data.msg
+                })
+                return false
+              }
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'success',
+                duration: 1500
+              })
+              wx.navigateTo({
+                url: '../mine/mine'
+              })
+            },
+            fail: function (e) {
+              console.log(e)
+            }
+          })
+        } else if (res.cancel) {
+          console.log('已取消')
+        }
+      }
+    })
   }
 })

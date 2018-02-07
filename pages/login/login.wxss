@@ -30,7 +30,7 @@ page {
   top: 0;
   left: 0;
   font-size: 36rpx;
-  color: #F44336;
+  color: #ff5251;
 }
 .input_form input{
   position: relative;
