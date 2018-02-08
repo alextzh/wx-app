@@ -23,9 +23,13 @@
             <text class="all_data">{{item.subscribe_time}}</text>
           </view>
         </view>
-        <view class="item_foot" wx:if="{{item.caopan_time}}">
-          <text>操盘时间：</text>
-          <text>{{item.caopan_time}}</text>
+        <view class="item_foot" wx:if="{{item.recast_start_time && item.isRecast}}">
+          <text>复投开始：</text>
+          <text>{{item.recast_start_time}}</text>
+        </view>
+        <view class="item_foot" wx:if="{{item.recast_end_time && item.isRecast}}">
+          <text>复投结束：</text>
+          <text>{{item.recast_end_time}}</text>
         </view>
         <view class="item_foot" style='display:flex'>
           <text>结算时间：</text>
