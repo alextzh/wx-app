@@ -118,28 +118,28 @@ Page({
             getUserLocation(that, latitude, longitude)
           }
         })
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'success',
-            duration: 1500
-          })
-          setTimeout(() => {
-            that.setLoginData2()
-            if(res.data.obj.type === '游客') {
-              wx.redirectTo({
-                url: '../c-mine/c-mine'
-              })
-            } else {
-              wx.redirectTo({
-                url: '../mine/mine'
-              })
-            }
-          }, 500)
-        }, 2000)
+          that.setLoginData2()
+          if(res.data.obj.type === '游客') {
+            wx.redirectTo({
+              url: '../c-mine/c-mine'
+            })
+          } else {
+            wx.redirectTo({
+              url: '../mine/mine'
+            })
+          }
+        }, 500)
       },
       fail: function (e) {
         console.log(e)
+        util.toastMsg('提示', '网络异常')
+        that.setLoginData2()
       }
     })
   }

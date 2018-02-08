@@ -1,8 +1,0 @@
-<view class="container">
-  <view class="risk">
-    <view class="risk_title">
-      <text>投资有风险 理财需谨慎</text>
-    </view>
-    <rich-text nodes="{{nodes}}"></rich-text>
-  </view>
-</view>

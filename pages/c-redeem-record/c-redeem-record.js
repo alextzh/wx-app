@@ -1,4 +1,5 @@
 const app = getApp()
+var util = require("../../utils/util.js")
 
 // 获取赎回记录
 var getRedeemRecord = function (that, id) {
@@ -25,11 +26,13 @@ var getRedeemRecord = function (that, id) {
       }
       var list = res.data.obj
       that.setData({
-        redeemRecord: that.data.redeemRecord.concat(list)
+        redeemRecord: that.data.redeemRecord.concat(list),
+        hasData: false
       })
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     },
     complete: function () {
       wx.hideLoading()

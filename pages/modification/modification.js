@@ -1,3 +1,4 @@
+var util = require("../../utils/util.js")
 const app = getApp()
 
 /**
@@ -102,12 +103,13 @@ Page({
   },
   // 校验是否选择了当前方案 更改方案不能选择原方案
   checkModification: function (param) {
-    var amt = parseInt(param.purchaseAmt)
+    var amt = param.purchaseAmt
     var curPlan = this.data.currentPlan
     var oldName = this.data.currentProduct.product_name
     var newName = curPlan.name
-    var min = parseInt(curPlan.min_money) / 10000
-    var step = parseInt(curPlan.step_money) / 10000
+    var min = curPlan.min_money / 10000
+    var max = this.data.currentProduct.subscribe_money / 10000
+    var step = curPlan.step_money / 10000
     if (newName === oldName) {
       wx.showModal({
         title: '提示',
@@ -129,11 +131,11 @@ Page({
         content: '最小申购份额为' + min + '万份'
       })
       return false
-    } else if (amt > 10000) {
+    } else if (amt > max) {
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '最大申购份额为10000万份'
+        content: '更改份额不能大于申购份额'
       })
       return false
     } else if (amt % step !== 0) {
@@ -188,19 +190,22 @@ Page({
           return false
         }
         that.setRedeemData1()
+        wx.showToast({
+          title: '方案修改已提交',
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: '方案修改已提交',
-            icon: 'success',
-            duration: 1500
+          that.setRedeemData2()
+          wx.reLaunch({
+            url: '../mine/mine'
           })
-          setTimeout(() => {
-            that.setRedeemData2()
-            wx.navigateTo({
-              url: '../mine/mine'
-            })
-          }, 500)
-        }, 2000)
+        }, 500)
+      },
+      fail: function (e) {
+        console.log(e)
+        util.toastMsg('提示', '网络异常')
+        that.setRedeemData2()
       }
     })
   }

@@ -26,11 +26,13 @@ var getPurchaseList = function (that, id) {
       }
       var list = res.data.obj
       that.setData({
-        purchaseList: that.data.purchaseList.concat(list)
+        purchaseList: that.data.purchaseList.concat(list),
+        hasData: false
       })
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     },
     complete: function () {
       wx.hideLoading()
@@ -151,12 +153,13 @@ Page({
                   icon: 'success',
                   duration: 1500
                 })
-                wx.navigateTo({
+                wx.reLaunch({
                   url: '../c-mine/c-mine'
                 })
               },
               fail: function (e) {
                 console.log(e)
+                util.toastMsg('提示', '网络异常')
               }
             })
           } else if (res.cancel) {

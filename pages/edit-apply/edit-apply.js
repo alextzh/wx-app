@@ -57,6 +57,10 @@ Page({
           } else if (res.cancel) {
             console.log('已取消')
           }
+        },
+        fail: function (e) {
+          console.log(e)
+          util.toastMsg('提示', '网络异常')
         }
       })
     }
@@ -77,8 +81,8 @@ Page({
   },
   // 校验赎回金额
   checkSubscribe: function (param) {
-    var amt = parseInt(param.subscribeAmt)
-    var min = parseInt(this.data.currentProduct.min_money) / 10000
+    var amt = param.subscribeAmt
+    var min = this.data.currentProduct.min_money / 10000
     if (!amt) {
       wx.showModal({
         title: '提示',
@@ -93,11 +97,11 @@ Page({
         content: '最小申购份额为'+ min +'万份'
       })
       return false
-    } else if (amt > 10000) {
+    } else if (amt > 100000) {
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '最大申购份额为10000万份'
+        content: '最大申购份额为100000万份'
       })
       return false
     } else if (amt % 1 !== 0) {
@@ -138,19 +142,21 @@ Page({
           return false
         }
         that.setSubscribeData1()
+        wx.showToast({
+          title: '修改申请已提交',
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: '修改申请已提交',
-            icon: 'success',
-            duration: 1500
+          that.setSubscribeData2()
+          wx.reLaunch({
+            url: '../mine/mine'
           })
-          setTimeout(() => {
-            that.setSubscribeData2()
-            wx.navigateTo({
-              url: '../mine/mine'
-            })
-          }, 500)
-        }, 2000)
+        }, 500)
+      },
+      fail: function (e) {
+        console.log(e)
+        util.toastMsg('提示', '网络异常')
       }
     })
   }

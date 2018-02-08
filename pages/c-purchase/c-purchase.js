@@ -1,4 +1,5 @@
 const app = getApp()
+var util = require("../../utils/util.js")
 var page = 1
 var rows = 10
 
@@ -29,19 +30,9 @@ var getProductList = function (that, customer_id) {
       }
       var totalPage = res.data.obj.totalPage
       var list = res.data.obj.list
-      if (!list.length) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: '暂无申购中产品'
-        })
-        that.setData({
-          hasData: true
-        })
-        return false
-      }
       that.setData({
-        productList: that.data.productList.concat(list)
+        productList: that.data.productList.concat(list),
+        hasData: false
       })
       page++
       if (page > totalPage) {
@@ -52,6 +43,7 @@ var getProductList = function (that, customer_id) {
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     },
     complete: function () {
       wx.hideLoading()

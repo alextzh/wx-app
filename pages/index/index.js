@@ -31,17 +31,6 @@ var getProductList = function (that, customer_id) {
       }
       var totalPage = res.data.obj.totalPage
       var list = res.data.obj.list
-      if (!list.length) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: '暂无申购中产品'
-        })
-        that.setData({
-          hasData: true
-        })
-        return false
-      }
       for (let i = 0; i < list.length; i++) {
         list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
         list[i].expect_quota = util.rendererZhMoneyWan(list[i].expect_quota)
@@ -50,7 +39,8 @@ var getProductList = function (that, customer_id) {
         list[i].sg_end_time = util._normalizeDate(list[i].sg_end_time)
       }
       that.setData({
-        productList: that.data.productList.concat(list)
+        productList: that.data.productList.concat(list),
+        hasData: false
       })
       page++
       if (page > totalPage) {
@@ -61,6 +51,7 @@ var getProductList = function (that, customer_id) {
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     },
     complete: function () {
       wx.hideLoading()

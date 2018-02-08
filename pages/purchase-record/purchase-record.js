@@ -1,15 +1,11 @@
 const app = getApp()
 var util = require("../../utils/util.js")
-var page = 1
-var rows = 10
 
 // 获取申购产品列表
 var getPurchaseList = function (that, id) {
   wx.request({
-    url: app.api_url + '/api/v1/subscribe/mySubscribes',
+    url: app.api_url + '/api/v1/subscribe/allByCustomerId',
     data: {
-      page: page,
-      rows: rows,
       customer_id: id
     },
     header: {
@@ -28,26 +24,20 @@ var getPurchaseList = function (that, id) {
         })
         return false
       }
-      var totalPage = res.data.obj.totalPage
-      var list = res.data.obj.list
+      var list = res.data.obj
       for (let i = 0; i < list.length; i++) {
         list[i].subscribe_time = util._normalizeDate(list[i].subscribe_time)
-        list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
         list[i].subscribe_money = util.rendererZhMoneyWan(list[i].subscribe_money)
         list[i].settlement_time = _normalizeStr(list[i].settlement_time)
       }
       that.setData({
-        purchaseList: that.data.purchaseList.concat(list)
+        purchaseList: that.data.purchaseList.concat(list),
+        hasData: false
       })
-      page++
-      if (page > totalPage) {
-        that.setData({
-          hasMore: false
-        })
-      }
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     },
     complete: function () {
       wx.hideLoading()
@@ -77,14 +67,12 @@ Page({
     purchaseList: [],
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
-    hasMore: true, // 是否下拉加载
     isFirstAction: true
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    page = 1
     wx.showLoading({
       title: '加载中',
     })
@@ -112,11 +100,9 @@ Page({
    */
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading()
-    page = 1
     var that = this
     that.setData({
       fresh: true,
-      hasMore: true,
       purchaseList: []
     })
     try {
@@ -132,18 +118,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    var that = this
-    if (!that.data.hasMore) {
-      return false
-    }
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if (userInfo) {
-        getPurchaseList(that, userInfo.id)
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
   },
   // 申请赎回操作
   redeemAction: function (e) {
@@ -153,29 +127,13 @@ Page({
       this.setData({
         isFirstAction: false
       })
+      let item = e.currentTarget.dataset.item
       try {
-        wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+        wx.setStorageSync('CURPRODUCT', item)
       } catch (e) {
       }
-      wx.request({
-        url: app.api_url + '/api/v1/redeem/checkStatus/' + e.currentTarget.dataset.item.product_id,
-        method: 'GET',
-        success: function (res) {
-          if (!res.data.ret) {
-            wx.showModal({
-              title: '提示',
-              showCancel: false,
-              content: res.data.msg
-            })
-            return false
-          }
-          wx.navigateTo({
-            url: '../redeem/redeem'
-          })
-        },
-        fail: function (e) {
-          console.log(e)
-        }
+      wx.navigateTo({
+        url: '../redeem/redeem'
       })
     }
   },
@@ -246,12 +204,13 @@ Page({
                 icon: 'success',
                 duration: 1500
               })
-              wx.navigateTo({
+              wx.reLaunch({
                 url: '../mine/mine'
               })
             },
             fail: function (e) {
               console.log(e)
+              util.toastMsg('提示', '网络异常')
             }
           })
         } else if (res.cancel) {

@@ -1,3 +1,4 @@
+var util = require("../../utils/util.js")
 const app = getApp()
 
 /**
@@ -33,6 +34,7 @@ var getSubProductList = function (that, customer_id, id) {
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     }
   })
 }
@@ -68,6 +70,7 @@ function itemIsCanPurchase (that, customer_id, product_id) {
       },
       fail: function (e) {
         console.log(e)
+        util.toastMsg('提示', '网络异常')
       }
     })
   }
@@ -146,7 +149,7 @@ Page({
   },
   // 校验申购金额
   checkPurchase: function (param) {
-    var amt = parseInt(param.purchaseAmt)
+    var amt = param.purchaseAmt
     var curPlan = this.data.currentPlan
     var min = parseInt(curPlan.min_money) / 10000
     var step = parseInt(curPlan.step_money) / 10000
@@ -223,19 +226,22 @@ Page({
           return false
         }
         that.setRedeemData1()
+        wx.showToast({
+          title: '申购申请已提交',
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: '申购申请已提交',
-            icon: 'success',
-            duration: 1500
+          that.setRedeemData2()
+          wx.reLaunch({
+            url: '../mine/mine'
           })
-          setTimeout(() => {
-            that.setRedeemData2()
-            wx.navigateTo({
-              url: '../mine/mine'
-            })
-          }, 500)
-        }, 2000)
+        }, 500)
+      },
+      fail: function (e) {
+        console.log(e)
+        util.toastMsg('提示', '网络异常')
+        that.setRedeemData2()
       }
     })
   }

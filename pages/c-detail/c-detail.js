@@ -1,4 +1,5 @@
 const app = getApp()
+var util = require("../../utils/util.js")
 
 Page({
   data: {
@@ -124,19 +125,20 @@ Page({
           return false
         }
         that.setRedeemData1()
+        wx.showToast({
+          title: '申购申请已提交',
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: '申购申请已提交',
-            icon: 'success',
-            duration: 1500
+          that.setRedeemData2()
+          wx.reLaunch({
+            url: '../c-mine/c-mine'
           })
-          setTimeout(() => {
-            that.setRedeemData2()
-            wx.navigateTo({
-              url: '../c-mine/c-mine'
-            })
-          }, 500)
-        }, 2000)
+        }, 500)
+      },
+      fail: function (e) {
+        util.toastMsg('提示', '网络异常')
       }
     })
   }

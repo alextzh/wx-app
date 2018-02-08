@@ -35,7 +35,8 @@ var getRedeemRecord = function (that, id) {
         list[i].money = util.rendererZhMoneyWan(list[i].money)
       }
       that.setData({
-        redeemRecord: that.data.redeemRecord.concat(list)
+        redeemRecord: that.data.redeemRecord.concat(list),
+        hasData: false
       })
       page++
       if (page > totalPage) {
@@ -46,6 +47,7 @@ var getRedeemRecord = function (that, id) {
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     },
     complete: function () {
       wx.hideLoading()
@@ -165,12 +167,13 @@ Page({
                 icon: 'success',
                 duration: 1500
               })
-              wx.navigateTo({
+              wx.reLaunch({
                 url: '../mine/mine'
               })
             },
             fail: function (e) {
               console.log(e)
+              util.toastMsg('提示', '网络异常')
             }
           })
         } else if (res.cancel) {

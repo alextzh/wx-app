@@ -1,4 +1,5 @@
 const app = getApp()
+var util = require("../../utils/util.js")
 
 Page({
   data: {
@@ -116,7 +117,8 @@ Page({
   },
   // 校验赎回金额
   checkRedeem: function (param) {
-    var amt = parseInt(param.redeemAmt)
+    var amt = param.redeemAmt
+    var max = this.data.currentProduct.subscribe_money
     if (!amt) {
       wx.showModal({
         title: '提示',
@@ -129,6 +131,13 @@ Page({
         title: '提示',
         showCancel: false,
         content: '最小赎回份额为1万份'
+      })
+      return false
+    } else if (amt > max) {
+      wx.showModal({
+        title: '提示',
+        showCancel: false,
+        content: '赎回份额不能大于申购份额'
       })
       return false
     } else if (amt % 1 !== 0) {
@@ -167,19 +176,21 @@ Page({
           return false
         }
         that.setRedeemData1(bType)
+        wx.showToast({
+          title: '赎回申请已提交',
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: '赎回申请已提交',
-            icon: 'success',
-            duration: 1500
+          that.setRedeemData2(bType)
+          wx.reLaunch({
+            url: '../mine/mine'
           })
-          setTimeout(() => {
-            that.setRedeemData2(bType)
-            wx.navigateTo({
-              url: '../mine/mine'
-            })
-          }, 500)
-        }, 2000)
+        }, 500)
+      },
+      fail: function (e) {
+        console.log(e)
+        util.toastMsg('提示', '网络异常')
       }
     })
   }

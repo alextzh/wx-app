@@ -105,19 +105,22 @@ Page({
           that.setModifyData2()
           return false
         }
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'success',
-            duration: 1500
+          that.setModifyData2()
+          wx.reLaunch({
+            url: '../mine/mine'
           })
-          setTimeout(() => {
-            that.setModifyData2()
-            wx.navigateTo({
-              url: '../mine/mine'
-            })
-          }, 500)
-        }, 2000)
+        }, 500)
+      },
+      fail: function (e) {
+        console.log(e)
+        util.toastMsg('提示', '网络异常')
+        that.setModifyData2()
       }
     })
   }

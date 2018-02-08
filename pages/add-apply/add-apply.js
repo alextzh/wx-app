@@ -12,7 +12,6 @@ var getRechargeChannel = function (that) {
       if (!res.data) {
         return false
       }
-      console.log(res.data)
       var pickerArr = []
       var showArr = res.data
       showArr.forEach(e => {
@@ -104,9 +103,9 @@ Page({
       btnLoading: !this.data.btnLoading
     })
   },
-  // 校验赎回金额
+  // 校验追加金额
   checkSubscribe: function (param) {
-    var amt = parseInt(param.subscribeAmt)
+    var amt = param.subscribeAmt
     if (!amt) {
       wx.showModal({
         title: '提示',
@@ -121,11 +120,11 @@ Page({
         content: '最小申购份额为1万份'
       })
       return false
-    } else if (amt > 10000) {
+    } else if (amt > 100000) {
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '最大申购份额为10000万份'
+        content: '最大申购份额为100000万份'
       })
       return false
     } else if (amt % 1 !== 0) {
@@ -169,19 +168,22 @@ Page({
           return false
         }
         that.setSubscribeData1()
+        wx.showToast({
+          title: '追加份额申请成功',
+          icon: 'success',
+          duration: 1500
+        })
         setTimeout(() => {
-          wx.showToast({
-            title: '份额追加成功',
-            icon: 'success',
-            duration: 1500
+          that.setSubscribeData2()
+          wx.reLaunch({
+            url: '../mine/mine'
           })
-          setTimeout(() => {
-            that.setSubscribeData2()
-            wx.navigateTo({
-              url: '../mine/mine'
-            })
-          }, 500)
-        }, 2000)
+        }, 500)
+      },
+      fail: function (e) {
+        console.log(e)
+        util.toastMsg('提示', '网络异常')
+        that.setSubscribeData2()
       }
     })
   }

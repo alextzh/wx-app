@@ -37,39 +37,43 @@
             </block>
           </view>
         </view>
-        <!-- <block wx:if="{{(item.product_status === '申购中' || item.product_status === '操盘中') && item.subscribe_status === '审核通过'}}">
+        <block wx:if="{{item.isEdit || item.isDel}}">
           <view class="item_action">
+            <block wx:if="{{item.isEdit}}">
+              <view style="flex: 1;margin-right: 20rpx;">
+                <button style='flex:1' class="redeemAllBtn" catchtap="editAction"
+                data-item="{{item}}">修改申购</button>
+              </view>
+            </block>
+            <block wx:if="{{item.isDel}}">
+              <view style="flex: 1;">
+                <button class="redeemAllBtn" data-subsid="{{item.subscribe_id}}" catchtap="cancelAction">删除记录</button>
+              </view>
+            </block>
+          </view>
+        </block>
+        <block wx:if="{{item.isRecast || item.isRedeem}}">
+          <view class="item_action" wx:if="{{item.isRecast && item.isRedeem}}">
+            <view style="flex: 1;margin-right: 20rpx;">
+              <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
+              data-item="{{item}}">申请赎回</button>
+            </view>
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="addAction"
               data-item="{{item}}">追加份额</button>
             </view>
           </view>
-        </block> -->
-        <block wx:if="{{(item.product_status === '申购中' && item.subscribe_status === '审核拒绝') || (item.product_status === '申购中' && item.subscribe_status === '待审核')}}">
-          <view class="item_action">
-            <view style="flex: 1;margin-right: 20rpx;">
-              <button style='flex:1' class="redeemAllBtn" catchtap="editAction"
-              data-item="{{item}}">修改申购</button>
-            </view>
+          <view class="item_action" wx:if="{{item.isRedeem && !item.isRecast}}">
             <view style="flex: 1;">
-              <button class="redeemAllBtn" data-subsid="{{item.subscribe_id}}" catchtap="cancelAction">删除记录</button>
+              <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
+              data-item="{{item}}">申请赎回</button>
             </view>
           </view>
-        </block>
-        <block wx:if="{{item.product_status === '操盘中' && item.subscribe_status === '审核通过'}}">
-          <view class="item_action">
-            <block wx:if="{{item.product_status === '操盘中' && item.subscribe_status === '审核通过'}}">
-              <view style="flex: 1;margin-right: 20rpx;">
-                <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
-                data-item="{{item}}">申请赎回</button>
-              </view>
-            </block>
-            <block wx:if="{{(item.product_status === '申购中' || item.product_status === '操盘中') && item.subscribe_status === '审核通过'}}">
-              <view style="flex: 1;">
-                <button style='flex:1' class="redeemAllBtn" catchtap="addAction"
-                data-item="{{item}}">追加份额</button>
-              </view>
-            </block>
+          <view class="item_action" wx:if="{{item.isRecast && !item.isRedeem}}">
+            <view style="flex: 1;">
+              <button style='flex:1' class="redeemAllBtn" catchtap="addAction"
+              data-item="{{item}}">追加份额</button>
+            </view>
           </view>
         </block>
       </view>

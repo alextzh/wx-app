@@ -1,3 +1,4 @@
+var util = require("../../utils/util.js")
 const app = getApp()
 
 // 获取申购产品列表
@@ -25,12 +26,14 @@ var getProductPlanList = function (that) {
         return false
       }
       that.setData({
-        productPlanList: res.data.obj
+        productPlanList: res.data.obj,
+        hasData: false
       })
       wx.hideLoading()
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     },
     complete: function () {
       wx.hideLoading()
