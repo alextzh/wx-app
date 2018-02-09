@@ -24,6 +24,14 @@
         <text class="all_data">{{currentProduct.subscribe_status}}</text>
       </view>
     </view>
+    <view class="item_foot" wx:if="{{currentProduct.recast_start_time}}">
+      <text>复投开始：</text>
+      <text>{{currentProduct.recast_start_time}}</text>
+    </view>
+    <view class="item_foot" wx:if="{{currentProduct.recast_end_time}}">
+      <text>复投结束：</text>
+      <text>{{currentProduct.recast_end_time}}</text>
+    </view>
     <view class="item_foot" style="display:flex;">
       <text>结算时间：</text>
       <view style="flex:1;display:flex;flex-wrap:wrap;">

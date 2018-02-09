@@ -23,11 +23,11 @@
             <text class="all_data">{{item.subscribe_time}}</text>
           </view>
         </view>
-        <view class="item_foot" wx:if="{{item.recast_start_time && item.isRecast}}">
+        <view class="item_foot" wx:if="{{item.recast_start_time}}">
           <text>复投开始：</text>
           <text>{{item.recast_start_time}}</text>
         </view>
-        <view class="item_foot" wx:if="{{item.recast_end_time && item.isRecast}}">
+        <view class="item_foot" wx:if="{{item.recast_end_time}}">
           <text>复投结束：</text>
           <text>{{item.recast_end_time}}</text>
         </view>
