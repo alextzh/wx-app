@@ -51,9 +51,8 @@ Page({
   },
   // 验证手机号
   checkUserName: function (param) {
-    var phone = util.regexConfig().phone
     var userName = param.username.trim()
-    if (phone.test(userName)) {
+    if (userName.length === 11) {
       return true;
     } else {
       util.toastMsg('提示', '请输入有效的手机号码')
