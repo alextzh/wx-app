@@ -163,6 +163,32 @@ Page({
       })
     }
   },
+  // 跳转到公告页面
+  toNotice: function () {
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      wx.navigateTo({
+        url: '../notice/notice'
+      })
+    }
+  },
+  // 跳转到常见问题页面
+  toQuestion: function () {
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      wx.navigateTo({
+        url: '../question/question'
+      })
+    }
+  },
   // 显示联系电话操作
   showLinkTo: function () {
     wx.showActionSheet({

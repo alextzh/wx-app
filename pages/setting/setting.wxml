@@ -6,16 +6,11 @@
         <text class="text">修改密码</text>
         <icon class="iconfont icon-goto fc999"></icon>
       </view>
-      <!-- <view class="item" wx:if="{{bind_status === 'N'}}" bindtap="bindWx">
-        <icon class="iconfont icon-risk" style="color:#E91E63;"></icon>
-        <text class="text">绑定微信</text>
-        <icon class="iconfont icon-goto fc999"></icon>
+      <view class="online_contact">
+        <icon class="iconfont icon-linkme icon" style="color:#003CFF;"></icon>
+        <button class="contact" open-type="contact">在线客服<text class="tip">(工作时间：9:00 - 21:00)</text></button>
+        <icon class="iconfont icon-goto fc999 arraw"></icon>
       </view>
-      <view class="item" wx:if="{{bind_status === 'Y'}}" bindtap="qxBindWx">
-        <icon class="iconfont icon-risk" style="color:#E91E63;"></icon>
-        <text class="text">解除绑定</text>
-        <icon class="iconfont icon-goto fc999"></icon>
-      </view> -->
       <view class="item">
         <icon class="iconfont icon-wechat" style="color:#77C34F;"></icon>
         <text class="text">微信绑定</text>

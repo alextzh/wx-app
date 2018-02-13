@@ -18,7 +18,10 @@
     "pages/modification/modification",
     "pages/index/index",
     "pages/c-purchase-record/c-purchase-record",
-    "pages/c-redeem-record/c-redeem-record"
+    "pages/c-redeem-record/c-redeem-record",
+    "pages/notice/notice",
+    "pages/question/question",
+    "pages/notice-detail/notice-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

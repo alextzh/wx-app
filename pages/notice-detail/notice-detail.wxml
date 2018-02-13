@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="box">
+    <view class="title"><text>{{curNotice.title}}</text></view>
+    <view class="pub_time"><text>发布时间：{{curNotice.pub_time}}</text></view>
+    <view class="content"><text>{{curNotice.content}}</text></view>
+  </view>
+</view>

@@ -120,13 +120,6 @@ Page({
         content: '最小申购份额为1万份'
       })
       return false
-    } else if (amt > 100000) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最大申购份额为100000万份'
-      })
-      return false
     } else if (amt % 1 !== 0) {
       wx.showModal({
         title: '提示',

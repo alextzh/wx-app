@@ -24,10 +24,10 @@
         <image src="../../images/shuhuijilu.svg"></image>
         <text class="text">赎回记录</text>
       </view>
-      <!-- <view class="item" bindtap="toRiskTip">
-        <icon class="iconfont icon-risk" style="color:#E91E63;"></icon>
-        <text class="text">风险提示</text>
-      </view> -->
+       <view class="item" bindtap="toNotice">
+        <image src="../../images/shengoujilu.svg"></image>
+        <text class="text">至元公告</text>
+      </view> 
       <view class="item" bindtap="showLinkTo">
         <image src="../../images/dianhua.svg"></image>
         <text class="text">联系我们</text>
@@ -38,10 +38,14 @@
           <text class="text">更改方案</text>
         </view>
       </block>
-      <button class="item contact" open-type="contact">
+      <view class="item" bindtap="toQuestion">
+        <image src="../../images/fanganxiugai.svg"></image>
+        <text class="text">常见问题</text>
+      </view>
+      <!-- <button class="item contact" open-type="contact">
         <image src="../../images/kefu.svg"></image>
         <text class="text">在线客服</text>
-      </button>
+      </button> -->
       <view class="item" bindtap="toSetting">
         <image src="../../images/shezhi.svg"></image>
         <text class="text">我的设置</text>
