@@ -21,7 +21,8 @@
     "pages/c-redeem-record/c-redeem-record",
     "pages/notice/notice",
     "pages/question/question",
-    "pages/notice-detail/notice-detail"
+    "pages/notice-detail/notice-detail",
+    "pages/management/management"
   ],
   "window": {
     "backgroundTextStyle": "light",

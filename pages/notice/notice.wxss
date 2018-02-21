@@ -32,6 +32,7 @@
   text-overflow:ellipsis;
   overflow:hidden;
   white-space:nowrap;
+  color: #ff5251;
 }
 .item_left .pub_time {
   color: #999;
@@ -40,5 +41,5 @@
   flex: 0 1 auto;
 }
 .item_right .btn {
-  color: #ff5251;
+  color: #333;
 }

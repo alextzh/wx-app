@@ -1,8 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ff5251",
   "navigationBarTextStyle": "light",
-  "navigationBarTitleText": "系统公告",
+  "navigationBarTitleText": "合同管理",
   "backgroundColor": "#f4f4f4",
-  "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "backgroundTextStyle": "dark"
 }

@@ -1,0 +1,5 @@
+<view class="container">
+  <view class="btn_box" bindtap="downloadFile">
+    <button>下载并预览</button>
+  </view>
+</view>

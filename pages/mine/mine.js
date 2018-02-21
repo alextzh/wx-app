@@ -150,8 +150,8 @@ Page({
       })
     }
   },
-  // 跳转到风险提示页面
-  toRiskTip: function () {
+  // 跳转到合同管理页面
+  toManagement: function () {
     if (!this.data.isFirstAction) {
       return false
     } else {
@@ -159,7 +159,7 @@ Page({
         isFirstAction: false
       })
       wx.navigateTo({
-        url: '../risk-tip/risk-tip'
+        url: '../management/management'
       })
     }
   },
