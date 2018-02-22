@@ -154,6 +154,69 @@ Page({
       })
     }
   },
+  // 修改追加
+  editFt: function (e) {
+    if (!this.data.isFirstAction) {
+      return false
+    } else {
+      this.setData({
+        isFirstAction: false
+      })
+      try {
+        wx.setStorageSync('CURPRODUCT', e.currentTarget.dataset.item)
+      } catch (e) {
+      }
+      wx.navigateTo({
+        url: '../modify-additional/modify-additional'
+      })
+    }
+  },
+  // 取消追加
+  cancelFt: function (e) {
+    let account_id = e.currentTarget.dataset.accountid
+    wx.showModal({
+      title: '提示',
+      content: '您确认要取消追加当前产品吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: app.api_url + '/api/v1/subscribe/qxRecast',
+            data: {
+              account_id: account_id
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST',
+            success: function (res) {
+              if (!res.data.ret) {
+                wx.showModal({
+                  title: '提示',
+                  showCancel: false,
+                  content: res.data.msg
+                })
+                return false
+              }
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'success',
+                duration: 1500
+              })
+              wx.reLaunch({
+                url: '../mine/mine'
+              })
+            },
+            fail: function (e) {
+              console.log(e)
+              util.toastMsg('提示', '网络异常')
+            }
+          })
+        } else if (res.cancel) {
+          console.log('已取消')
+        }
+      }
+    })
+  },
   // 修改申请
   editAction: function (e) {
     if (!this.data.isFirstAction) {

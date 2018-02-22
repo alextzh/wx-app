@@ -44,56 +44,6 @@
   width:100%;
   padding: 30rpx 0;
 }
-.select_type {
-  flex: 1;
-  display:flex;
-  align-items:center;
-  height:80rpx;
-  padding:0 30rpx;
-  box-sizing:border-box;
-}
-.select_type {
-  color: #333333;
-  position: relative;
-  margin-bottom: 10rpx;
-}
-.select_type icon {
-  position: absolute;
-  right: 30rpx;
-  top: 0;
-  line-height: 80rpx;
-  z-index: 0;
-}
-.type_title {
-  flex: 0 1 auto;
-  font-size: 28rpx;
-  letter-spacing:1rpx;
-}
-.type_picker {
-  flex: 1;
-  height:80rpx;
-}
-.picker {
-  position: relative;
-  width:100%;
-  height:80rpx;
-  display:flex;
-  align-items:center;
-}
-.picker::after {
-  content:" ";
-  width:200%;
-  height:200%;
-  position:absolute;
-  top:0;
-  left:0;
-  border-bottom:1px solid #BDBDBD;
-  -webkit-transform:scale(0.5);
-  transform:scale(0.5);
-  -webkit-transform-origin:0 0;
-  transform-origin:0 0;
-  box-sizing:border-box;
-}
 .input_area{
   flex:1;
   padding:0 30rpx;

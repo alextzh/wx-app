@@ -23,6 +23,18 @@
             <text class="all_data">{{item.subscribe_time}}</text>
           </view>
         </view>
+        <view class="item_body" wx:if="{{item.recast_money}}">
+          <view class="item__left">
+            <text>追加份额：</text>
+            <text class="new_data">{{item.recast_money / 10000}}万份</text>
+          </view>
+        </view>
+        <view class="item_body" wx:if="{{item.redeem_money}}">
+          <view class="item__left">
+            <text>赎回份额：</text>
+            <text class="new_data">{{item.redeem_money / 10000}}万份</text>
+          </view>
+        </view>
         <view class="item_foot" wx:if="{{item.recast_start_time}}">
           <text>复投开始：</text>
           <text>{{item.recast_start_time}}</text>
@@ -52,6 +64,21 @@
             <block wx:if="{{item.isDel}}">
               <view style="flex: 1;">
                 <button class="redeemAllBtn" data-subsid="{{item.subscribe_id}}" catchtap="cancelAction">删除记录</button>
+              </view>
+            </block>
+          </view>
+        </block>
+        <block wx:if="{{item.isEditFtBtn || item.isQxFtBtn}}">
+          <view class="item_action">
+            <block wx:if="{{item.isEditFtBtn}}">
+              <view style="flex: 1;margin-right: 20rpx;">
+                <button style='flex:1' class="redeemAllBtn" catchtap="editFt"
+                data-item="{{item}}">修改追加</button>
+              </view>
+            </block>
+            <block wx:if="{{item.isQxFtBtn}}">
+              <view style="flex: 1;">
+                <button class="redeemAllBtn" data-accountid="{{item.account_id}}" catchtap="cancelFt">取消追加</button>
               </view>
             </block>
           </view>

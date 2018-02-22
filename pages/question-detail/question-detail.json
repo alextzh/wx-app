@@ -1,8 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ff5251",
   "navigationBarTextStyle": "light",
-  "navigationBarTitleText": "常见问题",
+  "navigationBarTitleText": "问题详情",
   "backgroundColor": "#f4f4f4",
-  "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "backgroundTextStyle": "dark"
 }

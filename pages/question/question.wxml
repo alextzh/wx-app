@@ -1,2 +1,21 @@
-<!--pages/question/question.wxml-->
-<text>pages/question/question.wxml</text>
+<view class="container">
+  <view class="list">
+    <block wx:if="{{questionList.length > 0}}" wx:for="{{questionList}}" wx:key="index">
+      <view class="item" data-item="{{item}}" bindtap="toDetail">
+        <view class="item_left">
+          <text class="title">{{item.title}}</text>
+          <text class="pub_time">{{item.pub_time}}</text>
+        </view>
+        <view class="item_right">
+          <text class="btn">查看详情</text>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{hasData}}">
+      <view class="no_data">
+        <icon class="iconfont icon-nodata"></icon>
+      </view>
+    </block>
+  </view>
+</view>
+

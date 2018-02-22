@@ -4,29 +4,45 @@ var util = require('../../utils/util.js')
 /**
  * 获取充值渠道列表
 */
-var getRechargeChannel = function (that) {
+var getSubProductList = function (that, id) {
   wx.request({
-    url: app.api_url + '/api/v1/subscribe/czqd',
-    method: 'GET',
+    url: app.api_url + '/api/v1/product/listByBaseId',
+    data: {
+      base_product_id: id
+    },
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'POST',
     success: function (res) {
-      if (!res.data) {
-        return false
-      }
+      var list = res.data.obj.list.reverse()
       var pickerArr = []
-      var showArr = res.data
-      showArr.forEach(e => {
-        pickerArr.push(e.text)
-      })
-      that.setData({
-        showArr: showArr,
-        pickerArr: pickerArr,
-        currentChannel: showArr[0]
-      })
+      var showArr = list
+      if (showArr) {
+        showArr.forEach((e) => {
+          e.settlement_time = _normalizeStr(e.settlement_time)
+          pickerArr.push(e.name)
+        })
+        that.setData({
+          pickerArr: pickerArr,
+          showArr: showArr,
+          currentPlan: showArr[0]
+        })
+      }
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg('提示', '网络异常')
     }
   })
+}
+function _normalizeStr(str) {
+  str = str || ''
+  let arr = str.split(',')
+  let newArr = arr.map(item => {
+    return item
+  })
+  return newArr
 }
 
 Page({
@@ -38,7 +54,7 @@ Page({
     showArr: [],
     pickerArr: [],
     pickerIndex: 0,
-    currentChannel: null,
+    currentPlan: null,
     subscribeBtnTxt: '追加申购', // 提交修改按钮参数
     btnLoading: false,
     btnDisabled: false,
@@ -55,30 +71,30 @@ Page({
         currentProduct: value
       })
     }
-    getRechargeChannel(that)
+    getSubProductList(that, value.base_product_id)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
   // picker改变事件
   bindPickerChange: function (e) {
     var that = this
     that.setData({
       pickerIndex: e.detail.value,
-      currentChannel: that.data.showArr[e.detail.value]
+      currentPlan: that.data.showArr[e.detail.value]
     })
   },
   // 提交赎回
   formSubmit: function (e) {
     var that = this
     var param = e.detail.value
+    var planName = that.data.currentPlan.name
     if (that.checkSubscribe(param)) {
       wx.showModal({
         title: '提示',
-        content: '您确认要追加申购份额' + param.subscribeAmt + '万份吗',
+        content: '您确认要追加' + planName + '申购份额' + param.subscribeAmt + '万份吗',
         success: function (res) {
           if (res.confirm) {
             that.mySubmit(param)
@@ -134,17 +150,14 @@ Page({
   mySubmit: function (param) {
     var that = this
     var subscribeAmt = parseInt(param.subscribeAmt)
-    let subscribe_id = that.data.currentProduct.subscribe_id
-    let product_id = that.data.currentProduct.product_id
-    let currentChannel = that.data.currentChannel.id
+    let customer_id = wx.getStorageSync('USERINFO').id
+    let product_id = that.data.currentPlan.id
     wx.request({
-      url: app.api_url + '/api/v1/subscribe/addAccount',
+      url: app.api_url + '/api/v1/subscribe/addRecast',
       data: {
         product_id: product_id,
-        subscribe_id: subscribe_id,
-        money_of_account: subscribeAmt * 10000,
-        channel: currentChannel,
-        source: 'wx_xcx'
+        customer_id: customer_id,
+        money: subscribeAmt * 10000
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'

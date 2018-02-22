@@ -1,0 +1,25 @@
+.box {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:30rpx;
+  width:100%;
+  box-sizing:border-box;
+}
+.title {
+  padding-bottom: 20rpx;
+}
+.title text {
+  font-size: 36rpx;
+  color: #ff5251;
+}
+.pub_time text {
+  font-size: 26rpx;
+  color: #999999;
+}
+.content {
+  padding: 20rpx 0;
+}
+.content text {
+  font-size: 32rpx;
+}

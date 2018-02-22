@@ -22,7 +22,9 @@
     "pages/notice/notice",
     "pages/question/question",
     "pages/notice-detail/notice-detail",
-    "pages/management/management"
+    "pages/management/management",
+    "pages/question-detail/question-detail",
+    "pages/modify-additional/modify-additional"
   ],
   "window": {
     "backgroundTextStyle": "light",
