@@ -34,6 +34,7 @@ Page({
         content: '您确认要修改追加份额为' + param.subscribeAmt + '万份吗',
         success: function (res) {
           if (res.confirm) {
+            that.setSubscribeData1()
             that.mySubmit(param)
           } else if (res.cancel) {
             console.log('已取消')
@@ -120,7 +121,6 @@ Page({
           that.setSubscribeData2()
           return false
         }
-        that.setSubscribeData1()
         wx.showToast({
           title: '修改申请已提交',
           icon: 'success',

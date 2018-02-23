@@ -63,6 +63,7 @@ Page({
         content: '您确认要赎回' + param.redeemAmt + '万份吗',
         success: function (res) {
           if (res.confirm) {
+            that.setRedeemData1('all')
             that.mySubmit(param, 'all')
           } else if (res.cancel) {
             console.log('已取消')
@@ -76,6 +77,7 @@ Page({
           content: '您确认要赎回' + param.redeemAmt + '万份吗',
           success: function (res) {
             if (res.confirm) {
+              that.setRedeemData1('part')
               that.mySubmit(param, 'part')
             } else if (res.cancel) {
               console.log('已取消')
@@ -175,7 +177,6 @@ Page({
           that.setRedeemData2(bType)
           return false
         }
-        that.setRedeemData1(bType)
         wx.showToast({
           title: '赎回申请已提交',
           icon: 'success',

@@ -97,6 +97,7 @@ Page({
         content: '您确认要追加' + planName + '申购份额' + param.subscribeAmt + '万份吗',
         success: function (res) {
           if (res.confirm) {
+            that.setSubscribeData1()
             that.mySubmit(param)
           } else if (res.cancel) {
             console.log('已取消')
@@ -173,7 +174,6 @@ Page({
           that.setSubscribeData2()
           return false
         }
-        that.setSubscribeData1()
         wx.showToast({
           title: '追加份额申请成功',
           icon: 'success',

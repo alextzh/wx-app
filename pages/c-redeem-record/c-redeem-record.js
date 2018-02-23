@@ -98,11 +98,5 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
   }
 })

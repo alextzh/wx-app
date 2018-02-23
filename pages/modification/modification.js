@@ -93,6 +93,7 @@ Page({
         content: `您确认要更改方案为${curPlan.name}${param.purchaseAmt}万份吗`,
         success: function (res) {
           if (res.confirm) {
+            that.setRedeemData1()
             that.mySubmit(param)
           } else if (res.cancel) {
             console.log('已取消')
@@ -189,7 +190,6 @@ Page({
           that.setRedeemData2()
           return false
         }
-        that.setRedeemData1()
         wx.showToast({
           title: '方案修改已提交',
           icon: 'success',

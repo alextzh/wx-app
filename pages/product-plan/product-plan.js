@@ -18,7 +18,7 @@ var getProductPlanList = function (that) {
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: res.data.msg
+          content: res.data.msg,
         })
         that.setData({
           hasData: true

@@ -1,7 +1,7 @@
 var util = require("../../utils/util.js")
 const app = getApp()
 
-// 获取申购产品列表
+// 获取常见问题列表
 var getQuestionList = function (that) {
   wx.request({
     url: app.api_url + '/api/v1/question/all',

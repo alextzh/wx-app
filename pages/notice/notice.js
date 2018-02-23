@@ -1,7 +1,7 @@
 var util = require("../../utils/util.js")
 const app = getApp()
 
-// 获取申购产品列表
+// 获取系统公告列表
 var getNoticeList = function (that) {
   wx.request({
     url: app.api_url + '/api/v1/notice/all',
