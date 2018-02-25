@@ -27,11 +27,26 @@
           <text>申购时间：</text>
           <text>{{item.subscribe_time}}</text>
         </view>
-        <block wx:if="{{item.status === 'SHTG'}}">
+        <block wx:if="{{item.isSqXgfaBtn && item.status === 'SHTG'}}">
           <view class="item_action">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="modifyAction"
               data-item="{{item}}">申请更改方案</button>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{item.isSqXgfaBtn === false && item.status === 'SHTG'}}">
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button style='flex:1;font-size:20rpx;' disabled='true' class="redeemAllBtn">结算前三个交易日不能修改</button>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{item.qxSqXgfaBtn}}">
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button style='flex:1' class="redeemAllBtn" catchtap="cancelAction"
+              data-item="{{item}}">取消更改</button>
             </view>
           </view>
         </block>
