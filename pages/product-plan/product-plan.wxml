@@ -23,6 +23,18 @@
             <text class="all_data">{{item.subscribe_money / 10000}}万份</text>
           </view>
         </view>
+        <block wx:if="{{item.status === 'XGDSH'}}">
+          <view class="item_body">
+            <view class="item__left">
+              <text>修改方案：</text>
+              <text class="new_data">{{item.target_product_name}}</text>
+            </view>
+            <view class="item__right">
+              <text>修改份额：</text>
+              <text class="all_data">{{item.edit_money / 10000}}万份</text>
+            </view>
+          </view>
+        </block>
         <view class="item_foot" wx:if="{{item.subscribe_time}}">
           <text>申购时间：</text>
           <text>{{item.subscribe_time}}</text>
