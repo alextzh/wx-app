@@ -26,7 +26,7 @@
         <block wx:if="{{item.status === 'XGDSH'}}">
           <view class="item_body">
             <view class="item__left">
-              <text>修改方案：</text>
+              <text>目标方案：</text>
               <text class="new_data">{{item.target_product_name}}</text>
             </view>
             <view class="item__right">
@@ -50,7 +50,7 @@
         <block wx:if="{{item.isSqXgfaBtn === false && item.status === 'SHTG'}}">
           <view class="item_action">
             <view style="flex: 1;">
-              <button style='flex:1;font-size:20rpx;' disabled='true' class="redeemAllBtn">结算前三个交易日不能修改</button>
+              <button style='flex:1;' disabled='true' class="redeemAllBtn">结算前三个交易日不能修改</button>
             </view>
           </view>
         </block>

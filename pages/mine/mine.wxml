@@ -34,10 +34,10 @@
           <text class="text">更改方案</text>
         </view>
       </block>
-      <!-- <view class="item" bindtap="toManagement">
+       <view class="item" bindtap="toManagement">
         <image src="../../images/management.svg"></image>
         <text class="text">合同管理</text>
-      </view> -->
+      </view> 
       <view class="item" bindtap="toQuestion">
         <image src="../../images/question.svg"></image>
         <text class="text">常见问题</text>

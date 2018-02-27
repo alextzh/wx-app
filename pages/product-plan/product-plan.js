@@ -102,5 +102,50 @@ Page({
         url: '../modification/modification'
       })
     }
+  },
+  cancelAction: function (e) {
+    var edit_item_id = e.currentTarget.dataset.item.edit_item_id
+    wx.showModal({
+      title: '提示',
+      content: '您确认要取消修改当前产品吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: app.api_url + '/api/v1/product/qxXgFA',
+            data: {
+              edit_item_id: edit_item_id
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST',
+            success: function (res) {
+              if (!res.data.ret) {
+                wx.showModal({
+                  title: '提示',
+                  showCancel: false,
+                  content: res.data.msg
+                })
+                return false
+              }
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'success',
+                duration: 1500
+              })
+              wx.reLaunch({
+                url: '../mine/mine'
+              })
+            },
+            fail: function (e) {
+              console.log(e)
+              util.toastMsg('提示', '网络异常')
+            }
+          })
+        } else if (res.cancel) {
+          console.log('已取消')
+        }
+      }
+    })
   }
 })

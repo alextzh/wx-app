@@ -20,7 +20,7 @@
             <text class="all_data">{{item.redeem_time}}</text>
           </view>
         </view>
-        <block wx:if="{{item.isQxshBtn === false}}">
+        <block wx:if="{{item.isQxshBtn}}">
           <view class="item_action">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="cancelAction"

@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pdfUrl: '../../images.index.pdf',
+    pdfUrl: 'https://testapi.fadada.com/api//getdocs.action?app_id=400956&send_app_id=&v=2.0&timestamp=20180227121106&transaction_id=1519704588627_mcp&msg_digest=OEEyMDdDNTkzMjdGMTNDNDlGMEIyQzdDN0M3RUJFMUZBNjc2Rjg4Mg==',
     isFirstAction: true
   },
 
