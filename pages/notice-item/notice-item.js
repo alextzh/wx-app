@@ -1,25 +1,23 @@
-const app = getApp()
 var util = require("../../utils/util.js")
+const app = getApp()
 
-// 获取我的合同记录
-var getContractList = function (that) {
-  var custom = wx.getStorageSync('USERINFO')
+// 获取系统公告列表
+var getNoticeList = function (that, id) {
   wx.request({
-    url: app.api_url + '/api/v1/contract/customer_id',
+    url: app.api_url + '/api/v1/notice/all',
     data: {
-      customer_id: custom.id
+      type_id: id
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
     method: 'POST',
     success: function (res) {
-      console.log(res.data)
       if (!res.data.ret) {
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: res.data.msg,
+          content: res.data.msg
         })
         that.setData({
           hasData: true
@@ -27,7 +25,7 @@ var getContractList = function (that) {
         return false
       }
       that.setData({
-        contractList: res.data.obj,
+        noticeList: res.data.obj,
         hasData: false
       })
       wx.hideLoading()
@@ -54,11 +52,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // pdfUrl: 'https://testapi.fadada.com/api//getdocs.action?app_id=400956&send_app_id=&v=2.0&timestamp=20180227121106&transaction_id=1519704588627_mcp&msg_digest=OEEyMDdDNTkzMjdGMTNDNDlGMEIyQzdDN0M3RUJFMUZBNjc2Rjg4Mg==',
-    isFirstAction: true,
-    contractList: [],
+    noticeList: [],
     hasData: false, // 是否有数据
-    fresh: false // 下拉刷新标志
+    fresh: false, // 下拉刷新标志
+    isFirstAction: true
   },
 
   /**
@@ -69,7 +66,20 @@ Page({
       title: '加载中',
     })
     var that = this
-    getContractList(that)
+    var id = options.id
+    if (id === 'PTGG') {
+      wx.setNavigationBarTitle({
+        title: '系统公告'
+      })
+    } else if (id === 'CPGG') {
+      wx.setNavigationBarTitle({
+        title: '产品公告'
+      })
+    }
+    that.setData({
+      id: id
+    })
+    getNoticeList(that, id)
   },
 
   /**
@@ -91,37 +101,21 @@ Page({
     that.setData({
       fresh: true
     })
-    getContractList(that)
+    getNoticeList(that, that.data.id)
   },
-  downloadFile: function () {
-    var that = this
-    if (!that.data.isFirstAction) {
+  toDetail: function (e) {
+    if (!this.data.isFirstAction) {
       return false
     } else {
-      that.setData({
+      this.setData({
         isFirstAction: false
       })
-      wx.downloadFile({
-        url: that.data.pdfUrl,
-        success: function (res) {
-          if (res.statusCode === 200) {
-            var filePath = res.tempFilePath
-            wx.openDocument({
-              filePath: filePath,
-              success: function (res) {
-                console.log('打开成功')
-              },
-              fail: function (e) {
-                console.log(e)
-                util.toastMsg('提示', '网络异常')
-              }
-            })
-          }
-        },
-        fail: function (e) {
-          console.log(e)
-          util.toastMsg('提示', '网络异常')
-        }
+      try {
+        wx.setStorageSync('CURNOTICE', e.currentTarget.dataset.item)
+      } catch (e) {
+      }
+      wx.navigateTo({
+        url: '../notice-detail/notice-detail'
       })
     }
   }

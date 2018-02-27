@@ -4,7 +4,7 @@ const app = getApp()
 // 获取系统公告列表
 var getNoticeList = function (that) {
   wx.request({
-    url: app.api_url + '/api/v1/notice/all',
+    url: app.api_url + '/api/v1/notice/caption',
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
@@ -16,14 +16,10 @@ var getNoticeList = function (that) {
           showCancel: false,
           content: res.data.msg
         })
-        that.setData({
-          hasData: true
-        })
         return false
       }
       that.setData({
-        noticeList: res.data.obj,
-        hasData: false
+        noticeList: res.data.rows
       })
       wx.hideLoading()
     },
@@ -33,12 +29,6 @@ var getNoticeList = function (that) {
     },
     complete: function () {
       wx.hideLoading()
-      if (that.data.fresh) {
-        setTimeout(() => {
-          wx.hideNavigationBarLoading()
-          wx.stopPullDownRefresh()
-        }, 1000)
-      }
     }
   })
 }
@@ -50,8 +40,6 @@ Page({
    */
   data: {
     noticeList: [],
-    hasData: false, // 是否有数据
-    fresh: false, // 下拉刷新标志
     isFirstAction: true
   },
 
@@ -75,31 +63,16 @@ Page({
       isFirstAction: true
     })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    wx.showNavigationBarLoading()
-    var that = this
-    that.setData({
-      fresh: true
-    })
-    getNoticeList(that)
-  },
-  toDetail: function (e) {
+  toItem: function (e) {
     if (!this.data.isFirstAction) {
       return false
     } else {
       this.setData({
         isFirstAction: false
       })
-      try {
-        wx.setStorageSync('CURNOTICE', e.currentTarget.dataset.item)
-      } catch (e) {
-      }
+      let id = e.currentTarget.dataset.item.id
       wx.navigateTo({
-        url: '../notice-detail/notice-detail'
+        url: '../notice-item/notice-item?id='+ id
       })
     }
   }

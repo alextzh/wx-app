@@ -1,1 +1,67 @@
-/* pages/management/management.wxss */
+page{
+  background: #f6f6f6;
+}
+.list{
+  display: flex;
+  flex-direction:column;
+  width: 100%;
+}
+.item{
+  position: relative;
+  padding: 20rpx;
+  margin: 20rpx;
+  box-sizing:border-box;
+  background: #fff;
+  transition: all .3s;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+}
+.item:active{
+  box-shadow: 0 1px 3px 0 rgba(244,67,54,.2), 0 1px 1px 0 rgba(244,67,54,.14), 0 2px 1px -1px rgba(244,67,54,.12);
+}
+.item_head{
+  position: relative;
+  line-height:30px;
+  padding-bottom:20rpx;
+}
+.item_head icon{
+  color: #ff5251;
+  font-size: 36rpx;
+}
+.item_head .title{
+  padding-left: 20rpx;
+  font-size: 36rpx;
+  color: #212121;
+}
+.item_state{
+  float: right;
+  padding:0 20rpx;
+  background:#fff;
+  color:#ff5251;
+}
+.item_body{
+  display: flex;
+  line-height: 50rpx;
+}
+.item__left,.item__right{
+  flex: 1;
+  color: #333;
+  letter-spacing: 1rpx;
+}
+.new_data,.all_data{
+  font-size: 32rpx;
+  color: #ff5251;
+  letter-spacing: 0;
+}
+.item_foot{
+  color: #333;
+  line-height: 50rpx;
+  letter-spacing: 1rpx;
+}
+.item_action{
+  position: relative;
+  margin-top:20rpx;
+  padding-top:20rpx;
+  border-top:1px dashed #BDBDBD;
+  display: flex;
+}

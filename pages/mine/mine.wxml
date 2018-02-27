@@ -14,7 +14,7 @@
     <view class="list">
       <view class="item" bindtap="toNotice">
         <image src="../../images/notice.svg"></image>
-        <text class="text">系统公告</text>
+        <text class="text">至元公告</text>
       </view>
       <view class="item" bindtap="toPurchase">
         <image src="../../images/shengou.svg"></image>

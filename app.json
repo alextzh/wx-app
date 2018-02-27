@@ -24,7 +24,8 @@
     "pages/notice-detail/notice-detail",
     "pages/management/management",
     "pages/question-detail/question-detail",
-    "pages/modify-additional/modify-additional"
+    "pages/modify-additional/modify-additional",
+    "pages/notice-item/notice-item"
   ],
   "window": {
     "backgroundTextStyle": "light",
