@@ -122,14 +122,14 @@ Page({
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '请输入申购份额'
+        content: '请输入更改份额'
       })
       return false
     } else if (amt < min) {
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '最小申购份额为' + min + '万份'
+        content: '最小更改份额为' + min + '万份'
       })
       return false
     } else if (amt > max) {
@@ -143,7 +143,7 @@ Page({
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '申购递增份额为' + step + '万份'
+        content: '更改递增份额为' + step + '万份'
       })
       return false
     } else {

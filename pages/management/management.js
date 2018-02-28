@@ -5,7 +5,7 @@ var util = require("../../utils/util.js")
 var getContractList = function (that) {
   var custom = wx.getStorageSync('USERINFO')
   wx.request({
-    url: app.api_url + '/api/v1/contract/customer_id',
+    url: app.api_url + '/api/v1/contract/myContract',
     data: {
       customer_id: custom.id
     },
@@ -14,7 +14,6 @@ var getContractList = function (that) {
     },
     method: 'POST',
     success: function (res) {
-      console.log(res.data)
       if (!res.data.ret) {
         wx.showModal({
           title: '提示',
@@ -26,8 +25,20 @@ var getContractList = function (that) {
         })
         return false
       }
+      var list = res.data.rows
+      for (let i = 0; i < list.length; i++) {
+        try {
+          let flag = wx.getStorageSync(list[i].id)
+          if (flag) {
+            list[i].showDownload = false
+          } else {
+            list[i].showDownload = true
+          }
+        } catch (e) {
+        }
+      }
       that.setData({
-        contractList: res.data.obj,
+        contractList: list,
         hasData: false
       })
       wx.hideLoading()
@@ -54,11 +65,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // pdfUrl: 'https://testapi.fadada.com/api//getdocs.action?app_id=400956&send_app_id=&v=2.0&timestamp=20180227121106&transaction_id=1519704588627_mcp&msg_digest=OEEyMDdDNTkzMjdGMTNDNDlGMEIyQzdDN0M3RUJFMUZBNjc2Rjg4Mg==',
     isFirstAction: true,
     contractList: [],
     hasData: false, // 是否有数据
-    fresh: false // 下拉刷新标志
+    fresh: false, // 下拉刷新标志
   },
 
   /**
@@ -93,7 +103,7 @@ Page({
     })
     getContractList(that)
   },
-  downloadFile: function () {
+  downloadFile: function (e) {
     var that = this
     if (!that.data.isFirstAction) {
       return false
@@ -101,28 +111,81 @@ Page({
       that.setData({
         isFirstAction: false
       })
-      wx.downloadFile({
-        url: that.data.pdfUrl,
-        success: function (res) {
-          if (res.statusCode === 200) {
-            var filePath = res.tempFilePath
-            wx.openDocument({
-              filePath: filePath,
-              success: function (res) {
-                console.log('打开成功')
-              },
-              fail: function (e) {
-                console.log(e)
-                util.toastMsg('提示', '网络异常')
+      var id = e.currentTarget.dataset.item.id
+      try {
+        var flag = wx.getStorageSync(id)
+        if (flag) {
+          wx.openDocument({
+            filePath: flag,
+            success: function (res) {
+              console.log('预览成功')
+            },
+            fail: function (e) {
+              console.log(e)
+              util.toastMsg('提示', '网络异常')
+            }
+          })
+        } else {
+          let pdfUrl = e.currentTarget.dataset.item.download_url
+          wx.downloadFile({
+            url: pdfUrl,
+            success: function (res) {
+              if (res.statusCode === 200) {
+                console.log(res.tempFilePath)
+                var filePath = res.tempFilePath
+                wx.openDocument({
+                  filePath: filePath,
+                  success: function (res) {
+                    console.log('预览成功')
+                  },
+                  fail: function (e) {
+                    console.log(e)
+                    util.toastMsg('提示', '网络异常')
+                  }
+                })
               }
-            })
-          }
-        },
-        fail: function (e) {
-          console.log(e)
-          util.toastMsg('提示', '网络异常')
+            },
+            fail: function (e) {
+              console.log(e)
+              util.toastMsg('提示', '网络异常')
+            }
+          })
         }
-      })
+      } catch(e) {
+      }
     }
+  },
+  saveFile: function (e) {
+    var that = this
+    var id = e.currentTarget.dataset.item.id
+    let pdfUrl = e.currentTarget.dataset.item.download_url
+    wx.downloadFile({
+      url: pdfUrl,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          var filePath = res.tempFilePath
+          wx.saveFile({
+            tempFilePath: filePath,
+            success: function (res) {
+              var savedFilePath = res.savedFilePath
+              try {
+                wx.setStorageSync(id, savedFilePath)
+                util.toastMsg('下载成功', '文件保存到文件管理-微信')
+                getContractList(that)
+              } catch (e) {
+              }
+            },
+            fail: function (e) {
+              console.log(e)
+              util.toastMsg('提示', '网络异常')
+            }
+          })
+        }
+      },
+      fail: function (e) {
+        console.log(e)
+        util.toastMsg('提示', '网络异常')
+      }
+    })
   }
 })
