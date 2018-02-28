@@ -3,6 +3,5 @@
   "navigationBarTextStyle": "light",
   "navigationBarTitleText": "至元公告",
   "backgroundColor": "#f4f4f4",
-  "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "backgroundTextStyle": "dark"
 }
