@@ -6,9 +6,10 @@
           <icon class="iconfont icon-agreement"></icon>
           <text class="title">{{item.contract_type}}</text>
           <text class="item_state" style='color: #652D92;' wx:if="{{item.status === 'DQ'}}">{{item.contract_status}}</text>
-          <text class="item_state" style='color: #09B3CD;' wx:if="{{item.status === 'YQ'}}">{{item.contract_status}}</text>
+          <text class="item_state" style='color: #09B3CD;' wx:if="{{item.status === 'QYWC'}}">{{item.contract_status}}</text>
           <text class="item_state" style='color: #92278F;' wx:if="{{item.status === 'GD'}}">{{item.contract_status}}</text>
           <text class="item_state" style='color: #41123C;' wx:if="{{item.status === 'WQ'}}">{{item.contract_status}}</text>
+          <text class="item_state" style='color: #2E3094;' wx:if="{{item.status === 'KHYQ'}}">{{item.contract_status}}</text>
         </view>
         <view class="item_body">
           <view class="item__left">
