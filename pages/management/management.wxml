@@ -19,10 +19,10 @@
         </view>
         <block wx:if="{{item.download_url}}">
           <view class="item_action">
-            <view style="flex: 1;margin-right:20rpx;" wx:if="{{item.showDownload}}">
+            <!-- <view style="flex: 1;margin-right:20rpx;" wx:if="{{item.showDownload}}">
               <button style='flex:1' class="redeemAllBtn" catchtap="saveFile"
               data-item="{{item}}">下载</button>
-            </view>
+            </view> -->
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="downloadFile"
               data-item="{{item}}">预览</button>

@@ -111,27 +111,26 @@ Page({
       that.setData({
         isFirstAction: false
       })
-      var id = e.currentTarget.dataset.item.id
-      try {
-        var flag = wx.getStorageSync(id)
-        if (flag) {
-          wx.openDocument({
-            filePath: flag,
-            success: function (res) {
-              console.log('预览成功')
-            },
-            fail: function (e) {
-              console.log(e)
-              util.toastMsg('提示', '网络异常')
-            }
-          })
-        } else {
+      // var id = e.currentTarget.dataset.item.id
+      // try {
+      //   var flag = wx.getStorageSync(id)
+      //   if (flag) {
+      //     wx.openDocument({
+      //       filePath: flag,
+      //       success: function (res) {
+      //         console.log('预览成功')
+      //       },
+      //       fail: function (e) {
+      //         console.log(e)
+      //         util.toastMsg('提示', '网络异常')
+      //       }
+      //     })
+      //   } else {
           let pdfUrl = e.currentTarget.dataset.item.download_url
           wx.downloadFile({
             url: pdfUrl,
             success: function (res) {
               if (res.statusCode === 200) {
-                console.log(res.tempFilePath)
                 var filePath = res.tempFilePath
                 wx.openDocument({
                   filePath: filePath,
@@ -150,9 +149,9 @@ Page({
               util.toastMsg('提示', '网络异常')
             }
           })
-        }
-      } catch(e) {
-      }
+      //   }
+      // } catch(e) {
+      // }
     }
   },
   saveFile: function (e) {
