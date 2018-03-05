@@ -134,14 +134,21 @@ Page({
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '最小申购份额为1万份'
+        content: '最小追加份额为1万份'
+      })
+      return false
+    } else if (amt > 100000) {
+      wx.showModal({
+        title: '提示',
+        showCancel: false,
+        content: '最大追加份额为100000万份'
       })
       return false
     } else if (amt % 1 !== 0) {
       wx.showModal({
         title: '提示',
         showCancel: false,
-        content: '申购递增份额为1万份'
+        content: '追加递增份额为1万份'
       })
       return false
     } else {
