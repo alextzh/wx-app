@@ -124,31 +124,6 @@ Page({
         }
       })
     }
-  },
-  open: function () {
-    let pdfUrl = 'https://testapi.fadada.com/api//getdocs.action?app_id=400956&send_app_id=null&v=2.0&timestamp=20180307103141&transaction_id=1520389901996tbu&msg_digest=RjQ5RkI2Q0FFNTc1NDU1Mjg0NTlDNTAyRjVDMDZCNUQzQkIzNzQ0Rg=='
-    wx.downloadFile({
-      url: pdfUrl,
-      success: function (res) {
-        if (res.statusCode === 200) {
-          var filePath = res.tempFilePath
-          wx.openDocument({
-            filePath: filePath,
-            success: function (res) {
-              console.log('预览成功')
-            },
-            fail: function (e) {
-              console.log(e)
-              util.toastMsg('提示', '网络异常')
-            }
-          })
-        }
-      },
-      fail: function (e) {
-        console.log(e)
-        util.toastMsg('提示', '网络异常')
-      }
-    })
   }
   // saveFile: function (e) {
   //   var that = this
