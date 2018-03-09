@@ -26,17 +26,6 @@ var getContractList = function (that) {
         return false
       }
       var list = res.data.rows
-      for (let i = 0; i < list.length; i++) {
-        try {
-          let flag = wx.getStorageSync(list[i].id)
-          if (flag) {
-            list[i].showDownload = false
-          } else {
-            list[i].showDownload = true
-          }
-        } catch (e) {
-        }
-      }
       that.setData({
         contractList: list,
         hasData: false
@@ -111,68 +100,42 @@ Page({
       that.setData({
         isFirstAction: false
       })
-      // var id = e.currentTarget.dataset.item.id
-      // try {
-      //   var flag = wx.getStorageSync(id)
-      //   if (flag) {
-      //     wx.openDocument({
-      //       filePath: flag,
-      //       success: function (res) {
-      //         console.log('预览成功')
-      //       },
-      //       fail: function (e) {
-      //         console.log(e)
-      //         util.toastMsg('提示', '网络异常')
-      //       }
-      //     })
-      //   } else {
-          let pdfUrl = e.currentTarget.dataset.item.download_url
-          wx.downloadFile({
-            url: pdfUrl,
-            success: function (res) {
-              if (res.statusCode === 200) {
-                var filePath = res.tempFilePath
-                wx.openDocument({
-                  filePath: filePath,
-                  success: function (res) {
-                    console.log('预览成功')
-                  },
-                  fail: function (e) {
-                    console.log(e)
-                    util.toastMsg('提示', '网络异常')
-                  }
-                })
+      let pdfUrl = e.currentTarget.dataset.item.download_url
+      wx.downloadFile({
+        url: pdfUrl,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            var filePath = res.tempFilePath
+            wx.openDocument({
+              filePath: filePath,
+              success: function (res) {
+                console.log('预览成功')
+              },
+              fail: function (e) {
+                console.log(e)
+                util.toastMsg('提示', '网络异常')
               }
-            },
-            fail: function (e) {
-              console.log(e)
-              util.toastMsg('提示', '网络异常')
-            }
-          })
-      //   }
-      // } catch(e) {
-      // }
+            })
+          }
+        },
+        fail: function (e) {
+          console.log(e)
+          util.toastMsg('提示', '网络异常')
+        }
+      })
     }
   },
-  saveFile: function (e) {
-    var that = this
-    var id = e.currentTarget.dataset.item.id
-    let pdfUrl = e.currentTarget.dataset.item.download_url
+  open: function () {
+    let pdfUrl = 'https://testapi.fadada.com/api//getdocs.action?app_id=400956&send_app_id=null&v=2.0&timestamp=20180307103141&transaction_id=1520389901996tbu&msg_digest=RjQ5RkI2Q0FFNTc1NDU1Mjg0NTlDNTAyRjVDMDZCNUQzQkIzNzQ0Rg=='
     wx.downloadFile({
       url: pdfUrl,
       success: function (res) {
         if (res.statusCode === 200) {
           var filePath = res.tempFilePath
-          wx.saveFile({
-            tempFilePath: filePath,
+          wx.openDocument({
+            filePath: filePath,
             success: function (res) {
-              var savedFilePath = res.savedFilePath
-              try {
-                wx.setStorageSync(id, savedFilePath)
-                util.toastMsg('下载成功', '文件保存到文件管理-微信')
-                getContractList(that)
-              } catch (e) {
-              }
+              console.log('预览成功')
             },
             fail: function (e) {
               console.log(e)
@@ -187,4 +150,37 @@ Page({
       }
     })
   }
+  // saveFile: function (e) {
+  //   var that = this
+  //   var id = e.currentTarget.dataset.item.id
+  //   let pdfUrl = e.currentTarget.dataset.item.download_url
+  //   wx.downloadFile({
+  //     url: pdfUrl,
+  //     success: function (res) {
+  //       if (res.statusCode === 200) {
+  //         var filePath = res.tempFilePath
+  //         wx.saveFile({
+  //           tempFilePath: filePath,
+  //           success: function (res) {
+  //             var savedFilePath = res.savedFilePath
+  //             try {
+  //               wx.setStorageSync(id, savedFilePath)
+  //               util.toastMsg('下载成功', '文件保存到文件管理-微信')
+  //               getContractList(that)
+  //             } catch (e) {
+  //             }
+  //           },
+  //           fail: function (e) {
+  //             console.log(e)
+  //             util.toastMsg('提示', '网络异常')
+  //           }
+  //         })
+  //       }
+  //     },
+  //     fail: function (e) {
+  //       console.log(e)
+  //       util.toastMsg('提示', '网络异常')
+  //     }
+  //   })
+  // }
 })

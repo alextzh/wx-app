@@ -30,6 +30,7 @@
           </view>
         </block>
       </view>
+      <button catchtap="open">测试合同</button>
     </block>
     <block wx:if="{{hasData}}">
       <view class="no_data">
