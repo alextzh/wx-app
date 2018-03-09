@@ -108,3 +108,17 @@ page{
   font-size: 24rpx;
   padding: 0 20rpx;
 }
+.type_picker{
+  position:absolute;
+  width:100%;
+  top:0;
+  left:0;
+  right:0;
+  text-align:right;
+  padding:0 20rpx;
+  box-sizing:border-box;
+  z-index:99;
+}
+.picker{
+  font-size:32rpx;
+}

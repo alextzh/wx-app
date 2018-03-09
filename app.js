@@ -4,6 +4,7 @@ App({
   api_url: 'https://wx.yanysdd.com',
   onLaunch: function() {
     var that = this
+    wx.setStorageSync("lang", 'zh');
     wx.login({
       success: function (res) {
         if (res.code) {
