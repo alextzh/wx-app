@@ -1,14 +1,16 @@
 const app = getApp()
 const util = require('../../utils/util')
 const i18n = require('../../utils/i18n')
-const langData = require('../../utils/langData.js')
+const langData = require('../../utils/langData')
 
 // 绑定微信
 function bindWx(that) {
   let customer = wx.getStorageSync("USERINFO")
   wx.showModal({
-    title: '提示',
-    content: '您确认要把当前账户绑定该微信号吗？',
+    title: i18n[that.data.lg].common.tip,
+    content: i18n[that.data.lg].setting.tip2,
+    cancelText: i18n[that.data.lg].common.cancel,
+    confirmText: i18n[that.data.lg].common.confirm,
     success: function (res) {
       if (res.confirm) {
         wx.request({
@@ -57,8 +59,10 @@ function bindWx(that) {
 function qxBindWx(that) {
   let customer = wx.getStorageSync("USERINFO")
   wx.showModal({
-    title: '提示',
-    content: '您确认取消绑定该微信号吗？',
+    title: i18n[that.data.lg].common.tip,
+    content: i18n[that.data.lg].setting.tip3,
+    cancelText: i18n[that.data.lg].common.cancel,
+    confirmText: i18n[that.data.lg].common.confirm,
     success: function (res) {
       if (res.confirm) {
         wx.request({
@@ -122,8 +126,7 @@ Page({
       { type: 'tw', name: '繁体中文' }
     ],
     pickerArr: ['简体中文', 'English', '繁体中文'],
-    pickerIndex: 0,
-    lang: 'zh'
+    pickerIndex: 0
   }),
 
   /**
@@ -166,10 +169,9 @@ Page({
     that.setData({
       isFirstAction: true
     })
-    var lang = wx.getStorageSync('lang')
-    let title = lang === 'zh' ? '我的设置' : lang === 'en' ? 'Setting' : '我的設置'
+    let lang = wx.getStorageSync('lang')
     wx.setNavigationBarTitle({
-      title: title
+      title: i18n[lang].navigator.setting
     })
   },
 
@@ -179,13 +181,18 @@ Page({
   switchLanguage: function (e) {
     var that = this
     let lang = that.data.showArr[e.detail.value].type
-    let title = lang === 'zh' ? '我的设置' : lang === 'en' ? 'Setting' : '我的設置'
     that.setData({
       pickerIndex: e.detail.value,
       lg: lang
     })
     wx.setNavigationBarTitle({
-      title: title
+      title: i18n[that.data.lg].navigator.setting
+    })
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]
+    //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+    prevPage.setData({
+      lg: lang
     })
   },
   // 跳转到修改密码页面
@@ -220,12 +227,14 @@ Page({
   // 退出账号操作
   loginOut: function () {
     wx.showModal({
-      title: '退出提示',
-      content: '确定要退出账号吗',
+      title: i18n[this.data.lg].common.quitTip,
+      content: i18n[this.data.lg].setting.tip1,
+      cancelText: i18n[this.data.lg].common.cancel,
+      confirmText: i18n[this.data.lg].common.confirm,
       success: function (res) {
         if (res.confirm) {
           try {
-            wx.clearStorageSync()
+            wx.removeStorageSync('USERINFO')
           } catch (e) {
             // Do something when catch error
           }

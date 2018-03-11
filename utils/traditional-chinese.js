@@ -150,6 +150,8 @@ export default {
     modifyPwd: '修改密碼',
     logOut: '退出',
     tip1: '您確認要退出該賬戶嗎',
+    tip2: '您確認要把當前賬戶綁定該微信號嗎',
+    tip3: '您確認取消綁定該微信號嗎',
     onlineService: '在線客服',
     workTime: '工作時間',
     weChatBinding: '微信綁定'

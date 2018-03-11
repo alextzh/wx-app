@@ -1,31 +1,37 @@
-var util = require("../../utils/util.js")
-var app = getApp()
+const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    loginBtnTxt: "登录",
+  data: Object.assign({}, langData.data, {
     btnLoading: false,
     disabled: false,
     img_logo: '../../images/logo.png'
-  },
+  }),
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    
+    util.resetSetData.call(this, langData)
+    var that = this
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onShow: function () {
   },
   // 登录提交操作
   formSubmit: function (e) {
-    console.log(e.detail.formId)
     var param = e.detail.value
     var flag = this.checkUserName(param) && this.checkPassword(param)
     if (flag) {
@@ -36,7 +42,6 @@ Page({
   // 设置登录中按钮状态
   setLoginData1: function () {
     this.setData({
-      loginBtnTxt: "登录中",
       disabled: !this.data.disabled,
       btnLoading: !this.data.btnLoading
     });
@@ -44,7 +49,6 @@ Page({
   // 设置登录按钮状态
   setLoginData2: function () {
     this.setData({
-      loginBtnTxt: "登录",
       disabled: !this.data.disabled,
       btnLoading: !this.data.btnLoading
     });
@@ -55,7 +59,7 @@ Page({
     if (userName.length === 11) {
       return true;
     } else {
-      util.toastMsg('提示', '请输入有效的手机号码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].login.tip1, i18n[this.data.lg].common.confirm)
       return false;
     }
   },
@@ -63,10 +67,10 @@ Page({
   checkPassword: function (param) {
     var password = param.password.trim()
     if (password.length <= 0) {
-      util.toastMsg('提示', '请输入密码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].login.tip2, i18n[this.data.lg].common.confirm)
       return false
     } else if (password.length < 6 || password.length >20) {
-      util.toastMsg('提示', '请输入6-20位密码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].login.tip3, i18n[this.data.lg].common.confirm)
       return false
     } else {
       return true
@@ -90,7 +94,7 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          util.toastMsg('提示', res.data.msg)
+          util.toastMsg(i18n[this.data.lg].common.tip, res.data.msg, i18n[this.data.lg].common.confirm)
           that.setLoginData2()
           return false
         }
@@ -130,14 +134,14 @@ Page({
             })
           } else {
             wx.redirectTo({
-              url: '../mine/mine'
+              url: '../mine/mine?lg=' + that.data.lg
             })
           }
         }, 500)
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].common.network, i18n[this.data.lg].common.confirm)
         that.setLoginData2()
       }
     })

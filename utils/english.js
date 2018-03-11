@@ -150,6 +150,8 @@ export default {
     modifyPwd: 'Modify Password',
     logOut: 'Log Out',
     tip1: 'Are you sure you want to leave this account?',
+    tip2: 'Are you sure you want to bind the current account to this weChat?',
+    tip3: 'Did you confirm unbinding the weChat account?',
     onlineService: 'OnlineService',
     workTime: 'WorkTime',
     weChatBinding: 'WeChatBinding'
@@ -175,8 +177,8 @@ export default {
     modifyTip: 'Modify prompt',
     redeemTip: 'Redemption tips',
     quitTip: 'Quit tips',
-    confirm: 'Confirm',
-    cancel: 'Cancel'
+    confirm: '确定',
+    cancel: '取消'
   },
 
   scroll: {

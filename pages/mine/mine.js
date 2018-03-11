@@ -1,4 +1,7 @@
 const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 /**
  * 判断该用户是否有申购方案产品
@@ -35,17 +38,18 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     userAvatar: '/images/avatar.png',
     mobile: '',
     username: '',
     isShowPlan: false, // 是否显示产品方案
     isFirstAction: true
-  },
+  }),
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
+  onLoad: function (option) {
+    util.resetSetData.call(this, langData)
     var that = this
     // 调用应用实例的方法获取全局数据
     app.getUserInfo(function (res) {
@@ -59,17 +63,23 @@ Page({
         userAvatar: res.avatarUrl
       })
     })
-    // 从缓存取手机号、姓名
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if(userInfo) {
-        that.setData({
-          username: userInfo.name,
-          mobile: userInfo.phone
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
+    var userInfo = wx.getStorageSync('USERINFO')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    } else {
+      that.setData({
+        lg: option.lg
+      })
+      wx.setStorageSync('lang', option.lg)
+    }
+    if(userInfo) {
+      that.setData({
+        username: userInfo.name,
+        mobile: userInfo.phone
+      })
     }
   },
   /**

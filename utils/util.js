@@ -67,11 +67,12 @@ function regexConfig() {
   return reg;
 }
 /*showToast*/
-function toastMsg(tit, txt) {
+function toastMsg(tit, txt, confirmText) {
   wx.showModal({
     title: tit,
     showCancel: false,
-    content: txt
+    content: txt,
+    confirmText: confirmText
   })
 }
 
