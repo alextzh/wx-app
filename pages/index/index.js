@@ -1,5 +1,8 @@
 const app = getApp()
-var util = require("../../utils/util.js")
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
+
 var page = 1
 var rows = 10
 
@@ -19,11 +22,7 @@ var getProductList = function (that, customer_id) {
     method: 'POST',
     success: function (res) {
       if (!res.data.ret) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: res.data.msg
-        })
+        util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
         that.setData({
           hasData: true
         })
@@ -51,7 +50,7 @@ var getProductList = function (that, customer_id) {
     },
     fail: function (e) {
       console.log(e)
-      util.toastMsg('提示', '网络异常')
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     },
     complete: function () {
       wx.hideLoading()
@@ -78,23 +77,30 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     productList: [],
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
     hasMore: true, // 是否下拉加载
     isFirstAction: true
-  },
+  }),
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    util.resetSetData.call(this, langData)
+    var that = this
     page = 1
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
     wx.showLoading({
-      title: '加载中',
+      title: i18n[that.data.lg].common.loading
     })
     var customer_id = wx.getStorageSync('USERINFO').id
-    var that = this
     getProductList(that, customer_id)
   },
   /**
@@ -104,6 +110,10 @@ Page({
     var that = this
     that.setData({
       isFirstAction: true
+    })
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.product
     })
   },
   /**

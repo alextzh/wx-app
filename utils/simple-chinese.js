@@ -87,7 +87,8 @@ export default {
     tip3: '最小赎回份额为1万份',
     tip4: '赎回递增份额为1万份',
     tip5: '您确认要赎回当前产品',
-    redeemBtnTxt: '申请赎回',
+    redeemAllBtnTxt: '全部赎回',
+    redeemPartBtnTxt: '部分赎回',
     rule: {
       title: '赎回管理规则',
       one: '最小赎回份额为1万份，递增份额为1万份',

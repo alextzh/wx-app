@@ -1,22 +1,31 @@
 const app = getApp()
-var util = require('../../utils/util.js')
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     currentProduct: null,
-    subscribeBtnTxt: '提交修改', // 提交修改按钮参数
     btnLoading: false,
     btnDisabled: false,
-  },
+  }),
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    util.resetSetData.call(this, langData)
     var that = this
+    var that = this
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
     let value = wx.getStorageSync('CURPRODUCT')
     if (value) {
       that.setData({
@@ -24,14 +33,23 @@ Page({
       })
     }
   },
-  // 提交赎回
+
+  onShow: function () {
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.modifyAdd
+    })
+  },
+
+  // 提交修改追加
   formSubmit: function (e) {
     var that = this
     var param = e.detail.value
     if (that.checkSubscribe(param)) {
       wx.showModal({
-        title: '提示',
-        content: '您确认要修改追加份额为' + param.subscribeAmt + '万份吗',
+        title: i18n[that.data.lg].common.tip,
+        content: `${i18n[that.data.lg].addApply.tip7}${param.subscribeAmt}万份`,
+        confirmText: i18n[that.data.lg].common.confirm,
         success: function (res) {
           if (res.confirm) {
             that.setSubscribeData1()
@@ -42,61 +60,46 @@ Page({
         },
         fail: function (e) {
           console.log(e)
-          util.toastMsg('提示', '网络异常')
+          util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
         }
       })
     }
   },
+
   setSubscribeData1: function () {
     this.setData({
-      subscribeBtnTxt: "提交修改中",
       btnDisabled: true,
       btnLoading: true
     })
   },
+
   setSubscribeData2: function () {
     this.setData({
-      subscribeBtnTxt: "提交修改",
       btnDisabled: false,
       btnLoading: false
     })
   },
-  // 校验赎回金额
+
+  // 校验追加份额
   checkSubscribe: function (param) {
     var amt = param.subscribeAmt
-    var min = this.data.currentProduct.min_money / 10000
     if (!amt) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '请输入追加份额'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip1, i18n[this.data.lg].common.confirm)
       return false
-    } else if (amt < min) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最小追加份额为' + min + '万份'
-      })
+    } else if (amt < 1) {
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip2, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt > 100000) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最大追加份额为100000万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip3, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt % 1 !== 0) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '追加递增份额为1万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip4, i18n[this.data.lg].common.confirm)
       return false
     } else {
       return true
     }
   },
+  
   mySubmit: function (param) {
     var that = this
     var subscribeAmt = parseInt(param.subscribeAmt)
@@ -113,29 +116,25 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          wx.showModal({
-            title: '提示',
-            showCancel: false,
-            content: res.data.msg
-          })
+          util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
           that.setSubscribeData2()
           return false
         }
         wx.showToast({
-          title: '修改申请已提交',
+          title: res.data.msg,
           icon: 'success',
           duration: 1500
         })
         setTimeout(() => {
           that.setSubscribeData2()
           wx.reLaunch({
-            url: '../mine/mine'
+            url: '../mine/mine?lg=' + that.data.lg
           })
         }, 500)
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
       }
     })
   }

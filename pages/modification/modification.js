@@ -1,5 +1,7 @@
-var util = require("../../utils/util.js")
 const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 /**
  * 获取子产品列表
@@ -33,6 +35,7 @@ var getSubProductList = function (that, baseid) {
     },
     fail: function (e) {
       console.log(e)
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     }
   })
 }
@@ -49,21 +52,26 @@ function _normalizeStr(str) {
 }
 
 Page({
-  data: {
+  data: Object.assign({}, langData.data, {
     showArr: [],
     pickerArr: [],
     pickerIndex: 0,
     currentPlan: null,
     currentProduct: null,
-    modifyBtnTxt: '更改方案', // 修改方案按钮
     modifyBtnLoading: false,
     modifyDisabled: false,
-  },
+  }),
   onLoad: function () {
+    util.resetSetData.call(this, langData)
     var that = this
     try {
       var value = wx.getStorageSync('CURPRODUCT')
-      var userInfo = wx.getStorageSync('USERINFO')
+      var lang = wx.getStorageSync('lang')
+      if (lang) {
+        that.setData({
+          lg: lang
+        })
+      }
       if (value) {
         that.setData({
           currentProduct: value
@@ -73,8 +81,11 @@ Page({
     } catch (e) {
     }
   },
-  onReady: function () {
-    // 页面渲染完成
+  onShow: function () {
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.modifyPlan
+    })
   },
   bindPickerChange: function (e) {
     var that = this
@@ -89,8 +100,9 @@ Page({
     var curPlan = that.data.currentPlan
     if (that.checkModification(param)) {
       wx.showModal({
-        title: '提示',
-        content: `您确认要更改方案为${curPlan.name}${param.purchaseAmt}万份吗`,
+        title: i18n[that.data.lg].common.tip,
+        content: `${i18n[that.data.lg].modifyPlan.tip5}${curPlan.name}${param.purchaseAmt}万份?`,
+        confirmText: i18n[that.data.lg].common.confirm,
         success: function (res) {
           if (res.confirm) {
             that.setRedeemData1()
@@ -106,44 +118,29 @@ Page({
   checkModification: function (param) {
     var amt = param.purchaseAmt
     var curPlan = this.data.currentPlan
-    var oldName = this.data.currentProduct.product_name
-    var newName = curPlan.name
     var min = curPlan.min_money / 10000
     var max = this.data.currentProduct.subscribe_money / 10000
     var step = curPlan.step_money / 10000
-    if (newName === oldName) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '请选择其他方案'
-      })
-      return false
-    } else if (!amt) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '请输入更改份额'
-      })
+    if (!amt) {
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPlan.tip1, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt < min) {
       wx.showModal({
-        title: '提示',
+        title: i18n[this.data.lg].common.tip,
         showCancel: false,
-        content: '最小更改份额为' + min + '万份'
+        content: `${i18n[this.data.lg].modifyPlan.tip2}${min}万份`,
+        confirmText: i18n[this.data.lg].common.confirm
       })
       return false
     } else if (amt > max) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '更改份额不能大于申购份额'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPlan.tip3, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt % step !== 0) {
       wx.showModal({
-        title: '提示',
+        title: i18n[this.data.lg].common.tip,
         showCancel: false,
-        content: '更改递增份额为' + step + '万份'
+        content: `${i18n[this.data.lg].modifyPlan.tip4}${step}万份`,
+        confirmText: i18n[this.data.lg].common.confirm
       })
       return false
     } else {
@@ -152,14 +149,12 @@ Page({
   },
   setRedeemData1: function () {
     this.setData({
-      modifyBtnTxt: "更改方案中",
       modifyDisabled: true,
       modifyBtnLoading: true
     })
   },
   setRedeemData2: function () {
     this.setData({
-      modifyBtnTxt: "更改方案",
       modifyDisabled: false,
       modifyBtnLoading: false
     })
@@ -182,29 +177,25 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          wx.showModal({
-            title: '提示',
-            showCancel: false,
-            content: res.data.msg
-          })
+          util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
           that.setRedeemData2()
           return false
         }
         wx.showToast({
-          title: '方案修改已提交',
+          title: res.data.msg,
           icon: 'success',
           duration: 1500
         })
         setTimeout(() => {
           that.setRedeemData2()
           wx.reLaunch({
-            url: '../mine/mine'
+            url: '../mine/mine?lg=' + that.data.lg
           })
         }, 500)
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
         that.setRedeemData2()
       }
     })

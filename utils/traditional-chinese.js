@@ -87,7 +87,8 @@ export default {
     tip3: '最小贖回份額為1萬份',
     tip4: '贖回遞增份額為1萬份',
     tip5: '您確認要贖回當前產品',
-    redeemBtnTxt: '申請贖回',
+    redeemAllBtnTxt: '全部贖回',
+    redeemPartBtnTxt: '部分贖回',
     rule: {
       title: '贖回管理規則',
       one: '最小贖回份額為1萬份，遞增份額為1萬份',

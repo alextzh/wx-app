@@ -25,16 +25,20 @@
 .item__left,.item__right{
   flex: 1;
   color: #333;
-  letter-spacing: 1rpx;
+  display: flex;
+  align-items: center;
+  width: 50%;
 }
 .new_data,.all_data{
   font-size: 32rpx;
   color: #ff5251;
-  letter-spacing: 0;
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .item_foot{
   color: #333333;
-  letter-spacing: 1rpx;
   line-height: 50rpx;
 }
 

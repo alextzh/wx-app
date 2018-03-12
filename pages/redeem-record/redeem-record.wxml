@@ -12,11 +12,11 @@
         </view>
         <view class="item_body">
           <view class="item__left">
-            <text>赎回份额：</text>
+            <text>{{i18n.purchaseRecord.redeemShare}}：</text>
             <text class="new_data">{{item.money}}万份</text>
           </view>
           <view class="item__right">
-            <text>申请时间：</text>
+            <text>{{i18n.redeemRecord.applyTime}}：</text>
             <text class="all_data">{{item.redeem_time}}</text>
           </view>
         </view>
@@ -24,7 +24,7 @@
           <view class="item_action">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="cancelAction"
-              data-redeemid="{{item.id}}">取消赎回申请</button>
+              data-redeemid="{{item.id}}">{{i18n.redeemRecord.cancelRedeem}}</button>
             </view>
           </view>
         </block>

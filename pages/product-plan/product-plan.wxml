@@ -15,42 +15,42 @@
         </view>
         <view class="item_body">
           <view class="item__left">
-            <text>方案名称：</text>
+            <text>{{i18n.purchase.schemeName}}：</text>
             <text class="new_data">{{item.product_name}}</text>
           </view>
           <view class="item__right">
-            <text>申购份额：</text>
+            <text>{{i18n.purchase.bidShare}}：</text>
             <text class="all_data">{{item.subscribe_money / 10000}}万份</text>
           </view>
         </view>
         <block wx:if="{{item.status === 'XGDSH'}}">
           <view class="item_body">
             <view class="item__left">
-              <text>目标方案：</text>
+              <text>{{i18n.plan.targetScheme}}：</text>
               <text class="new_data">{{item.target_product_name}}</text>
             </view>
             <view class="item__right">
-              <text>修改份额：</text>
+              <text>{{i18n.plan.modifyShare}}：</text>
               <text class="all_data">{{item.edit_money / 10000}}万份</text>
             </view>
           </view>
         </block>
         <view class="item_foot" wx:if="{{item.subscribe_time}}">
-          <text>申购时间：</text>
+          <text>{{i18n.purchase.purchaseTime}}：</text>
           <text>{{item.subscribe_time}}</text>
         </view>
         <block wx:if="{{item.isSqXgfaBtn && item.status === 'SHTG'}}">
           <view class="item_action">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="modifyAction"
-              data-item="{{item}}">申请更改方案</button>
+              data-item="{{item}}">{{i18n.plan.applyModify}}</button>
             </view>
           </view>
         </block>
         <block wx:if="{{item.isSqXgfaBtn === false && item.status === 'SHTG'}}">
           <view class="item_action">
             <view style="flex: 1;">
-              <button style='flex:1;' disabled='true' class="redeemAllBtn">结算前三个交易日不能修改</button>
+              <button style='flex:1;' disabled='true' class="redeemAllBtn">{{i18n.plan.tip}}</button>
             </view>
           </view>
         </block>
@@ -58,7 +58,7 @@
           <view class="item_action">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="cancelAction"
-              data-item="{{item}}">取消更改</button>
+              data-item="{{item}}">{{i18n.plan.cancelModify}}</button>
             </view>
           </view>
         </block>

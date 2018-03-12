@@ -1,5 +1,8 @@
 const app = getApp()
-var util = require("../../utils/util.js")
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
+
 var page = 1
 var rows = 10
 
@@ -18,11 +21,7 @@ var getRedeemRecord = function (that, id) {
     method: 'POST',
     success: function (res) {
       if (!res.data.ret) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: res.data.msg
-        })
+        util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
         that.setData({
           hasData: true
         })
@@ -47,7 +46,7 @@ var getRedeemRecord = function (that, id) {
     },
     fail: function (e) {
       console.log(e)
-      util.toastMsg('提示', '网络异常')
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     },
     complete: function () {
       wx.hideLoading()
@@ -65,21 +64,28 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     redeemRecord: [],
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
     hasMore: true // 是否下拉加载
-  },
+  }),
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    util.resetSetData.call(this, langData)
     page = 1
-    wx.showLoading({
-      title: '加载中',
-    })
     var that = this
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
+    wx.showLoading({
+      title: i18n[that.data.lg].common.loading
+    })
     try {
       var userInfo = wx.getStorageSync('USERINFO')
       if (userInfo) {
@@ -91,10 +97,13 @@ Page({
     }
   },
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 生命周期函数--监听页面显示
    */
-  onReady: function () {
-    
+  onShow: function () {
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.redeemRecord
+    })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -139,8 +148,9 @@ Page({
   cancelAction: function (e) {
     let redeem_id = e.currentTarget.dataset.redeemid
     wx.showModal({
-      title: '提示',
-      content: '您确认要撤销当前产品赎回请求吗？',
+      title: i18n[this.data.lg].common.tip,
+      content: i18n[this.data.lg].redeemRecord.tip1,
+      confirmText: i18n[this.data.lg].common.confirm,
       success: function (res) {
         if (res.confirm) {
           wx.request({
@@ -153,13 +163,8 @@ Page({
             },
             method: 'POST',
             success: function (res) {
-              console.log(res)
               if (!res.data.ret) {
-                wx.showModal({
-                  title: '提示',
-                  showCancel: false,
-                  content: res.data.msg
-                })
+                util.toastMsg(i18n[this.data.lg].common.tip, res.data.msg, i18n[this.data.lg].common.confirm)
                 return false
               }
               wx.showToast({
@@ -167,13 +172,14 @@ Page({
                 icon: 'success',
                 duration: 1500
               })
+              let lg = wx.getStorageSync('lang')
               wx.reLaunch({
-                url: '../mine/mine'
+                url: '../mine/mine?lg=' + lg
               })
             },
             fail: function (e) {
               console.log(e)
-              util.toastMsg('提示', '网络异常')
+              util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].common.network, i18n[this.data.lg].common.confirm)
             }
           })
         } else if (res.cancel) {

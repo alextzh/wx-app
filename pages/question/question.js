@@ -1,5 +1,7 @@
-var util = require("../../utils/util.js")
 const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 // 获取常见问题列表
 var getQuestionList = function (that) {
@@ -11,11 +13,7 @@ var getQuestionList = function (that) {
     method: 'POST',
     success: function (res) {
       if (!res.data.ret) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: res.data.msg
-        })
+        util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
         that.setData({
           hasData: true
         })
@@ -29,7 +27,7 @@ var getQuestionList = function (that) {
     },
     fail: function (e) {
       console.log(e)
-      util.toastMsg('提示', '网络异常')
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     },
     complete: function () {
       wx.hideLoading()
@@ -48,21 +46,28 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     questionList: [],
     hasData: false, // 是否有数据
     fresh: false, // 下拉刷新标志
     isFirstAction: true
-  },
+  }),
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-    })
+    util.resetSetData.call(this, langData)
     var that = this
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
+    wx.showLoading({
+      title: i18n[that.data.lg].common.loading
+    })
     getQuestionList(that)
   },
 
@@ -73,6 +78,10 @@ Page({
     var that = this
     that.setData({
       isFirstAction: true
+    })
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.question
     })
   },
 

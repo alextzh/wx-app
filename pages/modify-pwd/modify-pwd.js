@@ -1,22 +1,30 @@
-var util = require("../../utils/util.js")
 const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    modifyBtnTxt: "修改",
+  data: Object.assign({}, langData.data, {
     btnLoading: false,
     disabled: false
-  },
+  }),
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    util.resetSetData.call(this, langData)
     var that = this
     try {
       var userInfo = wx.getStorageSync('USERINFO')
+      var lang = wx.getStorageSync('lang')
+      if (lang) {
+        that.setData({
+          lg: lang
+        })
+      }
       if (userInfo) {
         that.setData({
           cid: userInfo.id
@@ -26,19 +34,40 @@ Page({
       // Do something when catch error
     }
   },
+  onShow: function () {
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.password
+    })
+  },
   // 修改密码提交操作
   formSubmit: function (e) {
+    var that = this
     var param = e.detail.value
-    var flag = this.checkPassword(param) && this.checkNewPassword(param)
+    var flag = that.checkPassword(param) && that.checkNewPassword(param)
     if (flag) {
-      this.setModifyData1()
-      this.mySubmit(param)
+      wx.showModal({
+        title: i18n[that.data.lg].common.tip,
+        content: i18n[that.data.lg].modifyPwd.tip7,
+        confirmText: i18n[that.data.lg].common.confirm,
+        success: function (res) {
+          if (res.confirm) {
+            that.setModifyData1()
+            that.mySubmit(param)
+          } else if (res.cancel) {
+            console.log('已取消')
+          }
+        },
+        fail: function (e) {
+          console.log(e)
+          util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
+        }
+      })
     }
   },
   // 设置修改按钮状态-修改中
   setModifyData1: function () {
     this.setData({
-      modifyBtnTxt: "修改中",
       disabled: !this.data.disabled,
       btnLoading: !this.data.btnLoading
     });
@@ -46,7 +75,6 @@ Page({
   // 设置修改按钮状态
   setModifyData2: function () {
     this.setData({
-      modifyBtnTxt: "修改",
       disabled: !this.data.disabled,
       btnLoading: !this.data.btnLoading
     });
@@ -55,10 +83,10 @@ Page({
   checkPassword: function (param) {
     var password = param.password.trim()
     if (!password) {
-      util.toastMsg('提示', '请输入原密码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPwd.tip1, i18n[this.data.lg].common.confirm)
       return false
     } else if (password.length < 6 || password.length > 20) {
-      util.toastMsg('提示', '请输入6-20位原密码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPwd.tip4, i18n[this.data.lg].common.confirm)
       return false
     } else {
       return true
@@ -68,16 +96,16 @@ Page({
     var password1 = param.password1.trim()
     var password2 = param.password2.trim()
     if (!password1 || !password2) {
-      util.toastMsg('提示', '请输入新密码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPwd.tip2, i18n[this.data.lg].common.confirm)
       return false
     } else if (password1.length < 6 || password1.length > 20) {
-      util.toastMsg('提示', '请输入6-20位新密码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPwd.tip5, i18n[this.data.lg].common.confirm)
       return false
     } else if (password2.length < 6 || password2.length > 20) {
-      util.toastMsg('提示', '请输入6-20位新密码')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPwd.tip5, i18n[this.data.lg].common.confirm)
       return false
     } else if (password1 !== password2) {
-      util.toastMsg('提示', '两次新密码输入不一致')
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].modifyPwd.tip6, i18n[this.data.lg].common.confirm)
       return false
     } else {
       return true
@@ -101,7 +129,7 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          util.toastMsg('提示', res.data.msg)
+          util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
           that.setModifyData2()
           return false
         }
@@ -113,13 +141,13 @@ Page({
         setTimeout(() => {
           that.setModifyData2()
           wx.reLaunch({
-            url: '../mine/mine'
+            url: '../mine/mine?lg=' + that.data.lg
           })
         }, 500)
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
         that.setModifyData2()
       }
     })

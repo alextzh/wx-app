@@ -6,34 +6,34 @@
     </view>
     <view class="item_body">
       <view class="item__left">
-        <text>产品类型：</text>
+        <text>{{i18n.purchase.productType}}：</text>
         <text class="new_data">{{currentProduct.type}}</text>
       </view>
       <view class="item__right">
-        <text>产品状态：</text>
+        <text>{{i18n.purchase.productStatus}}：</text>
         <text class="all_data">{{currentProduct.status}}</text>
       </view>
     </view>
     <view class="item_body">
       <view class="item__left">
-        <text>起投份额：</text>
+        <text>{{i18n.purchase.minShare}}：</text>
         <text class="new_data">{{currentProduct.start_money / 10000}}万份</text>
       </view>
       <view class="item__right">
-        <text>递增份额：</text>
+        <text>{{i18n.purchase.increasingShare}}：</text>
         <text class="all_data">{{showArr[pickerIndex].step_money / 10000}}万份</text>
       </view>
     </view>
     <view class="item_foot" wx:if="{{currentProduct.status !== '操盘中'}}">
-      <text>申购时间：</text>
+      <text>{{i18n.purchase.purchaseTime}}：</text>
       <text>{{currentProduct.sg_start_time}} <text style="color:#F44336;">~</text> {{currentProduct.sg_end_time}}</text>
     </view>
     <view class="item_foot">
-      <text>操盘时间：</text>
+      <text>{{i18n.purchase.diskTime}}：</text>
       <text>{{currentProduct.caopan_time}}</text>
     </view>
     <view class="item_foot" style="display: flex;" wx:if="{{currentProduct.describe}}">
-      <text>产品简介：</text>
+      <text>{{i18n.purchase.productIntroduction}}：</text>
       <view style="flex: 1;">
         <text style="line-height: 1;">{{currentProduct.describe}}</text>
       </view>
@@ -45,7 +45,7 @@
         <block wx:if="{{pickerArr.length > 1}}">
           <view class="select_type">
             <icon class="iconfont icon-unfold"></icon>
-            <text class="type_title">方案类型：</text>
+            <text class="type_title">{{i18n.purchase.schemeType}}：</text>
             <picker class="type_picker" range='{{pickerArr}}' value='{{pickerIndex}}' bindchange='bindPickerChange'>
               <view class="picker">{{pickerArr[pickerIndex]}}</view>
             </picker>
@@ -55,17 +55,17 @@
           <view style="padding: 20rpx;">
             <view class="item_body">
               <view class="item__left">
-                <text>产品名称：</text>
+                <text>{{i18n.purchase.productName}}：</text>
                 <text class="new_data">{{showArr[pickerIndex].name}}</text>
               </view>
               <view class="item__right">
-                <text>最大人数：</text>
+                <text>{{i18n.purchase.maxNumber}}：</text>
                 <text class="all_data">{{showArr[pickerIndex].max_amount}}</text>
               </view>
             </view>
             
             <view class="item_foot" style='display:flex'>
-              <text>结算时间：</text>
+              <text>{{i18n.purchase.settlementTime}}：</text>
               <view style="flex:1;display:flex;flex-wrap:wrap;">
                 <block wx:for="{{showArr[pickerIndex].settlement_time}}" wx:key="index">
                   <view style='display:flex;width:50%;'>
@@ -75,7 +75,7 @@
               </view>
             </view>
             <view class="item_foot" style="display: flex;">
-              <text>产品详情：</text>
+              <text>{{i18n.purchase.productDetail}}：</text>
               <view style="flex: 1;">
                 <text style="line-height: 1;">{{showArr[pickerIndex].describe}}</text>
               </view>
@@ -86,17 +86,17 @@
           <view style="padding: 0 20rpx 10rpx;">
             <view class="item_body">
               <view class="item__left">
-                <text>方案名称：</text>
+                <text>{{i18n.purchase.schemeName}}：</text>
                 <text class="new_data">{{showArr[pickerIndex].name}}</text>
               </view>
               <view class="item__right">
-                <text>最大人数：</text>
+                <text>{{i18n.purchase.maxNumber}}：</text>
                 <text class="all_data">{{showArr[pickerIndex].max_amount}}</text>
               </view>
             </view>
             
             <view class="item_foot" style='display:flex'>
-              <text>结算时间：</text>
+              <text>{{i18n.purchase.settlementTime}}：</text>
               <view style="flex:1;display:flex;flex-wrap:wrap;">
                 <block wx:for="{{showArr[pickerIndex].settlement_time}}" wx:key="index">
                   <view style='display:flex;width:50%;'>
@@ -106,7 +106,7 @@
               </view>
             </view>
             <view class="item_foot" style="display: flex;">
-              <text>方案详情：</text>
+              <text>{{i18n.purchase.schemeDetail}}：</text>
               <view style="flex: 1;">
                 <text style="">{{showArr[pickerIndex].describe}}</text>
               </view>
@@ -115,18 +115,17 @@
         </block>
         <block wx:if="{{isHidden}}">
           <view class="input_area">
-            <view class="input_title">申购金额：</view>
+            <view class="input_title">{{i18n.purchase.bidShare}}：</view>
             <view class="input_con">
-              <input type="number" name="purchaseAmt" placeholder='请输入申购金额' />
+              <input type="number" name="purchaseAmt" placeholder='{{i18n.purchase.tip1}}' />
               <text class='unit'>万份</text>
             </view>
           </view>
           <view class="btn_area">
-            <button formType="submit" loading="{{purchaseBtnLoading}}" disabled="{{purchaseDisabled}}">{{purchaseBtnTxt}}</button>
+            <button formType="submit" loading="{{purchaseBtnLoading}}" disabled="{{purchaseDisabled}}">{{i18n.purchase.purchaseBtnTxt}}</button>
           </view>
         </block>
       </form>
     </view>
   </view>
-  
 </view>

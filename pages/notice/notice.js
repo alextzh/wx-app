@@ -1,5 +1,7 @@
-var util = require("../../utils/util.js")
 const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 // 获取系统公告列表
 var getNoticeList = function (that) {
@@ -11,11 +13,7 @@ var getNoticeList = function (that) {
     method: 'POST',
     success: function (res) {
       if (!res.data.ret) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: res.data.msg
-        })
+        util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
         return false
       }
       that.setData({
@@ -25,7 +23,7 @@ var getNoticeList = function (that) {
     },
     fail: function (e) {
       console.log(e)
-      util.toastMsg('提示', '网络异常')
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     },
     complete: function () {
       wx.hideLoading()
@@ -38,19 +36,26 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     noticeList: [],
     isFirstAction: true
-  },
+  }),
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-    })
+    util.resetSetData.call(this, langData)
     var that = this
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
+    wx.showLoading({
+      title: i18n[that.data.lg].common.loading
+    })
     getNoticeList(that)
   },
 
@@ -62,6 +67,10 @@ Page({
     that.setData({
       isFirstAction: true
     })
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.notice
+    })
   },
   toItem: function (e) {
     if (!this.data.isFirstAction) {
@@ -70,7 +79,7 @@ Page({
       this.setData({
         isFirstAction: false
       })
-      let id = e.currentTarget.dataset.item.id
+      let id = e.currentTarget.dataset.item
       wx.navigateTo({
         url: '../notice-item/notice-item?id='+ id
       })

@@ -8,11 +8,11 @@
         </view>
         <view class="item_body">
           <view class="item__left">
-            <text>产品类型：</text>
+            <text>{{i18n.purchase.productType}}：</text>
             <text class="new_data">{{item.type}}</text>
           </view>
           <view class="item__right">
-            <text>产品状态：</text>
+            <text>{{i18n.purchase.productStatus}}：</text>
             <text class="all_data" style="color: #D9D6CF;" wx:if="{{item.status === '已发布'}}">{{item.status}}</text>
             <text class="all_data" style="color: #FE4C40;" wx:if="{{item.status === '申购中'}}">{{item.status}}</text>
             <text class="all_data" style="color: #ADA0A5;" wx:if="{{item.status === '申购结束'}}">{{item.status}}</text>
@@ -21,15 +21,15 @@
           </view>
         </view>
         <view class="item_foot" wx:if="{{item.status !== '操盘中'}}">
-          <text>申购时间：</text>
+          <text>{{i18n.purchase.purchaseTime}}：</text>
           <text>{{item.sg_start_time}} <text style="color:#F44336;">~</text> {{item.sg_end_time}}</text>
         </view>
         <view class="item_foot">
-          <text>操盘时间：</text>
+          <text>{{i18n.purchase.diskTime}}：</text>
           <text>{{item.caopan_time}}</text>
         </view>
         <view class="item_foot" style='display:flex'>
-          <text>结算时间：</text>
+          <text>{{i18n.purchase.settlementTime}}：</text>
           <view style="flex:1;display:flex;flex-wrap:wrap;">
             <block wx:for="{{item.settlement_time}}" wx:key="index">
               <view style='display:flex;width:50%;'>

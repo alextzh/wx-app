@@ -7,7 +7,7 @@
           <text class="pub_time">{{item.pub_time}}</text>
         </view>
         <view class="item_right">
-          <text class="btn">查看详情</text>
+          <text class="btn">{{i18n.notice.viewDetail}}</text>
         </view>
       </view>
     </block>

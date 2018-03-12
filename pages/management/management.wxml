@@ -13,7 +13,7 @@
         </view>
         <view class="item_body">
           <view class="item__left">
-            <text>合同名称：</text>
+            <text>{{i18n.management.contractName}}：</text>
             <text class="new_data">{{item.doc_title}}</text>
           </view>
         </view>
@@ -25,7 +25,7 @@
             </view> -->
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="downloadFile"
-              data-item="{{item}}">预览</button>
+              data-item="{{item}}">{{i18n.management.view}}</button>
             </view>
           </view>
         </block>

@@ -1,5 +1,7 @@
-var util = require("../../utils/util.js")
 const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 /**
  * 获取子产品列表
@@ -34,7 +36,7 @@ var getSubProductList = function (that, customer_id, id) {
     },
     fail: function (e) {
       console.log(e)
-      util.toastMsg('提示', '网络异常')
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     }
   })
 }
@@ -70,7 +72,7 @@ function itemIsCanPurchase (that, customer_id, product_id) {
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
       }
     })
   }
@@ -86,22 +88,28 @@ function _normalizeStr(str) {
 }
 
 Page({
-  data: {
+  data: Object.assign({}, langData.data, {
     showArr: [],
     pickerArr: [],
     pickerIndex: 0,
     isHidden: false,
     currentPlan: null,
     currentProduct: null,
-    purchaseBtnTxt: '申购', // 申购按钮
     purchaseBtnLoading: false,
     purchaseDisabled: false,
-  },
+  }),
   onLoad: function () {
+    util.resetSetData.call(this, langData)
     var that = this
     try {
       var value = wx.getStorageSync('CURPRODUCT')
       var userInfo = wx.getStorageSync('USERINFO')
+      var lang = wx.getStorageSync('lang')
+      if (lang) {
+        that.setData({
+          lg: lang
+        })
+      }
       if (value) {
         that.setData({
           currentProduct: value
@@ -117,8 +125,11 @@ Page({
     } catch(e) {
     }
   },
-  onReady: function () {
-    // 页面渲染完成
+  onShow: function () {
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.productDetail
+    })
   },
   bindPickerChange: function (e) {
     var that = this
@@ -135,8 +146,9 @@ Page({
     var param = e.detail.value
     if (that.checkPurchase(param)) {
       wx.showModal({
-        title: '提示',
-        content: '您确认要申购当前产品' + param.purchaseAmt + '万份吗',
+        title: i18n[that.data.lg].common.tip,
+        content: `${i18n[that.data.lg].purchase.tip6}${param.purchaseAmt}万份`,
+        confirmText: i18n[that.data.lg].common.confirm,
         success: function (res) {
           if (res.confirm) {
             that.setRedeemData1()
@@ -155,31 +167,25 @@ Page({
     var min = parseInt(curPlan.min_money) / 10000
     var step = parseInt(curPlan.step_money) / 10000
     if (!amt) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '请输入申购份额'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip1, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt < min) {
       wx.showModal({
-        title: '提示',
+        title: i18n[this.data.lg].common.tip,
         showCancel: false,
-        content: '最小申购份额为' +min+ '万份'
+        content: `${i18n[this.data.lg].purchase.tip2}${min}万份`,
+        confirmText: i18n[this.data.lg].common.confirm,
       })
       return false
     } else if (amt > 100000) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最大申购份额为100000万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip3, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt % step !== 0) {
       wx.showModal({
-        title: '提示',
+        title: i18n[this.data.lg].common.tip,
         showCancel: false,
-        content: '申购递增份额为' +step+ '万份'
+        content: `${i18n[this.data.lg].purchase.tip4}${step}万份`,
+        confirmText: i18n[this.data.lg].common.confirm,
       })
       return false
     } else {
@@ -188,14 +194,12 @@ Page({
   },
   setRedeemData1: function () {
     this.setData({
-      purchaseBtnTxt: "申购中",
       purchaseDisabled: true,
       purchaseBtnLoading: true
     })
   },
   setRedeemData2: function () {
     this.setData({
-      purchaseBtnTxt: "申购",
       purchaseDisabled: false,
       purchaseBtnLoading: false
     })
@@ -218,29 +222,25 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          wx.showModal({
-            title: '提示',
-            showCancel: false,
-            content: res.data.msg
-          })
+          util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
           that.setRedeemData2()
           return false
         }
         wx.showToast({
-          title: '申购申请已提交',
+          title: res.data.msg,
           icon: 'success',
           duration: 1500
         })
         setTimeout(() => {
           that.setRedeemData2()
           wx.reLaunch({
-            url: '../mine/mine'
+            url: '../mine/mine?lg=' + that.data.lg
           })
         }, 500)
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
         that.setRedeemData2()
       }
     })

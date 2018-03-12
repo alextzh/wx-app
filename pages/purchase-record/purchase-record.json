@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ff5251",
   "navigationBarTextStyle": "light",
-  "navigationBarTitleText": "申购记录",
+  "navigationBarTitleText": "",
   "backgroundColor": "#f4f4f4",
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": true

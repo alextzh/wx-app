@@ -87,7 +87,8 @@ export default {
     tip3: 'Minimum redemption share is 10,000',
     tip4: 'Redeem incremental share of 10,000 copies',
     tip5: 'You confirm to redeem the current product ',
-    redeemBtnTxt: 'Apply Redeem',
+    redeemAllBtnTxt: 'All Redeem',
+    redeemPartBtnTxt: 'Part Redeem',
     rule: {
       title: 'Redemption Management Rules',
       one: 'Minimum redemption share of 10,000 shares, increasing share of 10,000 copies',

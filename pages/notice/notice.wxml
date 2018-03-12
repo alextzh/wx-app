@@ -1,9 +1,14 @@
 <view class="container">
   <view class="list">
-    <block wx:if="{{noticeList.length > 0}}" wx:for="{{noticeList}}" wx:key="index">
-      <view class="item" data-item="{{item}}" bindtap="toItem">
+    <block wx:if="{{noticeList.length > 0}}">
+      <view class="item" data-item="PTGG" bindtap="toItem">
         <view class="item_left">
-          <text class="title">{{index + 1}}、{{item.text}}</text>
+          <text class="title">1、{{i18n.notice.noticeItem1}}</text>
+        </view>
+      </view>
+      <view class="item" data-item="CPGG" bindtap="toItem">
+        <view class="item_left">
+          <text class="title">2、{{i18n.notice.noticeItem2}}</text>
         </view>
       </view>
     </block>

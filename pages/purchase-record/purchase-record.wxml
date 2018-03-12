@@ -15,36 +15,36 @@
         </view>
         <view class="item_body">
           <view class="item__left">
-            <text>申购份额：</text>
+            <text>{{i18n.purchase.bidShare}}：</text>
             <text class="new_data">{{item.subscribe_money}}万份</text>
           </view>
           <view class="item__right">
-            <text>申购时间：</text>
+            <text>{{i18n.purchase.purchaseTime}}：</text>
             <text class="all_data">{{item.subscribe_time}}</text>
           </view>
         </view>
         <view class="item_body" wx:if="{{item.recast_money}}">
           <view class="item__left">
-            <text>追加份额：</text>
+            <text>{{i18n.purchaseRecord.addShare}}：</text>
             <text class="new_data">{{item.recast_money / 10000}}万份</text>
           </view>
         </view>
         <view class="item_body" wx:if="{{item.redeem_money}}">
           <view class="item__left">
-            <text>赎回份额：</text>
+            <text>{{i18n.purchaseRecord.redeemShare}}：</text>
             <text class="new_data">{{item.redeem_money / 10000}}万份</text>
           </view>
         </view>
         <view class="item_foot" wx:if="{{item.recast_start_time}}">
-          <text>复投开始：</text>
+          <text>{{i18n.purchaseRecord.addStart}}：</text>
           <text>{{item.recast_start_time}}</text>
         </view>
         <view class="item_foot" wx:if="{{item.recast_end_time}}">
-          <text>复投结束：</text>
+          <text>{{i18n.purchaseRecord.addEnd}}：</text>
           <text>{{item.recast_end_time}}</text>
         </view>
         <view class="item_foot" style='display:flex'>
-          <text>结算时间：</text>
+          <text>{{i18n.purchase.settlementTime}}：</text>
           <view style="flex:1;display:flex;flex-wrap:wrap;">
             <block wx:for="{{item.settlement_time}}" wx:key="index">
               <view style='display:flex;width:50%;'>
@@ -58,12 +58,12 @@
             <block wx:if="{{item.isEdit}}">
               <view style="flex: 1;margin-right: 20rpx;">
                 <button style='flex:1' class="redeemAllBtn" catchtap="editAction"
-                data-item="{{item}}">修改申购</button>
+                data-item="{{item}}">{{i18n.purchaseRecord.modifyPurchase}}</button>
               </view>
             </block>
             <block wx:if="{{item.isDel}}">
               <view style="flex: 1;">
-                <button class="redeemAllBtn" data-subsid="{{item.subscribe_id}}" catchtap="cancelAction">删除记录</button>
+                <button class="redeemAllBtn" data-subsid="{{item.subscribe_id}}" catchtap="cancelAction">{{i18n.purchaseRecord.cancelPurchase}}</button>
               </view>
             </block>
           </view>
@@ -73,12 +73,12 @@
             <block wx:if="{{item.isEditFtBtn}}">
               <view style="flex: 1;margin-right: 20rpx;">
                 <button style='flex:1' class="redeemAllBtn" catchtap="editFt"
-                data-item="{{item}}">修改追加</button>
+                data-item="{{item}}">{{i18n.purchaseRecord.modifyAdd}}</button>
               </view>
             </block>
             <block wx:if="{{item.isQxFtBtn}}">
               <view style="flex: 1;">
-                <button class="redeemAllBtn" data-accountid="{{item.account_id}}" catchtap="cancelFt">取消追加</button>
+                <button class="redeemAllBtn" data-accountid="{{item.account_id}}" catchtap="cancelFt">{{i18n.purchaseRecord.cancelAdd}}</button>
               </view>
             </block>
           </view>
@@ -87,23 +87,23 @@
           <view class="item_action" wx:if="{{item.isRecast && item.isRedeem}}">
             <view style="flex: 1;margin-right: 20rpx;">
               <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
-              data-item="{{item}}">申请赎回</button>
+              data-item="{{item}}">{{i18n.purchaseRecord.applyRedeem}}</button>
             </view>
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="addAction"
-              data-item="{{item}}">追加份额</button>
+              data-item="{{item}}">{{i18n.purchaseRecord.applyAdd}}</button>
             </view>
           </view>
           <view class="item_action" wx:if="{{item.isRedeem && !item.isRecast}}">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="redeemAction"
-              data-item="{{item}}">申请赎回</button>
+              data-item="{{item}}">{{i18n.purchaseRecord.applyRedeem}}</button>
             </view>
           </view>
           <view class="item_action" wx:if="{{item.isRecast && !item.isRedeem}}">
             <view style="flex: 1;">
               <button style='flex:1' class="redeemAllBtn" catchtap="addAction"
-              data-item="{{item}}">追加份额</button>
+              data-item="{{item}}">{{i18n.purchaseRecord.applyAdd}}</button>
             </view>
           </view>
         </block>

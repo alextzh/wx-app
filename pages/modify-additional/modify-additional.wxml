@@ -6,32 +6,32 @@
     </view>
     <view class="item_body">
       <view class="item__left">
-        <text>申购份额：</text>
+        <text>{{i18n.purchase.bidShare}}：</text>
         <text class="new_data">{{currentProduct.subscribe_money}}万份</text>
       </view>
       <view class="item__right">
-        <text>申购时间：</text>
+        <text>{{i18n.purchase.purchaseTime}}：</text>
         <text class="all_data">{{currentProduct.subscribe_time}}</text>
       </view>
     </view>
     <view class="item_body">
       <view class="item__left">
-        <text>追加份额：</text>
+        <text>{{i18n.purchaseRecord.addShare}}：</text>
         <text class="new_data">{{currentProduct.recast_money / 10000}}万份</text>
       </view>
     </view>
     <view class="item_body">
       <view class="item__left">
-        <text>最小份额：</text>
+        <text>{{i18n.addApply.minShare}}：</text>
         <text class="new_data">{{currentProduct.min_money / 10000}}万份</text>
       </view>
       <view class="item__right">
-        <text>申购状态：</text>
+        <text>{{i18n.addApply.purchaseStatus}}：</text>
         <text class="all_data">{{currentProduct.subscribe_status}}</text>
       </view>
     </view>
     <view class="item_foot" style="display:flex;">
-      <text>结算时间：</text>
+      <text>{{i18n.purchase.settlementTime}}：</text>
       <view style="flex:1;display:flex;flex-wrap:wrap;">
         <block wx:for="{{currentProduct.settlement_time}}" wx:key="index">
           <view style='display:flex;width:50%;'>
@@ -47,11 +47,11 @@
         <view class="input_form">
           <icon class="iconfont icon-redeemed"></icon>
           <text class='unit'>万份</text>
-          <input type="number" name="subscribeAmt" maxlength="20" placeholder="请输入追加份额"></input>
+          <input type="number" name="subscribeAmt" maxlength="20" placeholder="{{i18n.addApply.tip1}}"></input>
         </view>
       </view>
       <view class="btn_area">
-        <button formType="submit" loading="{{btnLoading}}" disabled="{{btnDisabled}}">{{subscribeBtnTxt}}</button>
+        <button formType="submit" loading="{{btnLoading}}" disabled="{{btnDisabled}}">{{i18n.modifyAdd.subscribeBtnTxt}}</button>
       </view>
     </form>
   </block>

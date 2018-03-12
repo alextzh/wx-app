@@ -1,27 +1,37 @@
 const app = getApp()
-var util = require("../../utils/util.js")
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
+function initTabs(that) {
+  return [
+    { name: i18n[that.data.lg].redeem.redeemAllBtnTxt, value: 'all', checked: 'true' },
+    { name: i18n[that.data.lg].redeem.redeemPartBtnTxt, value: 'part' }
+  ]
+}
 
 Page({
-  data: {
-    tabs: [ // 单选按钮数据
-      { name: '全部赎回', value: 'all', checked: 'true' },
-      { name: '部分赎回', value: 'part' }
-    ],
+  data: Object.assign({}, langData.data, {
+    tabs: [],
     currentProduct: null,
     can_redeem_money: 0,
     hidden: true, // 显示哪页的标志
-    redeemAllBtnTxt: '全部赎回', // 全部赎回和部分赎回按钮参数
     allBtnLoading: false,
     allDisabled: false,
-    redeemPartBtnTxt: '部分赎回',
     partBtnLoading: false,
     partDisabled: false,
-  },
+  }),
   onLoad: function () {
+    util.resetSetData.call(this, langData)
     var that = this
     try {
       var value = wx.getStorageSync('CURPRODUCT')
       var userInfo = wx.getStorageSync('USERINFO')
+      var lang = wx.getStorageSync('lang')
+      if (lang) {
+        that.setData({
+          lg: lang
+        })
+      }
       if (value) {
         // Do something with return value
         that.setData({
@@ -37,8 +47,15 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
+    that.setData({
+      tabs: initTabs(that)
+    })
   },
-  onReady: function () {
+  onShow: function () {
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.applyRedeem
+    })
   },
   radioChange: function (e) {
     var that = this
@@ -59,8 +76,9 @@ Page({
     var param = e.detail.value
     if (that.data.hidden) {
       wx.showModal({
-        title: '提示',
-        content: '您确认要赎回' + param.redeemAmt + '万份吗',
+        title: i18n[that.data.lg].common.tip,
+        content: `${i18n[that.data.lg].redeem.tip5}${param.redeemAmt}万份?`,
+        confirmText: i18n[that.data.lg].common.confirm,
         success: function (res) {
           if (res.confirm) {
             that.setRedeemData1('all')
@@ -73,8 +91,9 @@ Page({
     } else {
       if (that.checkRedeem(param)) {
         wx.showModal({
-          title: '提示',
-          content: '您确认要赎回' + param.redeemAmt + '万份吗',
+          title: i18n[that.data.lg].common.tip,
+          content: `${i18n[that.data.lg].redeem.tip5}${param.redeemAmt}万份?`,
+          confirmText: i18n[that.data.lg].common.confirm,
           success: function (res) {
             if (res.confirm) {
               that.setRedeemData1('part')
@@ -90,13 +109,11 @@ Page({
   setRedeemData1: function (bType) {
     if (bType === 'part') {
       this.setData({
-        redeemPartBtnTxt: "部分赎回中",
         partDisabled: true,
         partBtnLoading: true
       })
     } else {
       this.setData({
-        redeemAllBtnTxt: "全部赎回中",
         allDisabled: !this.data.allDisabled,
         allBtnLoading: !this.data.allBtnLoading
       })
@@ -105,13 +122,11 @@ Page({
   setRedeemData2: function (bType) {
     if (bType === 'part') {
       this.setData({
-        redeemPartBtnTxt: "部分赎回",
         partDisabled: false,
         partBtnLoading: false
       })
     } else {
       this.setData({
-        redeemAllBtnTxt: "全部赎回",
         allDisabled: !this.data.allDisabled,
         allBtnLoading: !this.data.allBtnLoading
       })
@@ -122,32 +137,16 @@ Page({
     var amt = param.redeemAmt
     var max = this.data.currentProduct.subscribe_money
     if (!amt) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '请输入赎回份额'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].redeem.tip1, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt < 1) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最小赎回份额为1万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].redeem.tip3, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt > max) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '赎回份额不能大于申购份额'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].redeem.rule.two, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt % 1 !== 0) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '赎回递增份额为1万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].redeem.tip4, i18n[this.data.lg].common.confirm)
       return false
     } else {
       return true
@@ -169,29 +168,25 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          wx.showModal({
-            title: '提示',
-            showCancel: false,
-            content: res.data.msg
-          })
+          util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
           that.setRedeemData2(bType)
           return false
         }
         wx.showToast({
-          title: '赎回申请已提交',
+          title: res.data.msg,
           icon: 'success',
           duration: 1500
         })
         setTimeout(() => {
           that.setRedeemData2(bType)
           wx.reLaunch({
-            url: '../mine/mine'
+            url: '../mine/mine?lg=' + that.data.lg
           })
         }, 500)
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
       }
     })
   }

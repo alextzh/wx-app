@@ -1,5 +1,7 @@
 const app = getApp()
-var util = require('../../utils/util.js')
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
 /**
  * 获取充值渠道列表
@@ -32,7 +34,7 @@ var getSubProductList = function (that, id) {
     },
     fail: function (e) {
       console.log(e)
-      util.toastMsg('提示', '网络异常')
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     }
   })
 }
@@ -49,22 +51,28 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     currentProduct: null,
     showArr: [],
     pickerArr: [],
     pickerIndex: 0,
     currentPlan: null,
-    subscribeBtnTxt: '追加申购', // 提交修改按钮参数
     btnLoading: false,
     btnDisabled: false,
-  },
+  }),
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    util.resetSetData.call(this, langData)
     var that = this
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
     let value = wx.getStorageSync('CURPRODUCT')
     if (value) {
       that.setData({
@@ -74,9 +82,13 @@ Page({
     getSubProductList(that, value.base_product_id)
   },
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 生命周期函数--监听页面显示
    */
-  onReady: function () {
+  onShow: function () {
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.applyAdd
+    })
   },
   // picker改变事件
   bindPickerChange: function (e) {
@@ -86,15 +98,16 @@ Page({
       currentPlan: that.data.showArr[e.detail.value]
     })
   },
-  // 提交赎回
+  // 提交追加
   formSubmit: function (e) {
     var that = this
     var param = e.detail.value
     var planName = that.data.currentPlan.name
     if (that.checkSubscribe(param)) {
       wx.showModal({
-        title: '提示',
-        content: '您确认要追加' + planName + '申购份额' + param.subscribeAmt + '万份吗',
+        title: i18n[that.data.lg].common.tip,
+        content: `${i18n[that.data.lg].addApply.tip5}${planName}${i18n[that.data.lg].addApply.tip6}${param.subscribeAmt}万份`,
+        confirmText: i18n[that.data.lg].common.confirm,
         success: function (res) {
           if (res.confirm) {
             that.setSubscribeData1()
@@ -108,48 +121,30 @@ Page({
   },
   setSubscribeData1: function () {
     this.setData({
-      subscribeBtnTxt: "追加申购中",
       btnDisabled: !this.data.btnDisabled,
       btnLoading: !this.data.btnLoading
     })
   },
   setSubscribeData2: function () {
     this.setData({
-      subscribeBtnTxt: "追加申购",
       btnDisabled: !this.data.btnDisabled,
       btnLoading: !this.data.btnLoading
     })
   },
-  // 校验追加金额
+  // 校验追加份额
   checkSubscribe: function (param) {
     var amt = param.subscribeAmt
     if (!amt) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '请输入追加申购份额'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip1, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt < 1) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最小追加份额为1万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip2, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt > 100000) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '最大追加份额为100000万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip3, i18n[this.data.lg].common.confirm)
       return false
     } else if (amt % 1 !== 0) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '追加递增份额为1万份'
-      })
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].addApply.tip4, i18n[this.data.lg].common.confirm)
       return false
     } else {
       return true
@@ -173,29 +168,25 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          wx.showModal({
-            title: '提示',
-            showCancel: false,
-            content: res.data.msg
-          })
+          util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
           that.setSubscribeData2()
           return false
         }
         wx.showToast({
-          title: '追加份额申请成功',
+          title: res.data.msg,
           icon: 'success',
           duration: 1500
         })
         setTimeout(() => {
           that.setSubscribeData2()
           wx.reLaunch({
-            url: '../mine/mine'
+            url: '../mine/mine?lg=' + that.data.lg
           })
         }, 500)
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg('提示', '网络异常')
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
         that.setSubscribeData2()
       }
     })

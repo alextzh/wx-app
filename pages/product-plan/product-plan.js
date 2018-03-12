@@ -1,7 +1,9 @@
-var util = require("../../utils/util.js")
 const app = getApp()
+const util = require('../../utils/util')
+const i18n = require('../../utils/i18n')
+const langData = require('../../utils/langData')
 
-// 获取申购产品列表
+// 获取申购方案产品列表
 var getProductPlanList = function (that) {
   var custom = wx.getStorageSync('USERINFO')
   wx.request({
@@ -15,11 +17,7 @@ var getProductPlanList = function (that) {
     method: 'POST',
     success: function (res) {
       if (!res.data.ret) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: res.data.msg,
-        })
+        util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
         that.setData({
           hasData: true
         })
@@ -33,7 +31,7 @@ var getProductPlanList = function (that) {
     },
     fail: function (e) {
       console.log(e)
-      util.toastMsg('提示', '网络异常')
+      util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
     },
     complete: function () {
       wx.hideLoading()
@@ -51,20 +49,27 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: Object.assign({}, langData.data, {
     productPlanList: [],
     hasData: false, // 是否有数据
     fresh: false, // 下拉刷新标志
     isFirstAction: true
-  },
+  }),
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-    })
+    util.resetSetData.call(this, langData)
     var that = this
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
+    wx.showLoading({
+      title: i18n[that.data.lg].common.loading
+    })
     getProductPlanList(that)
   },
   /**
@@ -74,6 +79,10 @@ Page({
     var that = this
     that.setData({
       isFirstAction: true
+    })
+    let lang = wx.getStorageSync('lang')
+    wx.setNavigationBarTitle({
+      title: i18n[lang].navigator.plan
     })
   },
   /**
@@ -106,8 +115,9 @@ Page({
   cancelAction: function (e) {
     var edit_item_id = e.currentTarget.dataset.item.edit_item_id
     wx.showModal({
-      title: '提示',
-      content: '您确认要取消修改当前产品吗？',
+      title: i18n[this.data.lg].common.tip,
+      content: i18n[this.data.lg].plan.tip1,
+      confirmText: i18n[this.data.lg].common.confirm,
       success: function (res) {
         if (res.confirm) {
           wx.request({
@@ -121,11 +131,7 @@ Page({
             method: 'POST',
             success: function (res) {
               if (!res.data.ret) {
-                wx.showModal({
-                  title: '提示',
-                  showCancel: false,
-                  content: res.data.msg
-                })
+                util.toastMsg(i18n[this.data.lg].common.tip, res.data.msg, i18n[this.data.lg].common.confirm)
                 return false
               }
               wx.showToast({
@@ -133,13 +139,14 @@ Page({
                 icon: 'success',
                 duration: 1500
               })
+              let lg = wx.getStorageSync('lang')
               wx.reLaunch({
-                url: '../mine/mine'
+                url: '../mine/mine?lg=' +lg
               })
             },
             fail: function (e) {
               console.log(e)
-              util.toastMsg('提示', '网络异常')
+              util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].common.network, i18n[this.data.lg].common.confirm)
             }
           })
         } else if (res.cancel) {
