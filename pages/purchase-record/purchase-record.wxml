@@ -14,13 +14,13 @@
           <text class="item_state" style='color: #2E3094;' wx:if="{{item.subscribe_status === '已赎回'}}">{{item.subscribe_status}}</text>
         </view>
         <view class="item_body">
-          <view class="item__left">
+          <view class="item__left" style="width:44%;">
             <text>{{i18n.purchase.bidShare}}：</text>
             <text class="new_data">{{item.subscribe_money}}万份</text>
           </view>
-          <view class="item__right">
-            <text>{{i18n.purchase.purchaseTime}}：</text>
-            <text class="all_data">{{item.subscribe_time}}</text>
+          <view class="item__right" style="width:56%;text-align:right;">
+            <text style="flex:1;">{{i18n.purchase.purchaseTime}}：</text>
+            <text class="all_data" style="flex:0 auto;">{{item.subscribe_time}}</text>
           </view>
         </view>
         <view class="item_body" wx:if="{{item.recast_money}}">

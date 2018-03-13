@@ -5,13 +5,13 @@
       <text class="title">{{currentProduct.base_name}}</text>
     </view>
     <view class="item_body">
-      <view class="item__left">
+      <view class="item__left" style="width:58%;">
         <text>{{i18n.purchase.schemeName}}：</text>
         <text class="new_data">{{currentProduct.product_name}}</text>
       </view>
-      <view class="item__right">
-        <text>{{i18n.purchase.bidShare}}：</text>
-        <text class="all_data">{{currentProduct.subscribe_money / 10000}}万份</text>
+      <view class="item__right" style="width:42%;text-align:right;">
+        <text style="flex:1;">{{i18n.purchase.bidShare}}：</text>
+        <text class="all_data" style="flex:0 auto;">{{currentProduct.subscribe_money / 10000}}万份</text>
       </view>
     </view>
     <view class="item_foot">
@@ -40,13 +40,13 @@
         <block wx:if="{{showArr.length > 1}}">
           <view style="padding: 0 20rpx 10rpx;">
             <view class="item_body">
-              <view class="item__left">
+              <view class="item__left" style="width:65%;">
                 <text>{{i18n.purchase.schemeName}}：</text>
                 <text class="new_data">{{showArr[pickerIndex].name}}</text>
               </view>
-              <view class="item__right">
-                <text>{{i18n.purchase.maxNumber}}：</text>
-                <text class="all_data">{{showArr[pickerIndex].max_amount}}</text>
+              <view class="item__right" style="width:35%;text-align:right;">
+                <text style="flex:1;">{{i18n.purchase.maxNumber}}：</text>
+                <text class="all_data" style="flex:0 auto;">{{showArr[pickerIndex].max_amount}}</text>
               </view>
             </view>
             <view class="item_body">
@@ -54,9 +54,9 @@
                 <text>{{i18n.addApply.minShare}}：</text>
                 <text class="new_data">{{showArr[pickerIndex].min_money / 10000}}万份</text>
               </view>
-              <view class="item__right">
-                <text>{{i18n.purchase.increasingShare}}：</text>
-                <text class="all_data">{{showArr[pickerIndex].step_money / 10000}}万份</text>
+              <view class="item__right" style="text-align:right;">
+                <text style="flex:1;">{{i18n.purchase.increasingShare}}：</text>
+                <text class="all_data" style="flex:0 auto;">{{showArr[pickerIndex].step_money / 10000}}万份</text>
               </view>
             </view>
             <view class="item_foot" style='display:flex'>

@@ -15,9 +15,9 @@
             <text>{{i18n.purchaseRecord.redeemShare}}：</text>
             <text class="new_data">{{item.money}}万份</text>
           </view>
-          <view class="item__right">
-            <text>{{i18n.redeemRecord.applyTime}}：</text>
-            <text class="all_data">{{item.redeem_time}}</text>
+          <view class="item__right" style="text-align:right;">
+            <text style="flex:1;">{{i18n.redeemRecord.applyTime}}：</text>
+            <text class="all_data" style="flex:0 auto;">{{item.redeem_time}}</text>
           </view>
         </view>
         <block wx:if="{{item.isQxshBtn}}">

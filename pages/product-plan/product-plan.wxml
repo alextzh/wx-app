@@ -14,24 +14,24 @@
           <text class="item_state" style='color: #2E3094;' wx:if="{{item.status === 'YSH'}}">已赎回</text>
         </view>
         <view class="item_body">
-          <view class="item__left">
+          <view class="item__left" style="width:58%;">
             <text>{{i18n.purchase.schemeName}}：</text>
             <text class="new_data">{{item.product_name}}</text>
           </view>
-          <view class="item__right">
-            <text>{{i18n.purchase.bidShare}}：</text>
-            <text class="all_data">{{item.subscribe_money / 10000}}万份</text>
+          <view class="item__right" style="width:42%;text-align:right;">
+            <text style="flex:1;">{{i18n.purchase.bidShare}}：</text>
+            <text class="all_data" style="flex:0 auto;">{{item.subscribe_money / 10000}}万份</text>
           </view>
         </view>
         <block wx:if="{{item.status === 'XGDSH'}}">
           <view class="item_body">
-            <view class="item__left">
+            <view class="item__left" style="width:56%;">
               <text>{{i18n.plan.targetScheme}}：</text>
               <text class="new_data">{{item.target_product_name}}</text>
             </view>
-            <view class="item__right">
-              <text>{{i18n.plan.modifyShare}}：</text>
-              <text class="all_data">{{item.edit_money / 10000}}万份</text>
+            <view class="item__right" style="width:44%;text-align:right;">
+              <text style="flex:1;">{{i18n.plan.modifyShare}}：</text>
+              <text class="all_data" style="flex:0 auto;">{{item.edit_money / 10000}}万份</text>
             </view>
           </view>
         </block>

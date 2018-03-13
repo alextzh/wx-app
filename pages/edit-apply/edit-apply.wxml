@@ -5,13 +5,13 @@
       <text class="title">{{currentProduct.name}}</text>
     </view>
     <view class="item_body">
-      <view class="item__left">
+      <view class="item__left" style="width:44%;">
         <text>{{i18n.purchase.bidShare}}：</text>
         <text class="new_data">{{currentProduct.subscribe_money}}万份</text>
       </view>
-      <view class="item__right">
-        <text>{{i18n.purchase.purchaseTime}}：</text>
-        <text class="all_data">{{currentProduct.subscribe_time}}</text>
+      <view class="item__right" style="width:56%;text-align:right;">
+        <text style="flex:1;">{{i18n.purchase.purchaseTime}}：</text>
+        <text class="all_data" style="flex:0 auto;">{{currentProduct.subscribe_time}}</text>
       </view>
     </view>
     <view class="item_body">
@@ -19,9 +19,9 @@
         <text>{{i18n.addApply.minShare}}：</text>
         <text class="new_data">{{currentProduct.min_money / 10000}}万份</text>
       </view>
-      <view class="item__right">
-        <text>{{i18n.addApply.purchaseStatus}}：</text>
-        <text class="all_data">{{currentProduct.subscribe_status}}</text>
+      <view class="item__right" style="text-align:right;">
+        <text style="flex:1;">{{i18n.addApply.purchaseStatus}}：</text>
+        <text class="all_data" style="flex:0 auto;">{{currentProduct.subscribe_status}}</text>
       </view>
     </view>
     <view class="item_foot" style="display:flex;">

@@ -7,7 +7,7 @@
         <icon class="iconfont icon-goto fc999"></icon>
       </view>
       <view class="item">
-        <icon class="iconfont icon-config" style="color:#2196F3;"></icon>
+        <icon class="iconfont icon-qiehuan" style="color:#ff5251;"></icon>
         <text class="text">{{i18n.setting.language}}</text>
         <picker class="type_picker" range="{{pickerArr}}" value="{{pickerIndex}}" bindchange="switchLanguage">
           <view class="picker">{{pickerArr[pickerIndex]}}</view>

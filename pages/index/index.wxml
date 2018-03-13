@@ -11,13 +11,13 @@
             <text>{{i18n.purchase.productType}}：</text>
             <text class="new_data">{{item.type}}</text>
           </view>
-          <view class="item__right">
-            <text>{{i18n.purchase.productStatus}}：</text>
-            <text class="all_data" style="color: #D9D6CF;" wx:if="{{item.status === '已发布'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #FE4C40;" wx:if="{{item.status === '申购中'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #ADA0A5;" wx:if="{{item.status === '申购结束'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #FD5B78;" wx:if="{{item.status === '操盘中'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #483C32;" wx:if="{{item.status === '已结束'}}">{{item.status}}</text>
+          <view class="item__right" style="text-align:right;">
+            <text style="flex:1;">{{i18n.purchase.productStatus}}：</text>
+            <text class="all_data" style="color: #D9D6CF;flex:0 auto;" wx:if="{{item.status === '已发布'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #FE4C40;flex:0 auto;" wx:if="{{item.status === '申购中'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #ADA0A5;flex:0 auto;" wx:if="{{item.status === '申购结束'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #FD5B78;flex:0 auto;" wx:if="{{item.status === '操盘中'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #483C32;flex:0 auto;" wx:if="{{item.status === '已结束'}}">{{item.status}}</text>
           </view>
         </view>
         <view class="item_foot" wx:if="{{item.status !== '操盘中'}}">
@@ -37,11 +37,6 @@
               </view>
             </block>
           </view>
-          <!-- <view style="flex:1">
-            <view style='display:flex'>
-              <text style='flex:1'>{{item.settlement_time}}</text>
-            </view>
-          </view> -->
         </view>
       </view>
     </block>

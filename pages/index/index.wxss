@@ -51,7 +51,7 @@ page{
   width: 50%;
 }
 .new_data,.all_data{
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #ff5251;
   flex: 1;
   text-overflow: ellipsis;
