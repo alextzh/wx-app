@@ -20,7 +20,9 @@ export default {
     applyAdd: 'Apply Add',
     modifyPurchase: 'Modify Purchase',
     modifyAdd: 'Modify Additional',
-    modifyPlan: 'Modify Plan'
+    modifyPlan: 'Modify Plan',
+    transferApply: 'TransferApply',
+    transferRecord: 'TransferRecord'
   },
 
   login: {
@@ -63,7 +65,18 @@ export default {
     tip6: 'You confirm to purchase the current product is ',
     tip7: 'Increased subscription for 10,000 shares',
     tip8: 'You confirm that you want to modify the subscription share is ',
-    purchaseBtnTxt: 'Purchase'
+    tip9: 'Please enter the transfer share',
+    tip10: 'Increased share of money transfer is 1',
+    tip11: 'The largest allocation of 10 million copies',
+    tip12: 'You are sure to pay money ',
+    tip13: ' share?',
+    tip14: 'Funding tips',
+    tip15: 'Please enter a transfer note(Optional)',
+    purchaseBtnTxt: 'Purchase',
+    transferShare: 'TransferShare',
+    transferNote: 'TransferNote',
+    transferBtnTxt: 'ApplyTransfer',
+    transferChannel: 'TransferChannel'
   },
 
   purchaseRecord: {

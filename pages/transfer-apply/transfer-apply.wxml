@@ -1,0 +1,104 @@
+<view class="container">
+  <view style="padding: 20rpx;width: 100%;box-sizing: border-box;">
+    <view class="form_box">
+      <form bindsubmit='formSubmit' class="form_area">
+        <block wx:if="{{pickerArr.length > 1}}">
+          <view class="select_type">
+            <icon class="iconfont icon-unfold"></icon>
+            <text class="type_title">{{i18n.purchase.schemeType}}：</text>
+            <picker class="type_picker" range='{{pickerArr}}' value='{{pickerIndex}}' bindchange='bindPickerChange'>
+              <view class="picker">{{pickerArr[pickerIndex]}}</view>
+            </picker>
+          </view>
+        </block>
+        <block wx:if="{{showArr.length === 1}}">
+          <view style="padding: 20rpx;">
+            <view class="item_body">
+              <view class="item__left" style="width:65%;">
+                <text>{{i18n.purchase.productName}}：</text>
+                <text class="new_data">{{currentPlan.name}}</text>
+              </view>
+              <view class="item__right" style="width:35%;text-align:right;">
+                <text style="flex:1;">{{i18n.purchase.maxNumber}}：</text>
+                <text class="all_data" style="flex:0 auto;">{{currentPlan.max_amount}}</text>
+              </view>
+            </view>
+            
+            <view class="item_foot" style='display:flex'>
+              <text>{{i18n.purchase.settlementTime}}：</text>
+              <view style="flex:1;display:flex;flex-wrap:wrap;">
+                <block wx:for="{{currentPlan.settlement_time}}" wx:key="index">
+                  <view style='display:flex;width:50%;'>
+                    <text style='flex:1'>{{item}}</text>
+                  </view>
+                </block>
+              </view>
+            </view>
+            <view class="item_foot" style="display: flex;">
+              <text>{{i18n.purchase.productDetail}}：</text>
+              <view style="flex: 1;">
+                <text style="line-height: 1;">{{currentPlan.describe}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{showArr.length > 1}}">
+          <view style="padding: 0 20rpx 10rpx;">
+            <view class="item_body">
+              <view class="item__left" style="width:65%;">
+                <text>{{i18n.purchase.schemeName}}：</text>
+                <text class="new_data">{{currentPlan.name}}</text>
+              </view>
+              <view class="item__right" style="width:35%;text-align:right;">
+                <text style="flex:1;">{{i18n.purchase.maxNumber}}：</text>
+                <text class="all_data" style="flex:0 auto;">{{currentPlan.max_amount}}</text>
+              </view>
+            </view>
+            <view class="item_foot" style='display:flex'>
+              <text>{{i18n.purchase.settlementTime}}：</text>
+              <view style="flex:1;display:flex;flex-wrap:wrap;">
+                <block wx:for="{{currentPlan.settlement_time}}" wx:key="index">
+                  <view style='display:flex;width:50%;'>
+                    <text style='flex:1'>{{item}}</text>
+                  </view>
+                </block>
+              </view>
+            </view>
+            <view class="item_foot" style="display: flex;">
+              <text>{{i18n.purchase.schemeDetail}}：</text>
+              <view style="flex: 1;">
+                <text style="">{{currentPlan.describe}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block>
+          <view class="select_type">
+            <icon class="iconfont icon-unfold"></icon>
+            <text class="type_title">{{i18n.purchase.transferChannel}}：</text>
+            <picker class="type_picker" range='{{channelArr}}' value='{{channelIndex}}' bindchange='bindChannelChange'>
+              <view class="picker">{{channelArr[channelIndex]}}</view>
+            </picker>
+          </view>
+          <view class="input_area" style="height:auto;">
+            <view class="input_form">
+              <icon class="iconfont icon-redeemed"></icon>
+              <text class='unit'>万份</text>
+              <input type="number" name="purchaseAmt" placeholder='{{i18n.purchase.tip9}}' />
+            </view>
+          </view>
+          <view class="input_area" style="height:auto;margin-top:10px;">
+            <view class="input_con" style="height:auto;">
+              <view class="editbox">
+                <textarea placeholder="{{i18n.purchase.tip15}}" auto-height name="describe"/>
+              </view>
+            </view>
+          </view>
+          <view class="btn_area">
+            <button formType="submit" loading="{{purchaseBtnLoading}}" disabled="{{purchaseDisabled}}">{{i18n.purchase.transferBtnTxt}}</button>
+          </view>
+        </block>
+      </form>
+    </view>
+  </view>
+</view>

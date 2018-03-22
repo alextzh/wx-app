@@ -24,6 +24,14 @@
         <image src="../../images/shengoujilu.svg"></image>
         <text class="text">{{i18n.navigator.purchaseRecord}}</text>
       </view>
+      <view class="item" bindtap="toTransfer">
+        <image src="../../images/shengou.svg"></image>
+        <text class="text">{{i18n.navigator.transferApply}}</text>
+      </view>
+      <view class="item" bindtap="toTransferRecord">
+        <image src="../../images/shengoujilu.svg"></image>
+        <text class="text">{{i18n.navigator.transferRecord}}</text>
+      </view>
       <view class="item" bindtap="toRedeemRecord">
         <image src="../../images/shuhuijilu.svg"></image>
         <text class="text">{{i18n.navigator.redeemRecord}}</text>

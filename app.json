@@ -25,7 +25,9 @@
     "pages/management/management",
     "pages/question-detail/question-detail",
     "pages/modify-additional/modify-additional",
-    "pages/notice-item/notice-item"
+    "pages/notice-item/notice-item",
+    "pages/transfer-apply/transfer-apply",
+    "pages/transfer-record/transfer-record"
   ],
   "window": {
     "backgroundTextStyle": "light",

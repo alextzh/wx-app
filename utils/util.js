@@ -89,6 +89,15 @@ function param(data) {
   return url ? url.substring(1) : ''
 }
 
+function getMd5() {
+  const timestamp = new Date().getTime()
+  const key = 'zhiyuancp'
+  const str = `${timestamp}${key}`
+  const md5 = crypto.createHash('md5')
+  md5.update(str)
+  return md5.digest('hex')
+}
+
 /**
  * 代理小程序的 setData，在更新数据后，翻译传参类型的字符串
  *
@@ -132,5 +141,6 @@ module.exports = {
   rendertoNumber: rendertoNumber,
   jointUrl: jointUrl,
   toastMsg: toastMsg,
-  resetSetData
+  resetSetData,
+  getMd5
 }
