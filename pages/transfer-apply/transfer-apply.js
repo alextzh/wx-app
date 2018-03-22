@@ -15,7 +15,6 @@ var getSubProductList = function (that) {
     },
     method: 'POST',
     success: function (res) {
-      console.log(res)
       if (!res.data.ret) {
         util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
         that.setData({
@@ -26,7 +25,7 @@ var getSubProductList = function (that) {
       var list = res.data.obj.reverse()
       var pickerArr = []
       var showArr = list
-      if (showArr) {
+      if (showArr && showArr.length >= 1) {
         showArr.forEach((e) => {
           e.settlement_time = _normalizeStr(e.settlement_time)
           pickerArr.push(e.name)
@@ -114,10 +113,11 @@ Page({
   formSubmit: function (e) {
     var that = this
     var param = e.detail.value
+    console.log(param)
     if (that.checkPurchase(param)) {
       wx.showModal({
         title: i18n[that.data.lg].common.tip,
-        content: `${i18n[that.data.lg].purchase.tip6}${param.purchaseAmt}万份`,
+        content: `${i18n[that.data.lg].purchase.tip12}${param.purchaseAmt}${i18n[that.data.lg].purchase.tip13}`,
         confirmText: i18n[that.data.lg].common.confirm,
         success: function (res) {
           if (res.confirm) {
@@ -130,33 +130,17 @@ Page({
       })
     }
   },
-  // 校验申购金额
+  // 校验划款份额
   checkPurchase: function (param) {
     var amt = param.purchaseAmt
-    var curPlan = this.data.currentPlan
-    var min = parseInt(curPlan.min_money) / 10000
-    var step = parseInt(curPlan.step_money) / 10000
     if (!amt) {
-      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip1, i18n[this.data.lg].common.confirm)
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip9, i18n[this.data.lg].common.confirm)
       return false
-    } else if (amt < min) {
-      wx.showModal({
-        title: i18n[this.data.lg].common.tip,
-        showCancel: false,
-        content: `${i18n[this.data.lg].purchase.tip2}${min}万份`,
-        confirmText: i18n[this.data.lg].common.confirm,
-      })
+    } else if (amt > 1000000000) {
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip11, i18n[this.data.lg].common.confirm)
       return false
-    } else if (amt > 100000) {
-      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip3, i18n[this.data.lg].common.confirm)
-      return false
-    } else if (amt % step !== 0) {
-      wx.showModal({
-        title: i18n[this.data.lg].common.tip,
-        showCancel: false,
-        content: `${i18n[this.data.lg].purchase.tip4}${step}万份`,
-        confirmText: i18n[this.data.lg].common.confirm,
-      })
+    } else if (amt % 1 !== 0) {
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip10, i18n[this.data.lg].common.confirm)
       return false
     } else {
       return true
@@ -178,13 +162,16 @@ Page({
     var that = this
     var product_id = that.data.currentPlan.id
     var purchaseAmt = parseInt(param.purchaseAmt)
+    var describe = param.describe
+    var channel = that.data.currentChannel.type
     wx.request({
-      url: app.api_url + '/api/v1/subscribe/addApply',
+      url: app.api_url + '/api/v1/deduct/apply',
       data: {
         product_id: product_id,
         customer_id: that.data.cid,
-        source: 'wx_xcx',
-        subscribe_money: purchaseAmt * 10000
+        deduct_money: purchaseAmt,
+        describe: describe,
+        channel: channel
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'

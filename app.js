@@ -1,7 +1,7 @@
 //app.js
 App({
   server_url: 'https://api.zhiyuancaopan.com',
-  api_url: 'https://wx.yanysdd.com',
+  api_url: 'https://api.zhiyuancaopan.com',
   onLaunch: function() {
     var that = this
     wx.setStorageSync("lang", 'zh');

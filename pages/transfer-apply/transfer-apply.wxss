@@ -68,6 +68,7 @@
   color: #333333;
   position: relative;
   margin-bottom: 10rpx;
+  z-index:9;
 }
 .select_type icon {
   position: absolute;
@@ -92,6 +93,45 @@
   align-items:center;
 }
 .picker::after {
+  content:" ";
+  width:200%;
+  height:200%;
+  position:absolute;
+  top:0;
+  left:0;
+  border-bottom:1px solid #BDBDBD;
+  -webkit-transform:scale(0.5);
+  transform:scale(0.5);
+  -webkit-transform-origin:0 0;
+  transform-origin:0 0;
+  box-sizing:border-box;
+}
+.input_form{
+  position:relative;
+  box-sizing:border-box;
+  line-height: 50px;
+  width:100%;
+}
+.input_form icon{
+  font-size:36rpx;
+  position:absolute;
+  left:0;
+  color: #ff5251;
+}
+.input_form .unit{
+  position: absolute;
+  right: 0;
+  color: #ff5251;
+}
+.input_form input{
+  position:relative;
+  height:50px;
+  line-height:50px;
+  padding:0 50rpx;
+  flex:1;
+  box-sizing: border-box;
+}
+.input_form input::after{
   content:" ";
   width:200%;
   height:200%;
@@ -139,4 +179,30 @@
 .btn_area{
   margin-top: 30rpx;
   padding:0 20rpx;
+}
+.editbox{
+  width: 100%;
+  border: 1px solid #BDBDBD;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.editbox::after{
+  content:" ";
+  width:200%;
+  height:200%;
+  position:absolute;
+  top:0;
+  left:0;
+  border:1px solid #BDBDBD;
+  -webkit-transform:scale(0.5);
+  transform:scale(0.5);
+  -webkit-transform-origin:0 0;
+  transform-origin:0 0;
+  box-sizing:border-box;
+}
+.noData{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
 }
