@@ -108,32 +108,6 @@ Page({
       })
     }
   },
-  // 跳转到划款申请页面
-  toTransfer: function () {
-    if (!this.data.isFirstAction) {
-      return false
-    } else {
-      this.setData({
-        isFirstAction: false
-      })
-      wx.navigateTo({
-        url: '../transfer-apply/transfer-apply'
-      })
-    }
-  },
-  // 跳转到划款记录页面
-  toTransferRecord: function () {
-    if (!this.data.isFirstAction) {
-      return false
-    } else {
-      this.setData({
-        isFirstAction: false
-      })
-      wx.navigateTo({
-        url: '../transfer-record/transfer-record'
-      })
-    }
-  },
   // 跳转到赎回记录页面
   toRedeemRecord: function () {
     if (!this.data.isFirstAction) {

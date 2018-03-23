@@ -1,2 +1,44 @@
-<!--pages/transfer-record/transfer-record.wxml-->
-<text>pages/transfer-record/transfer-record.wxml</text>
+<view class="container">
+  <view class="list">
+    <block wx:if="{{transferRecord.length > 0}}" wx:for="{{transferRecord}}" wx:key="index">
+      <view class="item">
+        <view class="item_head">
+          <icon class="iconfont icon-item"></icon>
+          <text class="title">{{item.product_name}}</text>
+          <text class="item_state" style="color:#09B3CD;" wx:if="{{item.status === 'SHTG'}}">审核通过</text>
+          <text class="item_state" style="color:#652D92;" wx:if="{{item.status === 'DSH'}}">待审核</text>
+          <text class="item_state" style="color:#EB1C22;" wx:if="{{item.status === 'SHJJ'}}">审核拒绝</text>
+        </view>
+        <view class="item_body">
+          <view class="item__left">
+            <text>{{i18n.purchase.transferShare}}：</text>
+            <text class="new_data">{{item.deduct_money}}</text>
+          </view>
+          <view class="item__right" style="text-align:right;">
+            <text style="flex:1;">{{i18n.purchase.transferChannel}}：</text>
+            <text class="all_data" style="flex:0 auto;">{{item.channel}}</text>
+          </view>
+        </view>
+        <view class="item_body">
+          <view class="item__left">
+            <text>{{i18n.redeemRecord.applyTime}}：</text>
+            <text class="new_data">{{item.create_time}}</text>
+          </view>
+        </view>
+        <view class="item_body">
+          <view class="item__left">
+            <text>{{i18n.purchase.transferNote}}：</text>
+            <text class="new_data">{{item.describe}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{hasData}}">
+      <view class="no_data">
+        <icon class="iconfont icon-nodata"></icon>
+      </view>
+    </block>
+  </view>
+</view>
+
+

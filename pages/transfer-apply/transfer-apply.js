@@ -3,6 +3,8 @@ const util = require('../../utils/util')
 const i18n = require('../../utils/i18n')
 const langData = require('../../utils/langData')
 
+var timer = null
+
 /**
  * 获取申请划款可以选择的项目
  * @param 无参数
@@ -87,6 +89,7 @@ Page({
         })
       }
       getSubProductList(that)
+      that.isTransfer()
     } catch (e) {
     }
   },
@@ -95,6 +98,27 @@ Page({
     wx.setNavigationBarTitle({
       title: i18n[lang].navigator.transferApply
     })
+    timer = setInterval(() => {
+      this.isTransfer()
+    }, 1000)
+  },
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    clearInterval(timer)
+  },
+  // 判断当前时间是否可以申请划款
+  isTransfer: function () {
+    if (util.time_range('09:00', '17:00')) {
+      this.setData({
+        purchaseDisabled: false
+      })
+    } else {
+      this.setData({
+        purchaseDisabled: true
+      })
+    }
   },
   bindChannelChange: function (e) {
     var that = this
@@ -113,7 +137,6 @@ Page({
   formSubmit: function (e) {
     var that = this
     var param = e.detail.value
-    console.log(param)
     if (that.checkPurchase(param)) {
       wx.showModal({
         title: i18n[that.data.lg].common.tip,

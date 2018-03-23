@@ -1,6 +1,16 @@
 <view class="container">
   <view class="box">
     <view class="list">
+      <view class="item" bindtap="toTransfer">
+        <icon class="iconfont icon-tubiaolunkuo_huaban" style="color:#FF0000;"></icon>
+        <text class="text">{{i18n.navigator.transferApply}}</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
+      <view class="item" bindtap="toTransferRecord">
+        <icon class="iconfont icon-record" style="color:#AB5EA2;"></icon>
+        <text class="text">{{i18n.navigator.transferRecord}}</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
       <view class="item" bindtap="toModifyPwd">
         <icon class="iconfont icon-config" style="color:#2196F3;"></icon>
         <text class="text">{{i18n.setting.modifyPwd}}</text>
