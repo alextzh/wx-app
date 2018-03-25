@@ -74,7 +74,7 @@ function toastMsg(tit, txt, confirmText) {
     title: tit,
     showCancel: false,
     content: txt,
-    confirmText: confirmText
+    confirmText: confirmText? confirmText : '确定'
   })
 }
 

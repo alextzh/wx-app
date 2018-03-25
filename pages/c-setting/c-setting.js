@@ -164,7 +164,7 @@ Page({
         isFirstAction: false
       })
       wx.navigateTo({
-        url: '../modify-pwd/modify-pwd'
+        url: '../c-modify-pwd/c-modify-pwd'
       })
     }
   },
@@ -192,7 +192,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           try {
-            wx.clearStorageSync()
+            wx.removeStorageSync('USERINFO')
           } catch (e) {
             // Do something when catch error
           }

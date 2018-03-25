@@ -96,7 +96,8 @@ Page({
       method: 'POST',
       success: function (res) {
         if (!res.data.ret) {
-          util.toastMsg(i18n[this.data.lg].common.tip, res.data.msg, i18n[this.data.lg].common.confirm)
+          console.log(that.data.lg)
+          util.toastMsg(i18n[that.data.lg].common.tip, res.data.msg, i18n[that.data.lg].common.confirm)
           that.setLoginData2()
           return false
         }
@@ -143,7 +144,7 @@ Page({
       },
       fail: function (e) {
         console.log(e)
-        util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].common.network, i18n[this.data.lg].common.confirm)
+        util.toastMsg(i18n[that.data.lg].common.tip, i18n[that.data.lg].common.network, i18n[that.data.lg].common.confirm)
         that.setLoginData2()
       }
     })
