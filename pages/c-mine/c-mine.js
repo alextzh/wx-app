@@ -91,19 +91,6 @@ Page({
       })
     }
   },
-  // 跳转到产品方案列表
-  toProductPlan: function () {
-    if (!this.data.isFirstAction) {
-      return false
-    } else {
-      this.setData({
-        isFirstAction: false
-      })
-      wx.navigateTo({
-        url: '../product-plan/product-plan'
-      })
-    }
-  },
   // 跳转到设置页面
   toSetting: function () {
     if (!this.data.isFirstAction) {
@@ -113,7 +100,7 @@ Page({
         isFirstAction: false
       })
       wx.navigateTo({
-        url: '../setting/setting'
+        url: '../c-setting/c-setting'
       })
     }
   },

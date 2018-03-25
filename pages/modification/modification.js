@@ -14,7 +14,9 @@ var getSubProductList = function (that, baseid) {
       base_product_id: baseid
     },
     header: {
-      'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded',
+      time_stamp: util.getBJDate().getTime(),
+      secret_key: util.getMd5()
     },
     method: 'POST',
     success: function (res) {
@@ -172,7 +174,9 @@ Page({
         eidt_money: purchaseAmt * 10000
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded',
+        time_stamp: util.getBJDate().getTime(),
+        secret_key: util.getMd5()
       },
       method: 'POST',
       success: function (res) {

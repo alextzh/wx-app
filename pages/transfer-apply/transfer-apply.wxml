@@ -24,7 +24,7 @@
               </view>
             </view>
             
-            <view class="item_foot" style='display:flex'>
+            <!-- <view class="item_foot" style='display:flex'>
               <text>{{i18n.purchase.settlementTime}}：</text>
               <view style="flex:1;display:flex;flex-wrap:wrap;">
                 <block wx:for="{{currentPlan.settlement_time}}" wx:key="index">
@@ -33,7 +33,7 @@
                   </view>
                 </block>
               </view>
-            </view>
+            </view> -->
             <view class="item_foot" style="display: flex;">
               <text>{{i18n.purchase.productDetail}}：</text>
               <view style="flex: 1;">
@@ -54,7 +54,7 @@
                 <text class="all_data" style="flex:0 auto;">{{currentPlan.max_amount}}</text>
               </view>
             </view>
-            <view class="item_foot" style='display:flex'>
+            <!-- <view class="item_foot" style='display:flex'>
               <text>{{i18n.purchase.settlementTime}}：</text>
               <view style="flex:1;display:flex;flex-wrap:wrap;">
                 <block wx:for="{{currentPlan.settlement_time}}" wx:key="index">
@@ -63,7 +63,7 @@
                   </view>
                 </block>
               </view>
-            </view>
+            </view> -->
             <view class="item_foot" style="display: flex;">
               <text>{{i18n.purchase.schemeDetail}}：</text>
               <view style="flex: 1;">
@@ -90,7 +90,7 @@
           <view class="input_area" style="height:auto;margin-top:10px;">
             <view class="input_con" style="height:auto;">
               <view class="editbox">
-                <textarea style="width:100%;height:3em;font-size:28rpx;" placeholder="{{i18n.purchase.tip15}}" name="describe"/>
+                <textarea style="width:100%;height:6em;font-size:28rpx;" placeholder="{{i18n.purchase.tip15}}" name="describe"/>
               </view>
             </view>
           </view>

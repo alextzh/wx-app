@@ -27,7 +27,9 @@
     "pages/modify-additional/modify-additional",
     "pages/notice-item/notice-item",
     "pages/transfer-apply/transfer-apply",
-    "pages/transfer-record/transfer-record"
+    "pages/transfer-record/transfer-record",
+    "pages/c-setting/c-setting",
+    "pages/c-modify-pwd/c-modify-pwd"
   ],
   "window": {
     "backgroundTextStyle": "light",

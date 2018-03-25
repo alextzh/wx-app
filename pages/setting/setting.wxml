@@ -2,7 +2,7 @@
   <view class="box">
     <view class="list">
       <view class="item" bindtap="toTransfer">
-        <icon class="iconfont icon-tubiaolunkuo_huaban" style="color:#FF0000;"></icon>
+        <icon class="iconfont icon-payment" style="color:#FF0000;"></icon>
         <text class="text">{{i18n.navigator.transferApply}}</text>
         <icon class="iconfont icon-goto fc999"></icon>
       </view>

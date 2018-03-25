@@ -29,7 +29,7 @@
   letter-spacing: 1rpx;
 }
 .new_data,.all_data{
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #ff5251;
   letter-spacing: 0;
 }

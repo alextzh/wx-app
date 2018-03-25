@@ -1,3 +1,5 @@
+import md5 from './md5.js'
+
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -90,12 +92,10 @@ function param(data) {
 }
 
 function getMd5() {
-  const timestamp = new Date().getTime()
+  const timestamp = getBJDate().getTime()
   const key = 'zhiyuancp'
   const str = `${timestamp}${key}`
-  const md5 = crypto.createHash('md5')
-  md5.update(str)
-  return md5.digest('hex')
+  return md5(str)
 }
 
 function time_range(beginTime, endTime) {
@@ -188,5 +188,6 @@ module.exports = {
   toastMsg: toastMsg,
   resetSetData,
   getMd5,
-  time_range
+  time_range,
+  getBJDate
 }

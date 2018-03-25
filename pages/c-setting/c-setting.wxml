@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="box">
+    <view class="list">
+      <view class="item" bindtap="toModifyPwd">
+        <icon class="iconfont icon-config" style="color:#2196F3;"></icon>
+        <text class="text">修改密码</text>
+        <icon class="iconfont icon-goto fc999"></icon>
+      </view>
+      <view class="online_contact">
+        <icon class="iconfont icon-linkme icon" style="color:#003CFF;"></icon>
+        <button class="contact" open-type="contact">在线客服<text class="tip">(工作时间：9:00 - 21:00)</text></button>
+        <icon class="iconfont icon-goto fc999 arraw"></icon>
+      </view>
+      <view class="item">
+        <icon class="iconfont icon-wechat" style="color:#77C34F;"></icon>
+        <text class="text">微信绑定</text>
+        <switch class="m_switch" type="switch" checked="{{isChecked}}" bindchange="switchChange"/>
+      </view>
+      <button class="btn" style="margin: 40rpx 20rpx;" bindtap="loginOut">退出账号</button>
+    </view>
+  </view>
+</view>

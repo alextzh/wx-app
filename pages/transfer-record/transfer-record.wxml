@@ -31,6 +31,14 @@
             <text class="new_data">{{item.describe}}</text>
           </view>
         </view>
+        <block wx:if="{{item.status === 'DSH'}}">
+          <view class="item_action">
+            <view style="flex: 1;">
+              <button style='flex:1' catchtap="cancelAction"
+              data-transferid="{{item.id}}" disabled="{{purchaseDisabled}}">{{i18n.purchase.cancelTransfer}}</button>
+            </view>
+          </view>
+        </block>
       </view>
     </block>
     <block wx:if="{{hasData}}">

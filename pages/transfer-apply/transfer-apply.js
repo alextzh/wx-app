@@ -13,7 +13,9 @@ var getSubProductList = function (that) {
   wx.request({
     url: app.api_url + '/api/v1/deduct/productList',
     header: {
-      'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded',
+      time_stamp: util.getBJDate().getTime(),
+      secret_key: util.getMd5()
     },
     method: 'POST',
     success: function (res) {
@@ -197,7 +199,9 @@ Page({
         channel: channel
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded',
+        time_stamp: util.getBJDate().getTime(),
+        secret_key: util.getMd5()
       },
       method: 'POST',
       success: function (res) {

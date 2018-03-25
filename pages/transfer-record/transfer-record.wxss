@@ -77,6 +77,3 @@ page{
 .item_action button::after{
   border: none;
 }
-.item_action button:active{
-  background: rgba(244,67,54,.7);
-}

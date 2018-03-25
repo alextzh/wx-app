@@ -68,15 +68,17 @@ export default {
     tip9: '请输入划款份额',
     tip10: '划款递增份额为1份',
     tip11: '最大划款份额为100000万份',
-    tip12: '您确定要划款 ',
-    tip13: ' 份额吗?',
+    tip12: '您确定要申请划款 ',
+    tip13: ' 份吗?',
     tip14: '划款提示',
     tip15: '请输入划款备注(选填)',
+    tip16: '您确定要取消当前划款申请吗',
     purchaseBtnTxt: '申购',
     transferShare: '划款份额',
     transferNote: '划款备注',
     transferBtnTxt: '申请划款',
-    transferChannel: '划款渠道'
+    transferChannel: '划款渠道',
+    cancelTransfer: '取消划款'
   },
 
   purchaseRecord: {

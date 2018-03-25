@@ -3,6 +3,8 @@ const util = require('../../utils/util')
 const i18n = require('../../utils/i18n')
 const langData = require('../../utils/langData')
 
+var timer = null
+
 // 获取划款记录
 var getTransferRecord = function (that, id) {
   wx.request({
@@ -11,7 +13,9 @@ var getTransferRecord = function (that, id) {
       customer_id: id
     },
     header: {
-      'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded',
+      time_stamp: util.getBJDate().getTime(),
+      secret_key: util.getMd5()
     },
     method: 'POST',
     success: function (res) {
@@ -49,6 +53,7 @@ Page({
    */
   data: Object.assign({}, langData.data, {
     transferRecord: [],
+    purchaseDisabled: false,
     fresh: false, // 上拉刷新标志
     hasData: false // 是否有数据
   }),
@@ -76,6 +81,7 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
+    that.isTransfer()
   },
   /**
    * 生命周期函数--监听页面显示
@@ -85,6 +91,15 @@ Page({
     wx.setNavigationBarTitle({
       title: i18n[lang].navigator.transferRecord
     })
+    timer = setInterval(() => {
+      this.isTransfer()
+    }, 1000)
+  },
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    clearInterval(timer)
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -105,5 +120,63 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
+  },
+  // 判断当前时间是否可以申请划款
+  isTransfer: function () {
+    if (util.time_range('09:00', '17:00')) {
+      this.setData({
+        purchaseDisabled: false
+      })
+    } else {
+      this.setData({
+        purchaseDisabled: true
+      })
+    }
+  },
+  // 取消划款申请
+  cancelAction: function (e) {
+    let transfer_id = e.currentTarget.dataset.transferid
+    wx.showModal({
+      title: i18n[this.data.lg].common.tip,
+      content: i18n[this.data.lg].purchase.tip16,
+      confirmText: i18n[this.data.lg].common.confirm,
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: app.api_url + '/api/v1/deduct/qxApply',
+            data: {
+              id: transfer_id
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded',
+              time_stamp: util.getBJDate().getTime(),
+              secret_key: util.getMd5()
+            },
+            method: 'POST',
+            success: function (res) {
+              if (!res.data.ret) {
+                util.toastMsg(i18n[this.data.lg].common.tip, res.data.msg, i18n[this.data.lg].common.confirm)
+                return false
+              }
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'success',
+                duration: 1500
+              })
+              let lg = wx.getStorageSync('lang')
+              wx.reLaunch({
+                url: '../mine/mine?lg=' + lg
+              })
+            },
+            fail: function (e) {
+              console.log(e)
+              util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].common.network, i18n[this.data.lg].common.confirm)
+            }
+          })
+        } else if (res.cancel) {
+          console.log('已取消')
+        }
+      }
+    })
   }
 })

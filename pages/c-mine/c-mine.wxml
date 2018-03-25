@@ -28,16 +28,6 @@
         <image src="../../images/dianhua.svg"></image>
         <text class="text">联系我们</text>
       </view>
-      <block wx:if="{{isShowPlan}}">
-        <view class="item" bindtap="toProductPlan">
-          <image src="../../images/fanganxiugai.svg"></image>
-          <text class="text">更改方案</text>
-        </view>
-      </block>
-      <button class="item contact" open-type="contact">
-        <image src="../../images/kefu.svg"></image>
-        <text class="text">在线客服</text>
-      </button>
       <view class="item" bindtap="toSetting">
         <image src="../../images/shezhi.svg"></image>
         <text class="text">我的设置</text>

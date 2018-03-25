@@ -11,7 +11,9 @@ var getPurchaseList = function (that, id) {
       customer_id: id
     },
     header: {
-      'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded',
+      time_stamp: util.getBJDate().getTime(),
+      secret_key: util.getMd5()
     },
     method: 'POST',
     success: function (res) {
@@ -195,7 +197,9 @@ Page({
               account_id: account_id
             },
             header: {
-              'content-type': 'application/x-www-form-urlencoded'
+              'content-type': 'application/x-www-form-urlencoded',
+              time_stamp: util.getBJDate().getTime(),
+              secret_key: util.getMd5()
             },
             method: 'POST',
             success: function (res) {
@@ -258,7 +262,9 @@ Page({
               subscribe_id: subsid
             },
             header: {
-              'content-type': 'application/x-www-form-urlencoded'
+              'content-type': 'application/x-www-form-urlencoded',
+              time_stamp: util.getBJDate().getTime(),
+              secret_key: util.getMd5()
             },
             method: 'POST',
             success: function (res) {

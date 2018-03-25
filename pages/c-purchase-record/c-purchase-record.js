@@ -9,7 +9,9 @@ var getPurchaseList = function (that, id) {
       customer_id: id
     },
     header: {
-      'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded',
+      time_stamp: util.getBJDate().getTime(),
+      secret_key: util.getMd5()
     },
     method: 'POST',
     success: function (res) {
@@ -110,11 +112,6 @@ Page({
       // Do something when catch error
     }
   },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  },
   // 申请赎回操作
   redeemAction: function (e) {
     if (!this.data.isFirstAction) {
@@ -136,7 +133,9 @@ Page({
                 status: '赎回待审核'
               },
               header: {
-                'content-type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/x-www-form-urlencoded',
+                time_stamp: util.getBJDate().getTime(),
+                secret_key: util.getMd5()
               },
               method: 'POST',
               success: function (res) {

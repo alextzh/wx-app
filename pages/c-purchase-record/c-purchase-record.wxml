@@ -11,13 +11,13 @@
             <text>申购数量：</text>
             <text class="new_data">{{item.sub_number}}个</text>
           </view>
-          <view class="item__right">
-            <text>产品状态：</text>
-            <text class="all_data" style="color: #652D92;" wx:if="{{item.status === '待审核'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #09B3CD;" wx:if="{{item.status === '审核通过'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #EB1C22;" wx:if="{{item.status === '审核拒绝'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #262163;" wx:if="{{item.status === '赎回待审核'}}">{{item.status}}</text>
-            <text class="all_data" style="color: #2E3094;" wx:if="{{item.status === '已赎回'}}">{{item.status}}</text>
+          <view class="item__right" style="text-align:right;">
+            <text style="flex:1;">产品状态：</text>
+            <text class="all_data" style="color: #652D92;flex:0 auto;" wx:if="{{item.status === '待审核'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #09B3CD;flex:0 auto;" wx:if="{{item.status === '审核通过'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #EB1C22;flex:0 auto;" wx:if="{{item.status === '审核拒绝'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #262163;flex:0 auto;" wx:if="{{item.status === '赎回待审核'}}">{{item.status}}</text>
+            <text class="all_data" style="color: #2E3094;flex:0 auto;" wx:if="{{item.status === '已赎回'}}">{{item.status}}</text>
           </view>
         </view>
         <view class="item_foot">

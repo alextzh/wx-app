@@ -1,0 +1,48 @@
+.form_area{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  padding-top: 40rpx;
+}
+.input_area{
+  flex:1;
+  padding:0 30rpx;
+  margin-bottom:80rpx;
+}
+.input_form{
+  position:relative;
+  height:100rpx;
+  line-height:100rpx;
+  box-sizing:border-box;
+}
+.input_form icon{
+  position:absolute;
+  top: 0;
+  left: 0;
+  font-size: 36rpx;
+  color: #ff5251;
+}
+.input_form input{
+  position: relative;
+  height:100rpx;
+  line-height:100rpx;
+  padding:0 30rpx 0 50rpx;
+}
+.input_form input::after{
+  content:" ";
+  width:200%;
+  height:200%;
+  position:absolute;
+  top:0;
+  left:0;
+  border-bottom:1px solid #999999;
+  -webkit-transform:scale(0.5);
+  transform:scale(0.5);
+  -webkit-transform-origin:0 0;
+  transform-origin:0 0;
+  box-sizing:border-box;
+}
+.btn_area{
+  width:90%;
+  margin: 0 auto;
+}

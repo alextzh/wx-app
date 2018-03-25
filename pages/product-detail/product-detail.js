@@ -14,7 +14,9 @@ var getSubProductList = function (that, customer_id, id) {
       base_product_id: id
     },
     header: {
-      'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded',
+      time_stamp: util.getBJDate().getTime(),
+      secret_key: util.getMd5()
     },
     method: 'POST',
     success: function (res) {
@@ -56,7 +58,9 @@ function itemIsCanPurchase (that, customer_id, product_id) {
         customer_id: customer_id
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded',
+        time_stamp: util.getBJDate().getTime(),
+        secret_key: util.getMd5()
       },
       method: 'POST',
       success: function (res) {
@@ -217,7 +221,9 @@ Page({
         subscribe_money: purchaseAmt * 10000
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded',
+        time_stamp: util.getBJDate().getTime(),
+        secret_key: util.getMd5()
       },
       method: 'POST',
       success: function (res) {

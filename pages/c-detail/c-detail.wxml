@@ -9,9 +9,9 @@
         <text>产品类型：</text>
         <text class="new_data">{{currentProduct.type}}</text>
       </view>
-      <view class="item__right">
-        <text>产品状态：</text>
-        <text class="all_data">{{currentProduct.status}}</text>
+      <view class="item__right" style="text-align:right;">
+        <text style="flex:1;">产品状态：</text>
+        <text class="all_data" style="flex:0 auto;">{{currentProduct.status}}</text>
       </view>
     </view>
     <view class="item_foot">

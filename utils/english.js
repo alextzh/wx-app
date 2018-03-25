@@ -68,15 +68,17 @@ export default {
     tip9: 'Please enter the transfer share',
     tip10: 'Increased share of money transfer is 1',
     tip11: 'The largest allocation of 10 million copies',
-    tip12: 'You are sure to pay money ',
+    tip12: 'You are sure to apply for money ',
     tip13: ' share?',
     tip14: 'Funding tips',
     tip15: 'Please enter a transfer note(Optional)',
+    tip16: 'Are you sure you want to cancel your current transfer request?',
     purchaseBtnTxt: 'Purchase',
     transferShare: 'TransferShare',
     transferNote: 'TransferNote',
     transferBtnTxt: 'ApplyTransfer',
-    transferChannel: 'Channel'
+    transferChannel: 'Channel',
+    cancelTransfer: 'CancelTransfer'
   },
 
   purchaseRecord: {
