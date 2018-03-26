@@ -123,7 +123,7 @@ Page({
   },
   // 判断当前时间是否可以申请划款
   isTransfer: function () {
-    if (util.time_range('09:00', '17:00')) {
+    if (util.time_range('09:00', '17:30')) {
       this.setData({
         purchaseDisabled: false
       })
