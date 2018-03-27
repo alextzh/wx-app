@@ -3,7 +3,7 @@ const util = require('../../utils/util')
 const i18n = require('../../utils/i18n')
 const langData = require('../../utils/langData')
 
-var timer = null
+// var timer = null
 
 // 获取划款记录
 var getTransferRecord = function (that, id) {
@@ -81,7 +81,7 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
-    that.isTransfer()
+    // that.isTransfer()
   },
   /**
    * 生命周期函数--监听页面显示
@@ -91,16 +91,16 @@ Page({
     wx.setNavigationBarTitle({
       title: i18n[lang].navigator.transferRecord
     })
-    timer = setInterval(() => {
-      this.isTransfer()
-    }, 1000)
+    // timer = setInterval(() => {
+    //   this.isTransfer()
+    // }, 1000)
   },
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    clearInterval(timer)
-  },
+  // onUnload: function () {
+  //   clearInterval(timer)
+  // },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -122,17 +122,17 @@ Page({
     }
   },
   // 判断当前时间是否可以申请划款
-  isTransfer: function () {
-    if (util.time_range('09:00', '17:30')) {
-      this.setData({
-        purchaseDisabled: false
-      })
-    } else {
-      this.setData({
-        purchaseDisabled: true
-      })
-    }
-  },
+  // isTransfer: function () {
+  //   if (util.time_range('09:00', '17:30')) {
+  //     this.setData({
+  //       purchaseDisabled: false
+  //     })
+  //   } else {
+  //     this.setData({
+  //       purchaseDisabled: true
+  //     })
+  //   }
+  // },
   // 取消划款申请
   cancelAction: function (e) {
     let transfer_id = e.currentTarget.dataset.transferid
