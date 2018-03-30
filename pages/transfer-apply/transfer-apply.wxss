@@ -206,3 +206,15 @@
   bottom: 0;
   width: 100%;
 }
+.redeem_tip {
+  line-height: 30rpx;
+}
+.redeem_tip icon{
+  font-size: 20rpx;
+  color: #ff5251;
+  padding: 0 10rpx;
+}
+.redeem_tip text{
+  font-size: 20rpx;
+  color: #ff5251;
+}

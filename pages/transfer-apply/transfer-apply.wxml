@@ -80,11 +80,15 @@
               <view class="picker">{{channelArr[channelIndex]}}</view>
             </picker>
           </view>
-          <view class="input_area" style="height:auto;">
+          <view class="input_area" style="height:auto;flex-direction:column;align-items:flex-start;">
             <view class="input_form">
               <icon class="iconfont icon-redeemed"></icon>
               <text class='unit'>份</text>
               <input type="number" name="purchaseAmt" placeholder='{{i18n.purchase.tip9}}' />
+            </view>
+            <view class="redeem_tip">
+              <icon class="iconfont icon-risk"></icon>
+              <text>{{i18n.purchase.tip18}}</text>
             </view>
           </view>
           <view class="input_area" style="height:auto;margin-top:10px;">

@@ -73,6 +73,8 @@ export default {
     tip14: 'Funding tips',
     tip15: 'Please enter a transfer note(Optional)',
     tip16: 'Are you sure you want to cancel your current transfer request?',
+    tip17: 'The minimum allocation of 10,000 shares',
+    tip18: 'At least 10,000 starts, one for one yuan',
     purchaseBtnTxt: 'Purchase',
     transferShare: 'TransferShare',
     transferNote: 'TransferNote',

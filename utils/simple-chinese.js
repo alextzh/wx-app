@@ -73,6 +73,8 @@ export default {
     tip14: '划款提示',
     tip15: '请输入划款备注(选填)',
     tip16: '您确定要取消当前划款申请吗',
+    tip17: '最小划款份额为10000份',
+    tip18: '最低一万份起划,一份代表一元',
     purchaseBtnTxt: '申购',
     transferShare: '划款份额',
     transferNote: '划款备注',

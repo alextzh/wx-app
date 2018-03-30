@@ -161,6 +161,9 @@ Page({
     if (!amt) {
       util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip9, i18n[this.data.lg].common.confirm)
       return false
+    } else if (amt < 10000) {
+      util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip17, i18n[this.data.lg].common.confirm)
+      return false
     } else if (amt > 1000000000) {
       util.toastMsg(i18n[this.data.lg].common.tip, i18n[this.data.lg].purchase.tip11, i18n[this.data.lg].common.confirm)
       return false
