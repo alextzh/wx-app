@@ -149,6 +149,7 @@ export default {
     tip5: '您確認要追加',
     tip6: '申購份額為',
     tip7: '您確認要修改追加份額為',
+    tip8: '复投單位萬份,一萬份起投,遞增一萬份,1代表1萬份',
     subscribeBtnTxt: '追加'
   },
 

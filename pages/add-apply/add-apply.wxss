@@ -139,7 +139,18 @@
   transform-origin:0 0;
   box-sizing:border-box;
 }
-
+.redeem_tip {
+  line-height: 30rpx;
+}
+.redeem_tip icon{
+  font-size: 20rpx;
+  color: #ff5251;
+  padding: 0 10rpx;
+}
+.redeem_tip text{
+  font-size: 20rpx;
+  color: #ff5251;
+}
 .btn_area{
   margin-top: 60rpx;
   padding:0 30rpx;

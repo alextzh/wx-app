@@ -149,6 +149,7 @@ export default {
     tip5: '您确认要追加',
     tip6: '申购份额为',
     tip7: '您确认要修改追加份额为',
+    tip8: '复投单位万份,一万份起投,递增一万份,1代表1万份',
     subscribeBtnTxt: '追加'
   },
 

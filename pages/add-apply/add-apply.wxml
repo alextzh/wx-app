@@ -67,6 +67,10 @@
           <text class='unit'>万份</text>
           <input type="number" name="subscribeAmt" maxlength="20" placeholder="{{i18n.addApply.tip1}}"></input>
         </view>
+        <view class="redeem_tip">
+          <icon class="iconfont icon-risk"></icon>
+          <text>{{i18n.addApply.tip8}}</text>
+        </view>
       </view>
       <view class="btn_area">
         <button formType="submit" loading="{{btnLoading}}" disabled="{{btnDisabled}}">{{i18n.addApply.subscribeBtnTxt}}</button>

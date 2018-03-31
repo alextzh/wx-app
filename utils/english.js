@@ -149,6 +149,7 @@ export default {
     tip5: 'You confirm that you want to append ',
     tip6: ' purchase share is ',
     tip7: 'You confirm that you want to modify the additional share is ',
+    tip8: 'Repeatedly invested in 10,000 units, starting from 10,000 and increasing by 10,000, with 1 representing 10,000',
     subscribeBtnTxt: 'Add'
   },
 
