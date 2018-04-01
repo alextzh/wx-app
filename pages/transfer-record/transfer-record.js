@@ -61,8 +61,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.resetSetData.call(this, langData)
     var that = this
+    util.resetSetData.call(that, langData)
     var lang = wx.getStorageSync('lang')
     if (lang) {
       that.setData({
@@ -72,14 +72,10 @@ Page({
     wx.showLoading({
       title: i18n[that.data.lg].common.loading
     })
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if (userInfo) {
-        // Do something with return value
-        getTransferRecord(that, userInfo.id)
-      }
-    } catch (e) {
-      // Do something when catch error
+    var userInfo = wx.getStorageSync('USERINFO')
+    if (userInfo) {
+      // Do something with return value
+      getTransferRecord(that, userInfo.id)
     }
     // that.isTransfer()
   },
@@ -87,9 +83,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.transferRecord
+      title: i18n[that.data.lg].navigator.transferRecord
     })
     // timer = setInterval(() => {
     //   this.isTransfer()
@@ -111,14 +107,10 @@ Page({
       fresh: true,
       transferRecord: []
     })
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if (userInfo) {
-        // Do something with return value
-        getTransferRecord(that, userInfo.id)
-      }
-    } catch (e) {
-      // Do something when catch error
+    var userInfo = wx.getStorageSync('USERINFO')
+    if (userInfo) {
+      // Do something with return value
+      getTransferRecord(that, userInfo.id)
     }
   },
   // 判断当前时间是否可以申请划款

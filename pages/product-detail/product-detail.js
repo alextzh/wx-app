@@ -103,36 +103,33 @@ Page({
     purchaseDisabled: false,
   }),
   onLoad: function () {
-    util.resetSetData.call(this, langData)
     var that = this
-    try {
-      var value = wx.getStorageSync('CURPRODUCT')
-      var userInfo = wx.getStorageSync('USERINFO')
-      var lang = wx.getStorageSync('lang')
-      if (lang) {
-        that.setData({
-          lg: lang
-        })
-      }
-      if (value) {
-        that.setData({
-          currentProduct: value
-        })
-      }
-      if (userInfo) {
-        that.setData({
-          cid: userInfo.id
-        })
-      }
-      let customer_id = that.data.cid
-      getSubProductList(that, customer_id, value.id)
-    } catch(e) {
+    util.resetSetData.call(that, langData)
+    var value = wx.getStorageSync('CURPRODUCT')
+    var userInfo = wx.getStorageSync('USERINFO')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
     }
+    if (value) {
+      that.setData({
+        currentProduct: value
+      })
+    }
+    if (userInfo) {
+      that.setData({
+        cid: userInfo.id
+      })
+    }
+    let customer_id = that.data.cid
+    getSubProductList(that, customer_id, value.id)
   },
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.productDetail
+      title: i18n[that.data.lg].navigator.productDetail
     })
   },
   bindPickerChange: function (e) {

@@ -137,31 +137,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.resetSetData.call(this, langData)
     var that = this
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      var lang = wx.getStorageSync('lang')
-      if (lang) {
-        let index = findIndex(that.data.showArr, lang)
+    util.resetSetData.call(that, langData)
+    var userInfo = wx.getStorageSync('USERINFO')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      let index = findIndex(that.data.showArr, lang)
+      that.setData({
+        pickerIndex: index,
+        lg: lang
+      })
+    }
+    if (userInfo) {
+      if (userInfo.bind_status === 'Y') {
         that.setData({
-          pickerIndex: index,
-          lg: lang
+          isChecked: true
+        })
+      } else {
+        that.setData({
+          isChecked: false
         })
       }
-      if (userInfo) {
-        if (userInfo.bind_status === 'Y') {
-          that.setData({
-            isChecked: true
-          })
-        } else {
-          that.setData({
-            isChecked: false
-          })
-        }
-      }
-    } catch (e) {
-      // Do something when catch error
     }
   },
 
@@ -173,9 +169,8 @@ Page({
     that.setData({
       isFirstAction: true
     })
-    let lang = wx.getStorageSync('lang')
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.setting
+      title: i18n[that.data.lg].navigator.setting
     })
   },
 

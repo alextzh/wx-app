@@ -1,6 +1,5 @@
 const app = getApp()
 const util = require('../../utils/util')
-const i18n = require('../../utils/i18n')
 const langData = require('../../utils/langData')
 
 /**
@@ -51,10 +50,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (option) {
-    util.resetSetData.call(this, langData)
     var that = this
+    util.resetSetData.call(that, langData)
     // 调用应用实例的方法获取全局数据
-    app.getUserInfo(function (res) {
+    app.getUserInfo((res) => {
       if (!res.avatarUrl) {
         that.setData({
           userAvatar: '/images/avatar.png'
@@ -83,12 +82,6 @@ Page({
         mobile: userInfo.phone
       })
     }
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
   },
   onShow: function () {
     var that = this

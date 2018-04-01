@@ -74,31 +74,28 @@ Page({
     currentChannel: null
   }),
   onLoad: function () {
-    util.resetSetData.call(this, langData)
     var that = this
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      var lang = wx.getStorageSync('lang')
-      if (lang) {
-        that.setData({
-          lg: lang
-        })
-      }
-      if (userInfo) {
-        that.setData({
-          cid: userInfo.id,
-          currentChannel: that.data.channelsArr[0]
-        })
-      }
-      getSubProductList(that)
-      // that.isTransfer()
-    } catch (e) {
+    util.resetSetData.call(that, langData)
+    var userInfo = wx.getStorageSync('USERINFO')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
     }
+    if (userInfo) {
+      that.setData({
+        cid: userInfo.id,
+        currentChannel: that.data.channelsArr[0]
+      })
+    }
+    getSubProductList(that)
+    // that.isTransfer()
   },
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.transferApply
+      title: i18n[that.data.lg].navigator.transferApply
     })
     // timer = setInterval(() => {
     //   this.isTransfer()

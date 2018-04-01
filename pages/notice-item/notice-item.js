@@ -28,7 +28,6 @@ var getNoticeList = function (that, id) {
         noticeList: res.data.obj,
         hasData: false
       })
-      wx.hideLoading()
     },
     fail: function (e) {
       console.log(e)
@@ -62,8 +61,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.resetSetData.call(this, langData)
     var that = this
+    util.resetSetData.call(that, langData)
     var lang = wx.getStorageSync('lang')
     if (lang) {
       that.setData({

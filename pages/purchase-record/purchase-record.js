@@ -73,8 +73,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.resetSetData.call(this, langData)
     var that = this
+    util.resetSetData.call(that, langData)
     var lang = wx.getStorageSync('lang')
     if (lang) {
       that.setData({
@@ -84,13 +84,9 @@ Page({
     wx.showLoading({
       title: i18n[that.data.lg].common.loading
     })
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if (userInfo) {
-        getPurchaseList(that, userInfo.id)
-      }
-    } catch (e) {
-      // Do something when catch error
+    var userInfo = wx.getStorageSync('USERINFO')
+    if (userInfo) {
+      getPurchaseList(that, userInfo.id)
     }
   },
   /**
@@ -101,9 +97,8 @@ Page({
     that.setData({
       isFirstAction: true
     })
-    let lang = wx.getStorageSync('lang')
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.purchaseRecord
+      title: i18n[that.data.lg].navigator.purchaseRecord
     })
   },
   /**
@@ -124,11 +119,6 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
   },
   // 申请赎回操作
   redeemAction: function (e) {

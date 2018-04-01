@@ -25,7 +25,6 @@ var getQuestionList = function (that) {
         questionList: res.data.obj,
         hasData: false
       })
-      wx.hideLoading()
     },
     fail: function (e) {
       console.log(e)
@@ -59,8 +58,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.resetSetData.call(this, langData)
     var that = this
+    util.resetSetData.call(that, langData)
     var lang = wx.getStorageSync('lang')
     if (lang) {
       that.setData({
@@ -81,9 +80,8 @@ Page({
     that.setData({
       isFirstAction: true
     })
-    let lang = wx.getStorageSync('lang')
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.question
+      title: i18n[that.data.lg].navigator.question
     })
   },
 

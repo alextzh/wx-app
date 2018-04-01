@@ -21,40 +21,36 @@ Page({
     partDisabled: false,
   }),
   onLoad: function () {
-    util.resetSetData.call(this, langData)
     var that = this
-    try {
-      var value = wx.getStorageSync('CURPRODUCT')
-      var userInfo = wx.getStorageSync('USERINFO')
-      var lang = wx.getStorageSync('lang')
-      if (lang) {
-        that.setData({
-          lg: lang
-        })
-      }
-      if (value) {
-        // Do something with return value
-        that.setData({
-          currentProduct: value,
-          can_redeem_money: parseInt(value.subscribe_money) - parseInt(value.min_money) / 10000
-        })
-      }
-      if (userInfo) {
-        that.setData({
-          cid: userInfo.id
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
+    util.resetSetData.call(that, langData)
+    var value = wx.getStorageSync('CURPRODUCT')
+    var userInfo = wx.getStorageSync('USERINFO')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
+    if (value) {
+      // Do something with return value
+      that.setData({
+        currentProduct: value,
+        can_redeem_money: parseInt(value.subscribe_money) - parseInt(value.min_money) / 10000
+      })
+    }
+    if (userInfo) {
+      that.setData({
+        cid: userInfo.id
+      })
     }
     that.setData({
       tabs: initTabs(that)
     })
   },
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.applyRedeem
+      title: i18n[that.data.lg].navigator.applyRedeem
     })
   },
   radioChange: function (e) {

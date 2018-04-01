@@ -64,29 +64,26 @@ Page({
     modifyDisabled: false,
   }),
   onLoad: function () {
-    util.resetSetData.call(this, langData)
     var that = this
-    try {
-      var value = wx.getStorageSync('CURPRODUCT')
-      var lang = wx.getStorageSync('lang')
-      if (lang) {
-        that.setData({
-          lg: lang
-        })
-      }
-      if (value) {
-        that.setData({
-          currentProduct: value
-        })
-      }
-      getSubProductList(that, value.base_id)
-    } catch (e) {
+    util.resetSetData.call(that, langData)
+    var value = wx.getStorageSync('CURPRODUCT')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
     }
+    if (value) {
+      that.setData({
+        currentProduct: value
+      })
+    }
+    getSubProductList(that, value.base_id)
   },
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.modifyPlan
+      title: i18n[that.data.lg].navigator.modifyPlan
     })
   },
   bindPickerChange: function (e) {

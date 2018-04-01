@@ -3,16 +3,11 @@ const util = require('../../utils/util')
 const i18n = require('../../utils/i18n')
 const langData = require('../../utils/langData')
 
-var page = 1
-var rows = 10
-
 // 获取产品列表
 var getProductList = function (that, customer_id) {
   wx.request({
     url: app.api_url + '/api/v1/product/baseList',
     data: {
-      page: page,
-      rows: rows,
       status: 'sgz',
       customer_id: customer_id
     },
@@ -30,7 +25,6 @@ var getProductList = function (that, customer_id) {
         })
         return false
       }
-      var totalPage = res.data.obj.totalPage
       var list = res.data.obj.list
       for (let i = 0; i < list.length; i++) {
         list[i].caopan_time = util._normalizeDate(list[i].caopan_time)
@@ -43,12 +37,6 @@ var getProductList = function (that, customer_id) {
         productList: that.data.productList.concat(list),
         hasData: false
       })
-      page++
-      if (page > totalPage) {
-        that.setData({
-          hasMore: false
-        })
-      }
     },
     fail: function (e) {
       console.log(e)
@@ -83,16 +71,14 @@ Page({
     productList: [],
     fresh: false, // 上拉刷新标志
     hasData: false, // 是否有数据
-    hasMore: true, // 是否下拉加载
     isFirstAction: true
   }),
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    util.resetSetData.call(this, langData)
     var that = this
-    page = 1
+    util.resetSetData.call(that, langData)
     var lang = wx.getStorageSync('lang')
     if (lang) {
       that.setData({
@@ -113,9 +99,8 @@ Page({
     that.setData({
       isFirstAction: true
     })
-    let lang = wx.getStorageSync('lang')
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.product
+      title: i18n[that.data.lg].navigator.product
     })
   },
   /**
@@ -123,25 +108,12 @@ Page({
    */
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading()
-    page = 1
     var customer_id = wx.getStorageSync('USERINFO').id
     var that = this
     that.setData({
       fresh: true,
-      hasMore: true,
       productList: []
     })
-    getProductList(that, customer_id)
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    var customer_id = wx.getStorageSync('USERINFO').id
-    var that = this
-    if (!that.data.hasMore) {
-      return false
-    }
     getProductList(that, customer_id)
   },
   toDetail: function (e) {

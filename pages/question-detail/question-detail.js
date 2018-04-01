@@ -15,22 +15,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.resetSetData.call(this, langData)
     var that = this
-    try {
-      var value = wx.getStorageSync('CURNOTICE')
-      var lang = wx.getStorageSync('lang')
-      if (lang) {
-        that.setData({
-          lg: lang
-        })
-      }
-      if (value) {
-        that.setData({
-          curQuestion: value
-        })
-      }
-    } catch (e) {
+    util.resetSetData.call(that, langData)
+    var value = wx.getStorageSync('CURNOTICE')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
+    if (value) {
+      that.setData({
+        curQuestion: value
+      })
     }
   },
 
@@ -38,9 +35,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.questionDetail
+      title: i18n[that.data.lg].navigator.questionDetail
     })
   }
 })

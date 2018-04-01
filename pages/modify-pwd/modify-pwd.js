@@ -15,29 +15,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    util.resetSetData.call(this, langData)
     var that = this
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      var lang = wx.getStorageSync('lang')
-      if (lang) {
-        that.setData({
-          lg: lang
-        })
-      }
-      if (userInfo) {
-        that.setData({
-          cid: userInfo.id
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
+    util.resetSetData.call(that, langData)
+    var userInfo = wx.getStorageSync('USERINFO')
+    var lang = wx.getStorageSync('lang')
+    if (lang) {
+      that.setData({
+        lg: lang
+      })
+    }
+    if (userInfo) {
+      that.setData({
+        cid: userInfo.id
+      })
     }
   },
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.password
+      title: i18n[that.data.lg].navigator.password
     })
   },
   // 修改密码提交操作

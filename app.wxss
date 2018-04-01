@@ -12,7 +12,7 @@
 input{font-size: 32rpx}
 text{font-size: 28rpx}
 button{
-  font-size: 36rpx;
+  font-size: 32rpx;
   background: #ff5251;
   color: #fff;
   border-radius: 8rpx;

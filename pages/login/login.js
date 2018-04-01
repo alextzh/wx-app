@@ -16,8 +16,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    util.resetSetData.call(this, langData)
     var that = this
+    util.resetSetData.call(that, langData)
     var lang = wx.getStorageSync('lang')
     if (lang) {
       that.setData({

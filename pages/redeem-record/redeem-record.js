@@ -3,16 +3,11 @@ const util = require('../../utils/util')
 const i18n = require('../../utils/i18n')
 const langData = require('../../utils/langData')
 
-var page = 1
-var rows = 10
-
 // 获取赎回记录
 var getRedeemRecord = function (that, id) {
   wx.request({
     url: app.api_url + '/api/v1/redeem/myRedeems',
     data: {
-      page: page,
-      rows: rows,
       customer_id: id
     },
     header: {
@@ -29,7 +24,6 @@ var getRedeemRecord = function (that, id) {
         })
         return false
       }
-      var totalPage = res.data.obj.totalPage
       var list = res.data.obj.list
       for (let i = 0; i < list.length; i++) {
         list[i].redeem_time = util._normalizeDate(list[i].redeem_time)
@@ -39,12 +33,6 @@ var getRedeemRecord = function (that, id) {
         redeemRecord: that.data.redeemRecord.concat(list),
         hasData: false
       })
-      page++
-      if (page > totalPage) {
-        that.setData({
-          hasMore: false
-        })
-      }
     },
     fail: function (e) {
       console.log(e)
@@ -69,16 +57,14 @@ Page({
   data: Object.assign({}, langData.data, {
     redeemRecord: [],
     fresh: false, // 上拉刷新标志
-    hasData: false, // 是否有数据
-    hasMore: true // 是否下拉加载
+    hasData: false // 是否有数据
   }),
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.resetSetData.call(this, langData)
-    page = 1
     var that = this
+    util.resetSetData.call(that, langData)
     var lang = wx.getStorageSync('lang')
     if (lang) {
       that.setData({
@@ -88,23 +74,19 @@ Page({
     wx.showLoading({
       title: i18n[that.data.lg].common.loading
     })
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if (userInfo) {
-        // Do something with return value
-        getRedeemRecord(that, userInfo.id)
-      }
-    } catch (e) {
-      // Do something when catch error
+    var userInfo = wx.getStorageSync('USERINFO')
+    if (userInfo) {
+      // Do something with return value
+      getRedeemRecord(that, userInfo.id)
     }
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let lang = wx.getStorageSync('lang')
+    var that = this
     wx.setNavigationBarTitle({
-      title: i18n[lang].navigator.redeemRecord
+      title: i18n[that.data.lg].navigator.redeemRecord
     })
   },
   /**
@@ -112,39 +94,15 @@ Page({
    */
   onPullDownRefresh: function () {
     wx.showNavigationBarLoading()
-    page = 1
     var that = this
     that.setData({
       fresh: true,
-      hasMore: true,
       redeemRecord: []
     })
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if (userInfo) {
-        // Do something with return value
-        getRedeemRecord(that, userInfo.id)
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    var that = this
-    if (!that.data.hasMore) {
-      return false
-    }
-    try {
-      var userInfo = wx.getStorageSync('USERINFO')
-      if (userInfo) {
-        // Do something with return value
-        getRedeemRecord(that, userInfo.id)
-      }
-    } catch (e) {
-      // Do something when catch error
+    var userInfo = wx.getStorageSync('USERINFO')
+    if (userInfo) {
+      // Do something with return value
+      getRedeemRecord(that, userInfo.id)
     }
   },
   cancelAction: function (e) {
