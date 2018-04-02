@@ -1,10 +1,11 @@
-//app.js
+const util = require('./utils/util')
+
 App({
   server_url: 'https://api.zhiyuancaopan.com',
   api_url: 'https://api.zhiyuancaopan.com',
   onLaunch: function() {
     var that = this
-    wx.setStorageSync("lang", 'zh');
+    wx.setStorageSync('lang', 'zh');
     wx.login({
       success: function (res) {
         if (res.code) {
@@ -15,7 +16,9 @@ App({
               js_code: res.code
             },
             header: {
-              'content-type': 'application/x-www-form-urlencoded'
+              'content-type': 'application/x-www-form-urlencoded',
+              time_stamp: util.getBJDate().getTime(),
+              secret_key: util.getMd5()
             },
             method: 'POST',
             success: function (res) {
@@ -59,7 +62,9 @@ function getCustomerInfo(that,openid){
       openid: openid
     },
     header: {
-      'content-type': 'application/x-www-form-urlencoded'
+      'content-type': 'application/x-www-form-urlencoded',
+      time_stamp: util.getBJDate().getTime(),
+      secret_key: util.getMd5()
     },
     method: 'POST',
     success: function (res) {
