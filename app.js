@@ -2,7 +2,7 @@ const util = require('./utils/util')
 
 App({
   server_url: 'https://api.zhiyuancaopan.com',
-  api_url: 'https://api.zhiyuancaopan.com',
+  api_url: 'https://wx.yanysdd.com',
   onLaunch: function() {
     var that = this
     wx.setStorageSync('lang', 'zh');

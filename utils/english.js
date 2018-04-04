@@ -14,6 +14,7 @@ export default {
     applyRedeem: 'Apply Redeem',
     systemNotice: 'System Notice',
     productNotice: 'Product Notice',
+    netValueNotice: 'Net Value Notice',
     noticeDetail: 'Notice Detail',
     questionDetail: 'Question Detail',
     productDetail: 'Product Detail',
@@ -37,6 +38,7 @@ export default {
   notice: {
     noticeItem1: 'System Notice',
     noticeItem2: 'Product Notice',
+    noticeItem3: 'Net Value Notice',
     viewDetail: 'View Detail',
     releaseTime: 'Release Time'
   },

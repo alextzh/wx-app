@@ -14,6 +14,7 @@ export default {
     applyRedeem: '申请赎回',
     systemNotice: '系统公告',
     productNotice: '产品公告',
+    netValueNotice: '净值公告',
     noticeDetail: '公告详情',
     questionDetail: '问题详情',
     productDetail: '产品详情',
@@ -37,6 +38,7 @@ export default {
   notice: {
     noticeItem1: '系统公告',
     noticeItem2: '产品公告',
+    noticeItem3: '净值公告',
     viewDetail: '查看详情',
     releaseTime: '发布时间'
   },

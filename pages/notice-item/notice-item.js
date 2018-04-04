@@ -82,6 +82,10 @@ Page({
       wx.setNavigationBarTitle({
         title: i18n[lang].navigator.productNotice
       })
+    } else if (id === 'JZGG') {
+      wx.setNavigationBarTitle({
+        title: i18n[lang].navigator.netValueNotice
+      })
     }
     that.setData({
       id: id

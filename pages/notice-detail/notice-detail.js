@@ -2,13 +2,25 @@ const util = require('../../utils/util')
 const i18n = require('../../utils/i18n')
 const langData = require('../../utils/langData')
 
+const handleStr = function(that, str) {
+  const _str = str.trim()
+  const arr = str.split('\x0a')
+  const _arr = arr.map((item) => {
+    return item.split('|')
+  })
+  that.setData({
+    content: _arr
+  })
+}
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: Object.assign({}, langData.data, {
-    curNotice: null
+    curNotice: null,
+    content: []
   }),
 
   /**
@@ -24,9 +36,14 @@ Page({
       })
     }
     var value = wx.getStorageSync('CURNOTICE')
-    if (value) {
+    that.setData({
+      curNotice: value
+    })
+    if (value.type === 'JZGG') {
+      handleStr(that, value.content)
+    } else {
       that.setData({
-        curNotice: value
+        content: value.content
       })
     }
   },

@@ -23,3 +23,62 @@
 .content text {
   font-size: 28rpx;
 }
+.table{
+    position: relative;
+    border-right: 0;
+    border-bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 40rpx;
+  }
+  .table::after{
+    content: "";
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    border: 1PX solid #DADADA;
+    border-radius: 4rpx;
+    box-sizing: border-box;
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5) translateZ(0);
+  }
+  .tr{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .th,.td {
+    position: relative;
+    padding: 20rpx 0;
+    font-size: 24rpx;
+    text-align: center;
+    width:100%;
+    box-sizing: border-box;
+  }
+  .th::after, .td::after{
+    content: "";
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    border-bottom: 1px solid #DADADA;
+    border-right: 1px solid #DADADA;
+    border-radius: 4rpx;
+    box-sizing: border-box;
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5) translateZ(0);
+  }
+  .th {
+    font-weight: 400;
+    background-color: #DADADA;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
