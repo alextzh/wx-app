@@ -92,7 +92,7 @@ function param(data) {
 }
 
 function getMd5() {
-  const timestamp = getBJDate().getTime()
+  const timestamp = getBJDate()
   const key = 'zhiyuancp'
   const str = `${timestamp}${key}`
   return md5(str)
@@ -140,7 +140,7 @@ function getBJDate() {
     time_zone -= 8
     currentDate.setHours(tmpHours - time_zone)
   }
-  return currentDate
+  return currentDate.getTime()
 }
 
 /**

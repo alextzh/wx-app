@@ -7,6 +7,8 @@ const langData = require('../../utils/langData')
  * 获取充值渠道列表
 */
 var getSubProductList = function (that, id) {
+  const time_stamp = util.getBJDate()
+  const secret_key = util.getMd5()
   wx.request({
     url: app.api_url + '/api/v1/product/listByBaseId',
     data: {
@@ -14,8 +16,8 @@ var getSubProductList = function (that, id) {
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded',
-      time_stamp: util.getBJDate().getTime(),
-      secret_key: util.getMd5()
+      time_stamp: time_stamp,
+      secret_key: secret_key
     },
     method: 'POST',
     success: function (res) {
@@ -157,6 +159,8 @@ Page({
     var subscribeAmt = parseInt(param.subscribeAmt)
     let customer_id = wx.getStorageSync('USERINFO').id
     let product_id = that.data.currentPlan.id
+    let time_stamp = util.getBJDate()
+    let secret_key = util.getMd5()
     wx.request({
       url: app.api_url + '/api/v1/subscribe/addRecast',
       data: {
@@ -166,8 +170,8 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {

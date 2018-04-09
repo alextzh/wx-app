@@ -14,7 +14,11 @@
           <view class="th">最新净值</view>
         </view>
         <view class="tr" wx:for="{{content}}" wx:key="index">
-          <view class="td">{{item[0]}}</view>
+          <view class="td">
+            <block wx:for="{{item[0]}}" wx:key="index">
+              <view>{{item}}</view>
+            </block>
+          </view>
           <view class="td">{{item[1]}}</view>
           <view class="td">{{item[2]}}</view>
           <view class="td">{{item[3]}}</view>

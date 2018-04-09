@@ -4,13 +4,30 @@ const langData = require('../../utils/langData')
 
 const handleStr = function(that, str) {
   const _str = str.trim()
-  const arr = str.split('\x0a')
+  const arr = _str.split('&').slice(1)
   const _arr = arr.map((item) => {
     return item.split('|')
   })
+  for (let i = 0; i < _arr.length; i++) {
+    if (_arr[i][0].length > 6) {
+      _arr[i][0] = cutStr(_arr[i][0])
+    } else {
+      _arr[i][0] = toArray(_arr[i][0])
+    }
+  }
   that.setData({
     content: _arr
   })
+}
+
+const cutStr = function(str) {
+  let _str = str.substr(0, 2) + '|' + str.slice(2)
+  return _str.split('|')
+}
+
+const toArray = function(str) {
+  let _str = '|' + str
+  return _str.split('|').slice(1)
 }
 
 Page({

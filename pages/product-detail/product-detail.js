@@ -8,6 +8,8 @@ const langData = require('../../utils/langData')
  * @param id 基本产品的Id(必选)
 */
 var getSubProductList = function (that, customer_id, id) {
+  const time_stamp = util.getBJDate()
+  const secret_key = util.getMd5()
   wx.request({
     url: app.api_url + '/api/v1/product/listByBaseId',
     data: {
@@ -15,8 +17,8 @@ var getSubProductList = function (that, customer_id, id) {
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded',
-      time_stamp: util.getBJDate().getTime(),
-      secret_key: util.getMd5()
+      time_stamp: time_stamp,
+      secret_key: secret_key
     },
     method: 'POST',
     success: function (res) {
@@ -51,6 +53,8 @@ function itemIsCanPurchase (that, customer_id, product_id) {
       isHidden: false
     })
   } else {
+    const time_stamp = util.getBJDate()
+    const secret_key = util.getMd5()
     wx.request({
       url: app.api_url + '/api/v1/subscribe/validate',
       data: {
@@ -59,8 +63,8 @@ function itemIsCanPurchase (that, customer_id, product_id) {
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {
@@ -209,6 +213,8 @@ Page({
     var that = this
     var product_id = that.data.currentPlan.id
     var purchaseAmt = parseInt(param.purchaseAmt)
+    const time_stamp = util.getBJDate()
+    const secret_key = util.getMd5()
     wx.request({
       url: app.api_url + '/api/v1/subscribe/addApply',
       data: {
@@ -219,8 +225,8 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {

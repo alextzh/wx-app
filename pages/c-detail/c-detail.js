@@ -104,6 +104,8 @@ Page({
     var customer_id = that.data.cid
     var product_id = wx.getStorageSync('CURPRODUCT').id
     var purchaseAmt = parseInt(param.purchaseAmt)
+    const time_stamp = util.getBJDate()
+    const secret_key = util.getMd5()
     wx.request({
       url: app.api_url + '/api/v1/test/product/addSub',
       data: {
@@ -113,8 +115,8 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {

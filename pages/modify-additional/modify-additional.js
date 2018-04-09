@@ -103,6 +103,8 @@ Page({
     var that = this
     var subscribeAmt = parseInt(param.subscribeAmt)
     let account_id = wx.getStorageSync('CURPRODUCT').account_id
+    const time_stamp = util.getBJDate()
+    const secret_key = util.getMd5()
     wx.request({
       url: app.api_url + '/api/v1/subscribe/editRecast',
       data: {
@@ -111,8 +113,8 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {

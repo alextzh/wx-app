@@ -80,6 +80,8 @@ Page({
   mySubmit: function (param, value) {
     var username = param.username.trim()
     var password = param.password.trim()
+    const time_stamp = util.getBJDate()
+    const secret_key = util.getMd5()
     var that = this
     wx.request({
       url: app.api_url + '/api/v1/login/login4Wx',
@@ -90,8 +92,8 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {
@@ -151,6 +153,8 @@ Page({
   }
 })
 function getUserLocation(that, latitude, longitude) {
+  const time_stamp = util.getBJDate()
+  const secret_key = util.getMd5()
   wx.request({
     url: app.api_url + '/api/v1/location/report',
     data: {
@@ -160,8 +164,8 @@ function getUserLocation(that, latitude, longitude) {
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded',
-      time_stamp: util.getBJDate().getTime(),
-      secret_key: util.getMd5()
+      time_stamp: time_stamp,
+      secret_key: secret_key
     },
     method: 'POST',
     success: function (res) {

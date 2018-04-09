@@ -107,6 +107,8 @@ Page({
     var subscribeAmt = parseInt(param.subscribeAmt)
     let custom = wx.getStorageSync('USERINFO')
     let subscribe_id = that.data.currentProduct.subscribe_id
+    const time_stamp = util.getBJDate()
+    const secret_key = util.getMd5()
     wx.request({
       url: app.api_url + '/api/v1/subscribe/editApply',
       data: {
@@ -116,8 +118,8 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {

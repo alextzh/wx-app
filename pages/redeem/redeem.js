@@ -151,6 +151,8 @@ Page({
   mySubmit: function (param, bType) {
     var that = this
     var redeemAmt = parseInt(param.redeemAmt)
+    const time_stamp = util.getBJDate()
+    const secret_key = util.getMd5()
     wx.request({
       url: app.api_url + '/api/v1/redeem/addRedeem',
       data: {
@@ -160,8 +162,8 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        time_stamp: util.getBJDate().getTime(),
-        secret_key: util.getMd5()
+        time_stamp: time_stamp,
+        secret_key: secret_key
       },
       method: 'POST',
       success: function (res) {

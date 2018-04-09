@@ -3,6 +3,8 @@ var util = require("../../utils/util.js")
 
 // 获取申购产品列表
 var getPurchaseList = function (that, id) {
+  const time_stamp = util.getBJDate()
+  const secret_key = util.getMd5()
   wx.request({
     url: app.api_url + '/api/v1/test/product/mySub',
     data: {
@@ -10,8 +12,8 @@ var getPurchaseList = function (that, id) {
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded',
-      time_stamp: util.getBJDate().getTime(),
-      secret_key: util.getMd5()
+      time_stamp: time_stamp,
+      secret_key: secret_key
     },
     method: 'POST',
     success: function (res) {
@@ -126,6 +128,8 @@ Page({
         content: '您确认要赎回当前产品吗？',
         success: function (res) {
           if (res.confirm) {
+            const time_stamp = util.getBJDate()
+            const secret_key = util.getMd5()
             wx.request({
               url: app.api_url + '/api/v1/test/product/updateStatus',
               data: {
@@ -134,8 +138,8 @@ Page({
               },
               header: {
                 'content-type': 'application/x-www-form-urlencoded',
-                time_stamp: util.getBJDate().getTime(),
-                secret_key: util.getMd5()
+                time_stamp: time_stamp,
+                secret_key: secret_key
               },
               method: 'POST',
               success: function (res) {

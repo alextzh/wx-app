@@ -1,8 +1,10 @@
 const util = require('./utils/util')
+const time_stamp = util.getBJDate()
+const secret_key = util.getMd5()
 
 App({
   server_url: 'https://api.zhiyuancaopan.com',
-  api_url: 'https://wx.yanysdd.com',
+  api_url: 'https://api.zhiyuancaopan.com',
   onLaunch: function() {
     var that = this
     wx.setStorageSync('lang', 'zh');
@@ -17,8 +19,8 @@ App({
             },
             header: {
               'content-type': 'application/x-www-form-urlencoded',
-              time_stamp: util.getBJDate().getTime(),
-              secret_key: util.getMd5()
+              time_stamp: time_stamp,
+              secret_key: secret_key
             },
             method: 'POST',
             success: function (res) {
@@ -63,8 +65,8 @@ function getCustomerInfo(that,openid){
     },
     header: {
       'content-type': 'application/x-www-form-urlencoded',
-      time_stamp: util.getBJDate().getTime(),
-      secret_key: util.getMd5()
+      time_stamp: time_stamp,
+      secret_key: secret_key
     },
     method: 'POST',
     success: function (res) {
